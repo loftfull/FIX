@@ -2,17 +2,24 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
+import tempfile
 from pathlib import Path
+from typing import Any
 
 from project_history_auditor import audit_state
-from project_history_journal import append_mutation, atomic_write_text, replay_journal, verify_journal
+from project_history_journal import append_mutation, atomic_write_text, replay_journal_set, verify_journal_set
 
 
 def _result(status: str, detail: str, **extra) -> dict:
     out = {"status": status, "detail": detail}
     out.update(extra)
     return out
+
+
+def _semantic_state(state: dict) -> dict:
+    return state
 
 
 def run_doctor(project_root: Path | str, adapter=None, probe_screenshot: bool = True) -> dict:
@@ -22,14 +29,13 @@ def run_doctor(project_root: Path | str, adapter=None, probe_screenshot: bool = 
     missing = [name for name in required if not (root / name).is_file()]
     checks["package_files"] = _result("FAIL" if missing else "PASS", "missing: " + ", ".join(missing) if missing else "required state files present")
 
-    journal = root / "PROJECT_HISTORY.events.jsonl"
-    verification = verify_journal(journal) if journal.exists() else {"ok": False, "issues": [{"code": "MISSING_JOURNAL"}], "records": 0}
-    checks["journal_integrity"] = _result("PASS" if verification["ok"] else "FAIL", f"{verification.get('records', 0)} record(s)", issues=verification.get("issues", []))
+    verification = verify_journal_set(root)
+    checks["journal_integrity"] = _result("PASS" if verification["ok"] else "FAIL", f"{verification.get('records', 0)} record(s)", issues=verification.get("issues", []), segments=verification.get("segments", []))
 
     rebuilt = None
     if verification["ok"]:
         try:
-            rebuilt = replay_journal(journal)
+            rebuilt = replay_journal_set(root)
             checks["journal_replay"] = _result("PASS", "journal replay succeeded")
         except Exception as exc:
             checks["journal_replay"] = _result("FAIL", str(exc))
@@ -40,7 +46,7 @@ def run_doctor(project_root: Path | str, adapter=None, probe_screenshot: bool = 
     if rebuilt is not None and snapshot_path.is_file():
         try:
             snapshot = json.loads(snapshot_path.read_text(encoding="utf-8"))
-            match = snapshot == rebuilt
+            match = _semantic_state(snapshot) == _semantic_state(rebuilt)
             checks["snapshot_replay_match"] = _result("PASS" if match else "FAIL", "snapshot matches journal replay" if match else "snapshot differs from journal replay")
         except Exception as exc:
             checks["snapshot_replay_match"] = _result("FAIL", str(exc))
@@ -101,7 +107,7 @@ def run_doctor(project_root: Path | str, adapter=None, probe_screenshot: bool = 
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Project History Agent v0.6 doctor")
+    ap = argparse.ArgumentParser(description="Project History Agent v0.7 doctor")
     ap.add_argument("project_root", nargs="?", default=".")
     ap.add_argument("--no-screenshot-probe", action="store_true")
     args = ap.parse_args()
