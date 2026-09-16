@@ -11,7 +11,7 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.7 candidate
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: A6 independent external-model audit remains full-acceptance blocker; continue v0.7 candidate ranking/hook integration.
+- Следующий проверяемый шаг: A6 remains full-acceptance blocker; continue v0.7 lifecycle hook integration for discovered Claude Code/Codex hosts.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## 1. Где находится проект
@@ -22,6 +22,7 @@
 | github_branch | https://github.com/loftfull/FIX/tree/project-history-agent-v0.6 | project-history-agent-v0.6 | — | observed_now | 2026-09-16 |
 | github_branch | https://github.com/loftfull/FIX/tree/project-history-agent-v0.7 | project-history-agent-v0.7 | — | observed_now | 2026-09-16 |
 | github_code_checkpoint | https://github.com/loftfull/FIX/commit/bfbc90f6200150e171036a8367def055f49fd106 | project-history-agent-v0.7 | bfbc90f6200150e171036a8367def055f49fd106 | verified_code_checkpoint | 2026-09-16 |
+| github_code_checkpoint | https://github.com/loftfull/FIX/commit/f2628d2a65294c063b0098ceb84b3d011b8208a4 | project-history-agent-v0.7 | f2628d2a65294c063b0098ceb84b3d011b8208a4 | verified_code_checkpoint | 2026-09-16 |
 
 ## 2. Цепочка чатов
 | Дата | Чат | Класс | Родитель | Основание |
@@ -36,7 +37,8 @@
 | v0.4 chat lineage + AI handoff + visual evidence | implemented | v0.4 chat lineage + handoff + visuals | first-run Chat Lineage Resolver; Project Passport and Quick Handoff; plan→fact/version ledger; visual evidence registry; current-chat and TERMINAL real tests |
 | v0.5 durable journal + adapters + lifecycle + doctor | implemented | v0.5 durable project history | append-only SHA-256 journal; atomic persistence and lock; pre-persistence secret redaction; HistoryAdapter boundary; lifecycle hooks; doctor; deterministic replay |
 | v0.6 canonical FIX transfer + host-native history adapters | implemented | v0.6 FIX canonical transfer + host-native adapters | canonical repository loftfull/FIX; current chat bundle in chat/current; Claude Code JSONL adapter; Codex rollout/session adapter; explicit ChatGPT conversations.json export adapter; v0.6 regression tests |
-| v0.7 bounded direct host-history wiring | implemented | v0.7 direct host-history wiring | HostHistoryDiscovery with bounded Claude Code/Codex roots; ChatGPT explicit-export-only discovery; doctor auto-wires discovered adapter; discover-history and history-search CLI; provider discovery remains candidate-only, not lineage authority |
+| v0.7 bounded direct host-history wiring | implemented | v0.7 direct host-history wiring | HostHistoryDiscovery with bounded Claude Code/Codex roots; ChatGPT explicit-export-only discovery; doctor auto-wires discovered adapter; discover-history and history-search CLI; provider discovery remains candidate-only, not lineage authority; stable-identity candidate ranking with explicit ref > repository > project+identity > path > project > artifact > topic; CLI optional current-context ranking without lineage classification |
+| v0.7 stable-identity candidate ranking | implemented | — | — |
 
 ## 4. Версии и фактические изменения
 ### v0.3 deterministic ledger + auditor · 2026-09-15 · verified
@@ -71,6 +73,8 @@
 - doctor auto-wires discovered adapter
 - discover-history and history-search CLI
 - provider discovery remains candidate-only, not lineage authority
+- stable-identity candidate ranking with explicit ref > repository > project+identity > path > project > artifact > topic
+- CLI optional current-context ranking without lineage classification
 
 ## 5. Скриншоты и визуальные подтверждения
 - Скриншоты не найдены или их источник пока недоступен.
@@ -86,6 +90,7 @@
 - 2026-09-16 · **requested** · User requested continued autonomous development after v0.6 transfer and verification.
 - 2026-09-16 · **observed** · Implemented bounded host-history discovery, doctor auto-wiring and CLI discovery/search for v0.7.
 - 2026-09-16 · **verified** · GitHub Actions run 35064023880 passed the v0.7 host-history wiring gate on code checkpoint bfbc90f6200150e171036a8367def055f49fd106.
+- 2026-09-16 · **verified** · GitHub Actions run 35064575273 passed stable-identity candidate ranking on code checkpoint f2628d2a65294c063b0098ceb84b3d011b8208a4.
 
 ## 7. Варианты и ответвления
 - `v0.3-ledger-auditor` — v0.3 deterministic ledger · archived
@@ -103,7 +108,6 @@
 
 ## 9. Очередь поиска
 - Run A6 independent external-model audit against primary evidence + segmented journal + snapshot + current-chat bundle.
-- Add bounded candidate ranking with stable identity precedence before topic similarity.
 - Evaluate pre-compaction/session-end hooks for discovered Claude Code and Codex hosts.
 
 ## 10. Источники
@@ -116,8 +120,9 @@
 - `S007` — User continuation request for v0.7
 - `S008` — FIX v0.7 working branch
 - `S009` — v0.7 GitHub Actions run 35064023880
+- `S010` — v0.7 ranking GitHub Actions run 35064575273
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: A6 independent external-model audit remains full-acceptance blocker; continue v0.7 candidate ranking/hook integration.
+- Следующий шаг: A6 remains full-acceptance blocker; continue v0.7 lifecycle hook integration for discovered Claude Code/Codex hosts.
 - Обновлено: 2026-09-16T06:01:31.827825+00:00
