@@ -11,14 +11,15 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.6 candidate
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Verify final FIX branch contents and exact SHA, then prepare independent A6 audit package.
+- Следующий проверяемый шаг: A6 independent external-model audit; then v0.7 direct host wiring / archive policy.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## 1. Где находится проект
 | Среда | Расположение | Branch | SHA | Статус | Проверено |
 |---|---|---|---|---|---|
-| github_repository | https://github.com/loftfull/FIX | project-history-agent-v0.6 | f27e837e5941a9ecd6a36160f5efccc743e155f1 | observed_now | 2026-09-16 |
+| github_code_checkpoint | https://github.com/loftfull/FIX | project-history-agent-v0.6 | f27e837e5941a9ecd6a36160f5efccc743e155f1 | historical_code_checkpoint | 2026-09-16 |
 | chatgpt_library | /Project History Agent/v0.5 | — | — | observed | 2026-09-16 |
+| github_branch | https://github.com/loftfull/FIX/tree/project-history-agent-v0.6 | project-history-agent-v0.6 | — | observed_now | 2026-09-16 |
 
 ## 2. Цепочка чатов
 | Дата | Чат | Класс | Родитель | Основание |
@@ -32,7 +33,7 @@
 | v0.3 deterministic ledger + structural auditor | implemented | v0.3 deterministic ledger + auditor | canonical PROJECT_MEMORY.json; deterministic dedupe; separate structural auditor; A1-A5 acceptance tests |
 | v0.4 chat lineage + AI handoff + visual evidence | implemented | v0.4 chat lineage + handoff + visuals | first-run Chat Lineage Resolver; Project Passport and Quick Handoff; plan→fact/version ledger; visual evidence registry; current-chat and TERMINAL real tests |
 | v0.5 durable journal + adapters + lifecycle + doctor | implemented | v0.5 durable project history | append-only SHA-256 journal; atomic persistence and lock; pre-persistence secret redaction; HistoryAdapter boundary; lifecycle hooks; doctor; deterministic replay |
-| v0.6 canonical FIX transfer + host-native history adapters | implemented_candidate | v0.6 FIX canonical transfer + host-native adapters | canonical repository loftfull/FIX; current chat bundle in chat/current; Claude Code JSONL adapter; Codex rollout/session adapter; explicit ChatGPT conversations.json export adapter; v0.6 regression tests |
+| v0.6 canonical FIX transfer + host-native history adapters | implemented | v0.6 FIX canonical transfer + host-native adapters | canonical repository loftfull/FIX; current chat bundle in chat/current; Claude Code JSONL adapter; Codex rollout/session adapter; explicit ChatGPT conversations.json export adapter; v0.6 regression tests |
 
 ## 4. Версии и фактические изменения
 ### v0.3 deterministic ledger + auditor · 2026-09-15 · verified
@@ -54,7 +55,7 @@
 - lifecycle hooks
 - doctor
 - deterministic replay
-### v0.6 FIX canonical transfer + host-native adapters · 2026-09-16 · observed
+### v0.6 FIX canonical transfer + host-native adapters · 2026-09-16 · verified
 - canonical repository loftfull/FIX
 - current chat bundle in chat/current
 - Claude Code JSONL adapter
@@ -72,6 +73,7 @@
 - 2026-09-16 · **requested** · User designated loftfull/FIX as repository for the current project and asked to transfer all current-chat project data and continue development.
 - 2026-09-16 · **observed** · Current chat bundle, standing instructions, host-native adapters and v0.6 tests were transferred to FIX working branch.
 - 2026-09-16 · **verified** · Local v0.6 regression: 58 tests discovered, 57 PASS, 0 FAIL/ERROR, 1 pre-existing ENV_BLOCKED browser-navigation skip.
+- 2026-09-16 · **verified** · GitHub Actions run 35062306733 passed Compile, Repository smoke, Structural audit and Doctor on head 589bea6d60aed243da840b7d0fe2ac5101fee5e6.
 
 ## 7. Варианты и ответвления
 - `v0.3-ledger-auditor` — v0.3 deterministic ledger · archived
@@ -86,8 +88,8 @@
 - Нет зафиксированных противоречий.
 
 ## 9. Очередь поиска
-- Complete exact GitHub transfer and verify final branch HEAD/tree.
-- Run A6 independent external-model audit against primary evidence + journal + snapshot + visuals.
+- Run A6 independent external-model audit against primary evidence + journal + snapshot + current-chat bundle.
+- Evaluate direct host wiring for Claude Code/Codex adapters without weakening evidence-gated lineage.
 
 ## 10. Источники
 - `S001` — Earlier ChatGPT chat агент
@@ -95,8 +97,9 @@
 - `S003` — v0.5 Library baseline
 - `S004` — FIX GitHub code checkpoint
 - `S005` — v0.6 local regression output
+- `S006` — GitHub Actions run 35062306733
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Verify final FIX branch contents and exact SHA, then prepare independent A6 audit package.
+- Следующий шаг: A6 independent external-model audit; then v0.7 direct host wiring / archive policy.
 - Обновлено: 2026-09-16T06:01:31.827825+00:00
