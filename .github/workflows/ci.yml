@@ -14,9 +14,9 @@ jobs:
         with:
           python-version: "3.13"
       - name: Compile
-        run: python -m compileall -q project_history_agent.py project_history_journal.py project_history_auditor.py project_history_hooks.py project_history_doctor.py history_adapters.py host_history_discovery.py host_history_cli.py
+        run: python -m compileall -q project_history_agent.py project_history_journal.py project_history_auditor.py project_history_hooks.py project_history_doctor.py history_adapters.py host_history_discovery.py host_history_cli.py candidate_ranking.py
       - name: Repository smoke
-        run: python -m unittest -v tests.test_repository_smoke tests.test_host_native_adapters tests.test_segmented_journal tests.test_host_history_discovery tests.test_host_history_cli tests.test_doctor_host_discovery
+        run: python -m unittest -v tests.test_repository_smoke tests.test_host_native_adapters tests.test_segmented_journal tests.test_host_history_discovery tests.test_host_history_cli tests.test_doctor_host_discovery tests.test_candidate_ranking
       - name: Structural audit
         run: python project_history_auditor.py PROJECT_MEMORY.json --json
       - name: Doctor
