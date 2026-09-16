@@ -304,6 +304,68 @@ def _apply_mutation(state: Dict[str, Any] | None, op: str, payload: Any) -> Dict
     return state
 
 
+def journal_paths(project_root: Path | str) -> list[Path]:
+    root = Path(project_root)
+    base = root / "PROJECT_HISTORY.events.jsonl"
+    paths: list[Path] = []
+    if base.is_file():
+        paths.append(base)
+    seg_dir = root / "PROJECT_HISTORY.segments"
+    if seg_dir.is_dir():
+        paths.extend(sorted(x for x in seg_dir.glob("*.jsonl") if x.is_file()))
+    return paths
+
+
+def verify_journal_set(project_root: Path | str) -> Dict[str, Any]:
+    paths = journal_paths(project_root)
+    if not paths:
+        return {"ok": False, "records": 0, "last_hash": "", "issues": [{"code": "MISSING_JOURNAL"}], "segments": []}
+    issues: list[dict] = []
+    expected_prev = ""
+    seen_ids: set[str] = set()
+    record_count = 0
+    segments: list[dict] = []
+    for path in paths:
+        try:
+            records = _read_records(path)
+        except ValueError as exc:
+            issues.append({"code": "INVALID_JSON", "segment": str(path), "message": str(exc)})
+            continue
+        segments.append({"path": str(path), "records": len(records)})
+        for record in records:
+            record_count += 1
+            jid = record.get("journal_id") or f"record-{record_count}"
+            if record.get("schema") != JOURNAL_SCHEMA:
+                issues.append({"code": "SCHEMA_MISMATCH", "journal_id": jid, "segment": str(path)})
+            if jid in seen_ids:
+                issues.append({"code": "DUPLICATE_JOURNAL_ID", "journal_id": jid, "segment": str(path)})
+            seen_ids.add(jid)
+            if record.get("op") not in SUPPORTED_OPS:
+                issues.append({"code": "UNKNOWN_OP", "journal_id": jid, "segment": str(path)})
+            if record.get("prev_hash", "") != expected_prev:
+                issues.append({"code": "PREV_HASH_MISMATCH", "journal_id": jid, "segment": str(path)})
+            base = {k: v for k, v in record.items() if k != "hash"}
+            calculated = _record_hash(base)
+            if record.get("hash") != calculated:
+                issues.append({"code": "HASH_MISMATCH", "journal_id": jid, "segment": str(path)})
+            expected_prev = record.get("hash", "")
+    return {"ok": not issues, "records": record_count, "last_hash": expected_prev, "issues": issues, "segments": segments}
+
+
+def replay_journal_set(project_root: Path | str) -> Dict[str, Any]:
+    verification = verify_journal_set(project_root)
+    if not verification["ok"]:
+        codes = ",".join(x["code"] for x in verification["issues"])
+        raise ValueError(f"journal set integrity failure: {codes}")
+    state: Dict[str, Any] | None = None
+    for path in journal_paths(project_root):
+        for record in _read_records(path):
+            state = _apply_mutation(state, record["op"], record.get("payload"))
+    if state is None:
+        raise ValueError("journal set is empty")
+    return state
+
+
 def replay_journal(path: Path | str) -> Dict[str, Any]:
     verification = verify_journal(path)
     if not verification["ok"]:
