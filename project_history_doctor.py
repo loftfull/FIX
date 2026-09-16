@@ -2,13 +2,11 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import shutil
-import tempfile
 from pathlib import Path
-from typing import Any
 
 from project_history_auditor import audit_state
+from host_history_discovery import HostHistoryDiscovery
 from project_history_journal import append_mutation, atomic_write_text, replay_journal_set, verify_journal_set
 
 
@@ -22,7 +20,7 @@ def _semantic_state(state: dict) -> dict:
     return state
 
 
-def run_doctor(project_root: Path | str, adapter=None, probe_screenshot: bool = True) -> dict:
+def run_doctor(project_root: Path | str, adapter=None, history_discovery=None, probe_screenshot: bool = True) -> dict:
     root = Path(project_root)
     checks: dict[str, dict] = {}
     required = ["PROJECT_MEMORY.json", "PROJECT_MEMORY.md", "PROJECT_HISTORY.events.jsonl"]
@@ -83,7 +81,23 @@ def run_doctor(project_root: Path | str, adapter=None, probe_screenshot: bool = 
         checks["redaction_pipeline"] = _result("FAIL", f"redaction probe failed: {exc}")
 
     if adapter is None:
-        checks["history_adapter"] = _result("WARN", "no history adapter configured")
+        discovery = history_discovery or HostHistoryDiscovery()
+        try:
+            discovery_report = discovery.discover()
+            available = [x.get("provider") for x in discovery_report.get("sources", []) if x.get("status") == "available"]
+            unavailable = {x.get("provider"): x.get("status") for x in discovery_report.get("sources", []) if x.get("status") != "available"}
+            if available:
+                checks["history_sources"] = _result("PASS", f"{len(available)} host history source(s) available", available=available, unavailable=unavailable)
+                adapter = discovery.build_adapter(discovery_report)
+            else:
+                checks["history_sources"] = _result("WARN", "no host history source available", available=[], unavailable=unavailable)
+        except Exception as exc:
+            checks["history_sources"] = _result("WARN", f"host history discovery unavailable: {exc}")
+    else:
+        checks["history_sources"] = _result("PASS", "history adapter supplied explicitly", available=["explicit-adapter"], unavailable={})
+
+    if adapter is None:
+        checks["history_adapter"] = _result("WARN", "no usable history adapter configured or discovered")
     else:
         try:
             adapter.search("sessions", "", limit=1)
