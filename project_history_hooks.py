@@ -7,13 +7,13 @@ from typing import Any
 from project_history_agent import empty_state, initialize_chat_lineage, load_state, render_markdown, utc_now
 from project_history_journal import (
     ProjectLock,
-    append_mutation,
     atomic_save_state,
     atomic_write_text,
     bootstrap_journal_from_state,
-    replay_journal,
-    verify_journal,
+    replay_journal_set,
+    verify_journal_set,
 )
+from runtime_journal import append_mutation_set, begin_runtime_segment, close_runtime_segment
 
 JOURNAL_NAME = "PROJECT_HISTORY.events.jsonl"
 SNAPSHOT_NAME = "PROJECT_MEMORY.json"
@@ -78,7 +78,7 @@ def session_start(root: Path | str, current: dict, adapter, *, project_id: str, 
     journal = root / JOURNAL_NAME
     snapshot = root / SNAPSHOT_NAME
     if journal.exists():
-        state = replay_journal(journal)
+        state = replay_journal_set(root)
     elif snapshot.exists():
         state = load_state(snapshot)
         bootstrap_journal_from_state(state, journal)
@@ -92,28 +92,29 @@ def session_start(root: Path | str, current: dict, adapter, *, project_id: str, 
     if not journal.exists():
         bootstrap_journal_from_state(state, journal)
     else:
+        begin_runtime_segment(root)
         for chat in state.get("chats") or []:
             if chat.get("chat_id") not in before_chat_ids:
-                append_mutation(journal, "chat.add", chat)
-        append_mutation(journal, "handoff.patch", {"current_chat_id": current["chat_id"]})
+                append_mutation_set(root, "chat.add", chat)
+        append_mutation_set(root, "handoff.patch", {"current_chat_id": current["chat_id"]})
     state = checkpoint(root)
     return {"lineage": lineage, "state": state, "candidates": candidates}
 
 
 def record_mutation(root: Path | str, op: str, payload: Any) -> dict:
     root = _ensure_root(root)
-    append_mutation(root / JOURNAL_NAME, op, payload)
+    append_mutation_set(root, op, payload)
     return checkpoint(root)
 
 
 def checkpoint(root: Path | str) -> dict:
     root = _ensure_root(root)
     journal = root / JOURNAL_NAME
-    verification = verify_journal(journal)
+    verification = verify_journal_set(root)
     if not verification["ok"]:
         raise ValueError(f"journal verification failed: {verification['issues']}")
-    append_mutation(journal, "handoff.patch", {"updated_at": utc_now()})
-    state = replay_journal(journal)
+    append_mutation_set(root, "handoff.patch", {"updated_at": utc_now()})
+    state = replay_journal_set(root)
     lock_path = root / ".project-history.snapshot.lock"
     with ProjectLock(lock_path, timeout=5.0):
         atomic_save_state(root / SNAPSHOT_NAME, state)
@@ -126,5 +127,7 @@ def session_stop(root: Path | str, *, next_step: str | None = None) -> dict:
     if next_step is not None:
         patch["next_step"] = next_step
     root = _ensure_root(root)
-    append_mutation(root / JOURNAL_NAME, "handoff.patch", patch)
-    return checkpoint(root)
+    append_mutation_set(root, "handoff.patch", patch)
+    state = checkpoint(root)
+    close_runtime_segment(root)
+    return state

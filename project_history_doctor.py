@@ -2,8 +2,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
+import tempfile
 from pathlib import Path
+from typing import Any
 
 from project_history_auditor import audit_state
 from host_history_discovery import HostHistoryDiscovery
@@ -27,8 +30,9 @@ def run_doctor(project_root: Path | str, adapter=None, history_discovery=None, p
     missing = [name for name in required if not (root / name).is_file()]
     checks["package_files"] = _result("FAIL" if missing else "PASS", "missing: " + ", ".join(missing) if missing else "required state files present")
 
+    journal = root / "PROJECT_HISTORY.events.jsonl"
     verification = verify_journal_set(root)
-    checks["journal_integrity"] = _result("PASS" if verification["ok"] else "FAIL", f"{verification.get('records', 0)} record(s)", issues=verification.get("issues", []), segments=verification.get("segments", []))
+    checks["journal_integrity"] = _result("PASS" if verification["ok"] else "FAIL", f"{verification.get('records', 0)} record(s)", issues=verification.get("issues", []))
 
     rebuilt = None
     if verification["ok"]:
@@ -80,6 +84,7 @@ def run_doctor(project_root: Path | str, adapter=None, history_discovery=None, p
     except Exception as exc:
         checks["redaction_pipeline"] = _result("FAIL", f"redaction probe failed: {exc}")
 
+    discovery_report = None
     if adapter is None:
         discovery = history_discovery or HostHistoryDiscovery()
         try:
@@ -105,6 +110,20 @@ def run_doctor(project_root: Path | str, adapter=None, history_discovery=None, p
         except Exception as exc:
             checks["history_adapter"] = _result("WARN", f"adapter unavailable: {exc}")
 
+    template_paths = {
+        "claude-code": root / "integrations" / "claude-code" / "hooks.json",
+        "codex": root / "integrations" / "codex" / "hooks.json",
+    }
+    present_templates = [provider for provider, path in template_paths.items() if path.is_file()]
+    missing_templates = [provider for provider, path in template_paths.items() if not path.is_file()]
+    checks["hook_templates"] = _result(
+        "PASS" if not missing_templates else "WARN",
+        "project-local hook templates present" if not missing_templates else "hook templates not generated for: " + ", ".join(missing_templates),
+        authority="template_only",
+        present=present_templates,
+        missing=missing_templates,
+    )
+
     if not probe_screenshot:
         checks["screenshot_capability"] = _result("PASS", "probe skipped by caller")
     else:
@@ -116,7 +135,8 @@ def run_doctor(project_root: Path | str, adapter=None, history_discovery=None, p
             checks["screenshot_capability"] = _result("WARN", f"screenshot dependency unavailable: {exc}")
 
     statuses = {item["status"] for item in checks.values()}
-    overall = "FAIL" if "FAIL" in statuses else "WARN" if "WARN" in statuses else "PASS"
+    blocking_warns = {name for name, item in checks.items() if item["status"] == "WARN" and name not in {"hook_templates"}}
+    overall = "FAIL" if "FAIL" in statuses else "WARN" if blocking_warns else "PASS"
     return {"overall": overall, "checks": checks}
 
 
