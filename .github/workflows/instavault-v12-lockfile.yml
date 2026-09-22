@@ -1,0 +1,36 @@
+name: InstaVault v1.2 lockfile probe
+
+on:
+  pull_request:
+    branches:
+      - preview/instavault-v1.1
+    paths:
+      - '.release/instavault/package.json'
+      - '.github/workflows/instavault-v12-lockfile.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .release/instavault
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.19.5'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+          cache-dependency-path: '.release/instavault/package-lock.json'
+      - name: Generate lockfile
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Validate lockfile install
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - uses: actions/upload-artifact@v4
+        with:
+          name: instavault-package-lock
+          path: .release/instavault/package-lock.json
+          if-no-files-found: error
