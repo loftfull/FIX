@@ -56,7 +56,7 @@ jobs:
       - name: Verify pgvector and migrated schema
         shell: bash
         run: |
-          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 <<'SQL'
+          psql "postgresql://instavault:testpass@127.0.0.1:5432/instavault" -v ON_ERROR_STOP=1 <<'SQL'
           DO $$
           BEGIN
             IF NOT EXISTS (SELECT 1 FROM pg_extension WHERE extname = 'vector') THEN
