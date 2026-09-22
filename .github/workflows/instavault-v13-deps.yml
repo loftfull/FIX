@@ -1,0 +1,43 @@
+name: InstaVault v1.3 dependency artifact
+
+on:
+  pull_request:
+    branches:
+      - preview/instavault-v1.2
+    paths:
+      - '.release/v13deps/package.json'
+      - '.github/workflows/instavault-v13-deps.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  deps:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: .release/v13deps
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.19.5'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Resolve lockfile
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Clean dependency install
+        run: npm ci --no-audit --no-fund
+      - name: Verify core toolchain
+        run: |
+          node -e "console.log(process.version)"
+          npx next --version
+          npx prisma --version
+          npx tsc --version
+      - name: Pack dependency tree
+        run: tar -czf ../instavault-node_modules.tgz node_modules
+      - uses: actions/upload-artifact@v4
+        with:
+          name: instavault-v13-node-modules
+          path: .release/instavault-node_modules.tgz
+          if-no-files-found: error
+          retention-days: 1
