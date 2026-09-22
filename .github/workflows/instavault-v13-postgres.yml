@@ -1,0 +1,31 @@
+name: InstaVault v1.3 portable pgvector
+
+on:
+  pull_request:
+    branches:
+      - preview/instavault-v1.2
+    paths:
+      - '.github/workflows/instavault-v13-postgres.yml'
+      - '.release/v13pg-trigger.txt'
+
+permissions:
+  contents: read
+
+jobs:
+  postgres:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Export pgvector PostgreSQL 16 rootfs
+        run: |
+          docker pull pgvector/pgvector:pg16
+          cid="$(docker create pgvector/pgvector:pg16)"
+          docker export "$cid" | gzip -1 > pgvector-pg16-rootfs.tgz
+          docker rm "$cid"
+          ls -lh pgvector-pg16-rootfs.tgz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: instavault-v13-pgvector-rootfs
+          path: pgvector-pg16-rootfs.tgz
+          if-no-files-found: error
+          retention-days: 1
