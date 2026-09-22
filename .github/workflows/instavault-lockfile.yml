@@ -1,0 +1,41 @@
+name: InstaVault lockfile generator
+
+on:
+  push:
+    branches:
+      - automation/instavault-lockfile-v0.6
+    paths:
+      - '.ci/instavault-lockgen/package.json'
+      - '.github/workflows/instavault-lockfile.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .ci/instavault-lockgen
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.19.5'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Generate reproducible npm lockfile
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Validate lockfile
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Commit generated lockfile
+        working-directory: .
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .ci/instavault-lockgen/package-lock.json
+          if git diff --cached --quiet; then
+            echo "Lockfile already current"
+            exit 0
+          fi
+          git commit -m "build: generate InstaVault package-lock"
+          git push
