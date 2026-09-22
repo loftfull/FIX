@@ -1,0 +1,78 @@
+name: InstaVault v1.2 migration probe
+
+on:
+  pull_request:
+    branches:
+      - preview/instavault-v1.1
+    paths:
+      - '.github/workflows/instavault-v12-migrations.yml'
+      - '.release/instavault/package.json'
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: instavault
+          POSTGRES_PASSWORD: testpass
+          POSTGRES_DB: instavault
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U instavault -d instavault"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      DATABASE_URL: postgresql://instavault:testpass@127.0.0.1:5432/instavault?schema=public
+    defaults:
+      run:
+        working-directory: .release/instavault
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.19.5'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Restore exact Prisma source and migrations
+        shell: bash
+        run: |
+          echo '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' | base64 -d > prisma.tgz
+          tar -xzf prisma.tgz
+          test -f prisma/schema.prisma
+          test -f prisma/migrations/20260922160000_add_observability_quality/migration.sql
+      - name: Resolve exact dependency graph
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Clean install
+        run: npm ci --no-audit --no-fund
+      - name: Prisma validate and generate
+        run: |
+          npx prisma validate --schema prisma/schema.prisma
+          npx prisma generate --schema prisma/schema.prisma
+      - name: Deploy complete migration chain
+        run: npx prisma migrate deploy --schema prisma/schema.prisma
+      - name: Verify pgvector and migrated schema
+        shell: bash
+        run: |
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 <<'SQL'
+          DO $$
+          BEGIN
+            IF NOT EXISTS (SELECT 1 FROM pg_extension WHERE extname = 'vector') THEN
+              RAISE EXCEPTION 'pgvector extension missing';
+            END IF;
+            IF (SELECT COUNT(*) FROM "_prisma_migrations" WHERE finished_at IS NOT NULL) <> 7 THEN
+              RAISE EXCEPTION 'expected 7 completed Prisma migrations';
+            END IF;
+            IF to_regclass('"PostEmbedding"') IS NULL OR to_regclass('"PostChunk"') IS NULL OR to_regclass('"ProcessingAttempt"') IS NULL THEN
+              RAISE EXCEPTION 'expected migrated tables missing';
+            END IF;
+            IF NOT EXISTS (SELECT 1 FROM pg_indexes WHERE indexname = 'PostEmbedding_embedding_hnsw_idx') THEN
+              RAISE EXCEPTION 'PostEmbedding HNSW index missing';
+            END IF;
+            IF NOT EXISTS (SELECT 1 FROM pg_indexes WHERE indexname = 'PostChunk_embedding_hnsw_idx') THEN
+              RAISE EXCEPTION 'PostChunk HNSW index missing';
+            END IF;
+          END $$;
+          SQL
