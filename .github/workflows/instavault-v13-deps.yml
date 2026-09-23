@@ -38,6 +38,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: instavault-v13-node-modules
-          path: |\n            .release/instavault-node_modules.tgz\n            .release/v13deps/package-lock.json
+          path: |
+            .release/instavault-node_modules.tgz
+            .release/v13deps/package-lock.json
           if-no-files-found: error
           retention-days: 1
