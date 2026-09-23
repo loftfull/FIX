@@ -9,7 +9,7 @@ import time
 from copy import deepcopy
 from pathlib import Path
 from typing import Any, Dict, Iterable
-from urllib.parse import urlsplit, urlunsplit
+from urllib.parse import unquote_plus, urlsplit, urlunsplit
 
 from project_history_agent import (
     add_chat,
@@ -59,16 +59,29 @@ def _canonical(value: Any) -> str:
 
 
 def _redact_string(value: str) -> str:
-    result = value
-    try:
-        parts = urlsplit(result)
-        if parts.scheme and parts.netloc and (parts.username is not None or parts.password is not None):
-            host = parts.hostname or ""
-            if parts.port:
-                host = f"{host}:{parts.port}"
-            result = urlunsplit((parts.scheme, host, parts.path, parts.query, parts.fragment))
-    except ValueError:
-        pass
+    def scrub_url(match):
+        raw = match.group(0)
+        try:
+            parts = urlsplit(raw)
+            # Preserve IPv6 and ports without reconstructing hostname.
+            host = parts.netloc.rsplit('@', 1)[-1]
+            def scrub_params(text):
+                fields = []
+                for field in text.split('&'):
+                    key, sep, val = field.partition('=')
+                    fields.append(key + sep + ('[REDACTED]' if sep and SECRET_KEY_RE.search(unquote_plus(key)) else val))
+                return '&'.join(fields)
+            return urlunsplit((parts.scheme, host, parts.path,
+                               scrub_params(parts.query), scrub_params(parts.fragment)))
+        except ValueError:
+            return '[REDACTED_URL]'
+    result = re.sub(r"[A-Za-z][A-Za-z0-9+.-]*://[^\s<>\"']+", scrub_url, value)
+    for pattern in SECRET_VALUE_PATTERNS:
+        result = pattern.sub("[REDACTED]", result)
+    # Recognizable assignments in free text, including quoted values with spaces.
+    result = re.sub(
+        r"\b([\w-]*(?:api[_-]?key|token|password|passwd|secret|authorization|credential)[\w-]*\s*[:=]\s*)(?:\"[^\"]*\"|'[^']*'|[^\s,;&]+)",
+        lambda m: m.group(1) + '[REDACTED]', result, flags=re.I)
     for pattern in SECRET_VALUE_PATTERNS:
         result = pattern.sub("[REDACTED]", result)
     return result

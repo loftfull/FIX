@@ -434,6 +434,14 @@ def render_markdown(state: Dict[str, Any]) -> str:
         "| Среда | Расположение | Branch | SHA | Статус | Проверено |",
         "|---|---|---|---|---|---|",
     ]
+    # Keep mandatory requirements in the short handoff, not only in JSON.
+    constraint_lines = ["## CRITICAL_CONSTRAINTS — обязательные ограничения"]
+    constraint_lines.extend(f"- {item}" for item in p.get("constraints", []))
+    if not p.get("constraints"):
+        constraint_lines.append("- Не зарегистрированы; это не подтверждение отсутствия требований.")
+    constraint_lines.append("")
+    section = lines.index("## 1. Где находится проект")
+    lines[section:section] = constraint_lines
     if state.get("locations"):
         for loc in state["locations"]:
             marker = "observed_now" if loc.get("observed_now") else loc.get("observation_status", "mentioned")
