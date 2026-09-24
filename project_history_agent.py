@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import shutil
 import subprocess
 from datetime import datetime, timezone
@@ -18,6 +19,21 @@ CHAT_CLASSIFICATIONS = {"new", "continuation", "unknown"}
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def evidence_date_key(value: Any) -> tuple:
+    """Order known instants safely; preserve unknown/naive dates without inventing UTC."""
+    if isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value):
+        return (0, float(value), '')
+    if isinstance(value, str) and value.strip():
+        try:
+            parsed = datetime.fromisoformat(value.replace('Z', '+00:00'))
+            if parsed.tzinfo is not None:
+                return (0, parsed.timestamp(), '')
+            return (1, 0.0, value)  # local/day-only date, timezone not established
+        except (ValueError, OverflowError, OSError):
+            return (2, 0.0, value)
+    return (3, 0.0, '')
 
 
 def empty_state(project_id: str, name: str, goal: str) -> Dict[str, Any]:
@@ -460,9 +476,9 @@ def render_markdown(state: Dict[str, Any]) -> str:
         try:
             ordered = build_chat_chain(state, current_chat_id)
         except (ValueError, KeyError):
-            ordered = sorted(chats, key=lambda x: (x.get("started_at") or "", x.get("chat_id") or ""))
+            ordered = sorted(chats, key=lambda x: (evidence_date_key(x.get("started_at")), x.get("chat_id") or ""))
     else:
-        ordered = sorted(chats, key=lambda x: (x.get("started_at") or "", x.get("chat_id") or ""))
+        ordered = sorted(chats, key=lambda x: (evidence_date_key(x.get("started_at")), x.get("chat_id") or ""))
     if ordered:
         for chat in ordered:
             lines.append("| " + " | ".join([
@@ -486,7 +502,7 @@ def render_markdown(state: Dict[str, Any]) -> str:
 
     lines += ["", "## 4. Версии и фактические изменения"]
     if versions:
-        for version in sorted(versions, key=lambda x: (x.get("occurred_at") or "", x.get("version_id") or "")):
+        for version in sorted(versions, key=lambda x: (evidence_date_key(x.get("occurred_at")), x.get("version_id") or "")):
             lines.append(f"### {version.get('name') or version.get('version_id')} · {version.get('occurred_at') or 'unknown date'} · {version.get('evidence_status', 'unknown')}")
             for change in version.get("changes") or []:
                 lines.append(f"- {change}")
@@ -494,7 +510,7 @@ def render_markdown(state: Dict[str, Any]) -> str:
         lines.append("- Версии ещё не зафиксированы.")
 
     lines += ["", "## 5. Скриншоты и визуальные подтверждения"]
-    visuals = sorted(state.get("visuals", []), key=lambda x: (x.get("captured_at") or "", x.get("visual_id") or ""), reverse=True)
+    visuals = sorted(state.get("visuals", []), key=lambda x: (evidence_date_key(x.get("captured_at")), x.get("visual_id") or ""), reverse=True)
     if visuals:
         for visual in visuals:
             parts = [f"`{visual.get('visual_id')}`", visual.get("label") or visual.get("kind", "visual")]
@@ -507,8 +523,8 @@ def render_markdown(state: Dict[str, Any]) -> str:
 
     lines += ["", "## 6. Хронология"]
     if state.get("events"):
-        for ev in sorted(state["events"], key=lambda x: (x.get("occurred_at") or "", x.get("event_id") or "")):
-            lines.append(f"- {ev.get('occurred_at') or 'unknown date'} · **{ev.get('evidence_status', 'unknown')}** · {ev.get('summary', '')}")
+        for ev in sorted(state["events"], key=lambda x: (evidence_date_key(x.get("occurred_at")), x.get("event_id") or "")):
+            lines.append(f"- {ev.get('occurred_at') if ev.get('occurred_at') is not None else 'unknown date'} · **{ev.get('evidence_status', 'unknown')}** · {ev.get('summary', '')}")
     else:
         lines.append("- События ещё не зафиксированы.")
 

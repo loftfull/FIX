@@ -11,7 +11,7 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.7 candidate
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Validate actual INSTA chat import and cold handoff with explicit project identity. MCP bridge is experimental local stdio read-only; do not claim remote connectivity or full A6 acceptance. See docs/MEMORY_SERVICE_FOUNDATION.md and docs/MCP_TRIAL_2026-09-23.md.
+- Следующий проверяемый шаг: Use docs/HISTORY_WORKFLOW.md for explicit import/local watcher. Retrieve original INSTA chat exports for full lineage; current reconstruction is partial. Validate Windows CI and deployment on user machine before claiming autonomous installed operation. Browser ChatGPT remote connection and full A6 remain open.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -98,6 +98,7 @@
 - 2026-09-16 · **verified** · GitHub Actions run 35064023880 passed the v0.7 host-history wiring gate on code checkpoint bfbc90f6200150e171036a8367def055f49fd106.
 - 2026-09-16 · **verified** · GitHub Actions run 35064575273 passed stable-identity candidate ranking on code checkpoint f2628d2a65294c063b0098ceb84b3d011b8208a4.
 - 2026-09-23 · **observed** · Implemented experimental read-only MCP bridge using official SDK 2.2.0; 42 local tests passed, including 10 bridge checks. Independent agent audit found redaction and provenance defects, corrected with regressions. INSTA completeness, remote ChatGPT access and daily autonomy remain untested; A6 remains open.
+- 2026-09-24 · **observed** · Implemented revision-preserving normalized import, branch-aware ChatGPT adapter, sourced strategy review and local Git watcher with daily catchup. 90 local tests PASS; real 18-message chat and 139 INSTA issue comments plus two documents imported; repeated imports idempotent. Independent audits closed reproduced metadata/date/filter/redaction and handoff constraints defects. Original INSTA chats, user-machine deployment and full A6 remain unavailable/unaccepted.
 
 ## 7. Варианты и ответвления
 - `v0.3-ledger-auditor` — v0.3 deterministic ledger · archived
@@ -129,8 +130,9 @@
 - `S009` — v0.7 GitHub Actions run 35064023880
 - `S010` — v0.7 ranking GitHub Actions run 35064575273
 - `S011` — MCP foundation local trial and research 2026-09-23
+- `S012` — Real evidence import, INSTA partial reconstruction and local observer trial
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Validate actual INSTA chat import and cold handoff with explicit project identity. MCP bridge is experimental local stdio read-only; do not claim remote connectivity or full A6 acceptance. See docs/MEMORY_SERVICE_FOUNDATION.md and docs/MCP_TRIAL_2026-09-23.md.
-- Обновлено: 2026-09-23T12:11:35.093391+00:00
+- Следующий шаг: Use docs/HISTORY_WORKFLOW.md for explicit import/local watcher. Retrieve original INSTA chat exports for full lineage; current reconstruction is partial. Validate Windows CI and deployment on user machine before claiming autonomous installed operation. Browser ChatGPT remote connection and full A6 remain open.
+- Обновлено: 2026-09-24T05:25:25.753686+00:00
