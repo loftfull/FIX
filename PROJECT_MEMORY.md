@@ -107,6 +107,7 @@
 - 2026-09-24 · **observed** · Added brief compiler, explicit bounded command supervisor, scoped project registry, offline pixel receipts and real-chat preservation checker.168 local tests and57 independent component tests passed.18-message real archive preserved and read over MCP in successful control trials; cold handoff recovered scope. Two earlier journal-tail-loss incidents remain unexplained; full acceptance blocked. Claude/Codex CLI and user-machine autostart not tested.
 - unknown date · **observed** · Windows ran136 tests:3 assertions compared short8.3 paths with canonical paths. Expected paths corrected;30 affected local tests pass. Windows rerun pending. Journal-tail loss reproduced in diagnostic probe; cause remains unknown.
 - unknown date · **observed** · Integrated adapted MIT i-have-adhd focus and eventsourcing9.5.5 SQLite witness.190 local testsPASS,47 independent component checksPASS. Real18messages MCP preserved; controlledrollback rejected and recovered in newfolder. Natural loss cause and reappearinglock remain unknown. ACP/restic/Playwright evaluated, not connected.
+- unknown date · **observed** · Windows158tests found4cleanup errors: SQLite handle leaked by eventsourcing9.5.5 connection setup failure and test fixtures. Narrow local pool closes handle on setup error; fixtures explicitly close. New resource regression added;48 related local checksPASS. Windowsrerun pending; original journal rollback stillunknown.
 
 ## 7. Варианты и ответвления
 - `v0.3-ledger-auditor` — v0.3 deterministic ledger · archived
@@ -148,8 +149,9 @@
 - `S017` — Recommendation implementation and real-chat terminal trial
 - `S018` — Windows CI path normalization failures
 - `S019` — GitHub integration and real vault trial
+- `S020` — Windows SQLite resource failure and fix
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
 - Следующий шаг: Read docs/GITHUB_SOLUTIONS.md and VAULT_REAL_CHAT_TRIAL_2026-09-24.md. Optional external vault and focus implemented; real recovery test passed. Investigate historical rollback/stale locks and pilot independent restic backup; provider/browser/user-machine gates remain open.
-- Обновлено: 2026-09-24T07:46:04.005293+00:00
+- Обновлено: 2026-09-24T07:51:32.915745+00:00

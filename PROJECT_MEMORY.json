@@ -526,12 +526,27 @@
       ],
       "summary": "Integrated adapted MIT i-have-adhd focus and eventsourcing9.5.5 SQLite witness.190 local testsPASS,47 independent component checksPASS. Real18messages MCP preserved; controlledrollback rejected and recovered in newfolder. Natural loss cause and reappearinglock remain unknown. ACP/restic/Playwright evaluated, not connected.",
       "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "5da3c796dbc5df71670e2176ac64dd61492248f3487228414fd4d926719072cf",
+      "event_id": "EV-00020",
+      "event_type": "resource_fix",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T07:51:32.913552+00:00",
+      "session_id": null,
+      "source_ids": [
+        "S020"
+      ],
+      "summary": "Windows158tests found4cleanup errors: SQLite handle leaked by eventsourcing9.5.5 connection setup failure and test fixtures. Narrow local pool closes handle on setup error; fixtures explicitly close. New resource regression added;48 related local checksPASS. Windowsrerun pending; original journal rollback stillunknown.",
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
     "next_step": "Read docs/GITHUB_SOLUTIONS.md and VAULT_REAL_CHAT_TRIAL_2026-09-24.md. Optional external vault and focus implemented; real recovery test passed. Investigate historical rollback/stale locks and pilot independent restic backup; provider/browser/user-machine gates remain open.",
-    "updated_at": "2026-09-24T07:46:04.005293+00:00"
+    "updated_at": "2026-09-24T07:51:32.915745+00:00"
   },
   "locations": [
     {
@@ -927,6 +942,11 @@
       "locator": "docs/VAULT_REAL_CHAT_TRIAL_2026-09-24.md",
       "name": "GitHub integration and real vault trial",
       "source_id": "S019"
+    },
+    {
+      "locator": "https://github.com/loftfull/FIX/actions/runs/35971509401",
+      "name": "Windows SQLite resource failure and fix",
+      "source_id": "S020"
     }
   ],
   "versions": [

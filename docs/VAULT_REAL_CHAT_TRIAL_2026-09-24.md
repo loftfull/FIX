@@ -26,7 +26,12 @@ Runner больше не создаёт исчезнувший witness молч�
 
 190 локальных тестов PASS. Независимый связанный набор:47 PASS, в том числе19vault.
 JavaScript syntax check PASS; полноценная браузерная визуальная приёмка остаётся
-ENV_BLOCKED. Windows/Linux CI фиксируются в PR для конкретного опубликованного SHA.
+ENV_BLOCKED. Первая Windows CI выявила утечку SQLite handle при ошибке настройки соединения
+в eventsourcing9.5.5 и незакрытые fault-injection соединения тестов.
+Добавлен локальный connection pool с закрытием ресурса при setup failure;
+BSD3 attribution сохранена. Новый regression удерживает raw connection и
+проверяет, что оно уже закрыто и DB можно сразу переименовать/удалить.
+Повторный связанный набор48PASS. Windows/Linux CI фиксируются в PR для конкретного SHA.
 
 ## Что не закрыто
 

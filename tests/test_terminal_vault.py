@@ -7,6 +7,7 @@ import tempfile
 import unittest
 from concurrent.futures import ThreadPoolExecutor
 import threading
+from contextlib import closing
 from unittest.mock import patch
 from project_history_agent import empty_state
 from project_history_journal import bootstrap_journal_from_state, journal_paths, replay_journal_set, verify_journal_set
@@ -121,7 +122,7 @@ class VaultTests(unittest.TestCase):
 
     def test_vault_payload_tamper_refused(self):
         capture(self.root, 'p', self.vault)
-        with sqlite3.connect(self.vault) as db:
+        with closing(sqlite3.connect(self.vault)) as db, db:
             db.execute('UPDATE fix_vault_events SET state=?', (b'{}',))
         with self.assertRaises(ValueError):
             verify(self.root, 'p', self.vault)
@@ -157,7 +158,7 @@ class VaultTests(unittest.TestCase):
     def test_malformed_envelope_is_rejected(self):
         capture(self.root, 'p', self.vault)
         for invalid in [[], {'schema': 'fix-journal-vault/v1', 'project_id': 'p'}]:
-            with sqlite3.connect(self.vault) as db:
+            with closing(sqlite3.connect(self.vault)) as db, db:
                 db.execute('UPDATE fix_vault_events SET state=?', (json.dumps(invalid).encode(),))
             with self.assertRaisesRegex(ValueError, 'digest or identity'):
                 verify(self.root, 'p', self.vault)
@@ -233,6 +234,27 @@ class VaultTests(unittest.TestCase):
                             self.root.resolve(), vault=self.vault)
             popen.assert_not_called()
         self.assertFalse(self.vault.exists())
+
+    def test_failed_sqlite_connection_setup_closes_raw_handle(self):
+        capture(self.root, 'p', self.vault)
+        self.vault.write_bytes(b'not sqlite')
+        real_connect = sqlite3.connect
+        opened = []
+        def keep_reference(*args, **kwargs):
+            connection = real_connect(*args, **kwargs)
+            opened.append(connection)
+            return connection
+        with patch('terminal_vault.sqlite3.connect', side_effect=keep_reference):
+            with self.assertRaisesRegex(ValueError, 'Vault storage'):
+                verify(self.root, 'p', self.vault)
+        self.assertTrue(opened)
+        # Keep Python objects alive to rule out accidental GC closing the leak.
+        for connection in opened:
+            with self.assertRaisesRegex(sqlite3.ProgrammingError, 'closed'):
+                connection.execute('SELECT 1')
+        moved = self.vault.with_name('closed-corrupt.sqlite')
+        self.vault.rename(moved)
+        moved.unlink()
 
 
 if __name__ == '__main__':

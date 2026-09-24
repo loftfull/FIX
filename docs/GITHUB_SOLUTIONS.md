@@ -35,6 +35,9 @@
 ## Внешний witness: запуск
 
 Python >=3.11. Зависимость фиксирована в requirements-vault.txt.
+Локальный subclass connection pool закрывает SQLite handle при setup failure
+(дефект9.5.5, обнаруженный Windows CI); BSD3 notice сохранён в third_party.
+Обновление зависимости требует повторения ресурсных и Windows тестов.
 
 ```powershell
 python -m pip install -r requirements-vault.txt

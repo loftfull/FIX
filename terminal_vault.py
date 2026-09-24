@@ -6,7 +6,7 @@ on the same computer is not an off-device backup and can itself be rolled back.
 """
 from __future__ import annotations
 import argparse
-from contextlib import contextmanager, nullcontext
+from contextlib import closing, contextmanager, nullcontext
 from datetime import datetime, timezone
 import hashlib
 import json
@@ -116,9 +116,54 @@ def _external(root, vault):
     return vault
 
 
+def _datastore(database):
+    from eventsourcing.sqlite import (SQLiteConnection, SQLiteConnectionPool,
+        SQLiteDatastore, SQLITE3_DEFAULT_LOCK_TIMEOUT)
+    from eventsourcing.persistence import InterfaceError
+
+    class ClosingSQLiteConnectionPool(SQLiteConnectionPool):
+        # Adapted from eventsourcing 9.5.5 SQLiteConnectionPool._create_connection.
+        # Copyright (c) 2025 John Bywater, BSD-3-Clause.
+        # Full notice: third_party/eventsourcing-LICENSE.txt.
+        # Upstream does not close c if journal-mode setup fails before pool
+        # registration. Windows then retains a lock on a corrupt database.
+        def _create_connection(self):
+            try:
+                c = sqlite3.connect(database=self.db_name, uri=True,
+                    check_same_thread=False, isolation_level=None,
+                    cached_statements=True,
+                    timeout=self.lock_timeout or SQLITE3_DEFAULT_LOCK_TIMEOUT)
+            except (sqlite3.Error, TypeError) as exc:
+                raise InterfaceError(exc) from exc
+            try:
+                if not self.is_sqlite_memory_mode and not self.is_journal_mode_wal:
+                    with closing(c.cursor()) as cursor:
+                        cursor.execute('PRAGMA journal_mode;')
+                        mode = cursor.fetchone()[0]
+                        if mode.lower() == 'wal':
+                            self.is_journal_mode_wal = True
+                        else:
+                            cursor.execute('PRAGMA journal_mode=WAL;')
+                            self.is_journal_mode_wal = True
+                            self.journal_mode_was_changed_to_wal = True
+                c.row_factory = sqlite3.Row
+                return SQLiteConnection(sqlite_conn=c, max_age=self.max_age)
+            except BaseException:
+                c.close()
+                raise
+
+    datastore = SQLiteDatastore(database, lock_timeout=5, pool_size=1, max_overflow=0)
+    # Datastore construction is lazy: replace only this instance's unused pool.
+    # No SDK global, sqlite function, or other application's connection is changed.
+    datastore.pool.close()
+    datastore.pool = ClosingSQLiteConnectionPool(db_name=database, lock_timeout=5,
+                                                 pool_size=1, max_overflow=0)
+    return datastore
+
+
 @contextmanager
 def _recorder(vault, *, write=False):
-    from eventsourcing.sqlite import SQLiteDatastore, SQLiteAggregateRecorder
+    from eventsourcing.sqlite import SQLiteAggregateRecorder
     from eventsourcing.persistence import PersistenceError
     path = Path(vault).resolve()
     if write:
@@ -129,7 +174,7 @@ def _recorder(vault, *, write=False):
     database = str(path) if write else path.as_uri() + '?mode=ro'
     datastore = None
     try:
-        datastore = SQLiteDatastore(database, lock_timeout=5, pool_size=1, max_overflow=0)
+        datastore = _datastore(database)
         recorder = SQLiteAggregateRecorder(datastore, events_table_name='fix_vault_events')
         if write:
             recorder.create_table()
