@@ -114,9 +114,9 @@ def checkpoint(root: Path | str) -> dict:
     if not verification["ok"]:
         raise ValueError(f"journal verification failed: {verification['issues']}")
     append_mutation_set(root, "handoff.patch", {"updated_at": utc_now()})
-    state = replay_journal_set(root)
     lock_path = root / ".project-history.snapshot.lock"
     with ProjectLock(lock_path, timeout=5.0):
+        state = replay_journal_set(root)
         atomic_save_state(root / SNAPSHOT_NAME, state)
         atomic_write_text(root / REPORT_NAME, render_markdown(state))
     return state

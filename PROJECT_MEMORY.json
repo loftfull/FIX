@@ -337,12 +337,155 @@
       ],
       "summary": "Initial Windows CI executed 58 tests with 1 failure and 6 errors from implicit cp1252 reads in test assertions; Linux jobs passed. Four test modules now explicitly read/write UTF-8. Windows rerun pending; no production readiness claim.",
       "tool": "GitHub Actions and Python unittest"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "6dfdda876d05ed90f56c2ff9dfd02d7bed17591ece11e8fe8885067c65123e23",
+      "event_id": "EV-00015",
+      "event_type": "ci_result",
+      "evidence_status": "verified",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T06:55:26.692905+00:00",
+      "occurred_at": "2026-09-24",
+      "session_id": null,
+      "source_ids": [
+        "S014"
+      ],
+      "summary": "GitHub Actions run 35960378708 completed success at code checkpoint 502677ec58429775bb24c3d602f0ebda22221875; Windows58 tests passed, Linux and repository verification jobs passed.",
+      "tool": "unknown"
+    },
+    {
+      "author": "Codex assistant with independent component auditor",
+      "dedupe_key": "9d0f3eb2b533856842b2fa010c20a0cfc7ba7d1e8279c2e07f2f614770655b10",
+      "event_id": "EV-00016",
+      "event_type": "implementation_test",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T06:55:26.697582+00:00",
+      "occurred_at": "2026-09-24",
+      "session_id": null,
+      "source_ids": [
+        "S015",
+        "S016"
+      ],
+      "summary": "Analyzed all three uploaded brief documents; implemented journal-backed terminal tasks and read-only dashboard.110 local tests passed; independent component audit20 passed after3 reproduced fixes. Browser local/file navigation blocked; visual appearance and user-machine deployment not verified.",
+      "tool": "unknown"
+    },
+    {
+      "author": "contract submitter",
+      "dedupe_key": "c426a46b5dd590f732bde5c17e5904a28d78ea9ab986db10bfd3fe14c4260dbd",
+      "event_id": "EV-TERMINAL-3a777a8df424c5c632b9596ee8a04d0049e15b3655a959cd7817bb4058e5c90c",
+      "event_type": "terminal_contract",
+      "evidence_status": "reported",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T06:55:26.706016+00:00",
+      "occurred_at": "2026-09-24T06:55:26.704539+00:00",
+      "session_id": "unknown",
+      "source_ids": [
+        "SRC-TERMINAL-3a777a8df424c5c632b9596ee8a04d0049e15b3655a959cd7817bb4058e5c90c"
+      ],
+      "summary": "Визуальный контроль разработки — первый этап",
+      "terminal_payload": {
+        "acceptance": [
+          "Контракты и отчёты переживают перезапуск без дублей",
+          "Обещание готовности не считается приёмкой",
+          "Панель читает журнал и отклоняет чужой проект",
+          "Внешний вид и действия интерфейса проверены в браузере"
+        ],
+        "constraints": [
+          {
+            "reason": "Похожее название не является доказательством идентичности проекта",
+            "rule": "Не объединять FIX и отдельные проекты TERMINAL/INSTA без явной связи"
+          },
+          {
+            "reason": "Текст модели не доказывает успешное исполнение",
+            "rule": "Сохранять reported/observed/verified отдельно"
+          },
+          {
+            "reason": "Они остаются первичными источниками предложений",
+            "rule": "Не менять исходные приложенные материалы"
+          }
+        ],
+        "deliverables": [
+          "Анализ трёх файлов и единый план",
+          "CLI контрактов и отчётов",
+          "Русская панель поверх журнала",
+          "Отчёт независимого аудита и испытаний"
+        ],
+        "max_continuations": 2,
+        "purpose": "Сохранять историю и видеть проверяемый ход проекта при смене AI-модели",
+        "stop_conditions": [
+          "Среда блокирует требуемое испытание",
+          "Для подключения нужен недоступный компьютер или источник"
+        ],
+        "task_id": "terminal-visual-control-2026-09-24",
+        "title": "Визуальный контроль разработки — первый этап"
+      },
+      "tool": "unknown"
+    },
+    {
+      "author": "reported executor",
+      "dedupe_key": "5561cbfcd43b6ada7da7290c0ac345dfc3cd943d534f6e9d6ccd5872b23dc65b",
+      "event_id": "EV-TERMINAL-6fedbe8affe0b55dc0cbd64b8fbe05e94708e8dc7f2c4f4b5dbf707d874a4395",
+      "event_type": "terminal_report",
+      "evidence_status": "reported",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T06:55:26.740196+00:00",
+      "occurred_at": "2026-09-24T06:55:26.738625+00:00",
+      "session_id": "unknown",
+      "source_ids": [
+        "SRC-TERMINAL-6fedbe8affe0b55dc0cbd64b8fbe05e94708e8dc7f2c4f4b5dbf707d874a4395"
+      ],
+      "summary": "Код и HTTP-проверки реализованы. Браузерное испытание заблокировано политикой среды; внешний вид не принят.",
+      "terminal_payload": {
+        "acceptance_results": [
+          {
+            "criterion": "Контракты и отчёты переживают перезапуск без дублей",
+            "evidence_event_ids": [
+              "EV-00016"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Обещание готовности не считается приёмкой",
+            "evidence_event_ids": [
+              "EV-00016"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Панель читает журнал и отклоняет чужой проект",
+            "evidence_event_ids": [
+              "EV-00016"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Внешний вид и действия интерфейса проверены в браузере",
+            "evidence_event_ids": [],
+            "result": "not_run"
+          }
+        ],
+        "blockers": [
+          "Облачный браузер не открывает localhost и file HTML; визуальная приёмка остаётся открытой"
+        ],
+        "continuation_count": 0,
+        "evidence_event_ids": [
+          "EV-00016"
+        ],
+        "model_id": "unknown",
+        "session_id": "unknown",
+        "status": "blocked",
+        "summary": "Код и HTTP-проверки реализованы. Браузерное испытание заблокировано политикой среды; внешний вид не принят.",
+        "task_id": "terminal-visual-control-2026-09-24"
+      },
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
-    "next_step": "Use docs/HISTORY_WORKFLOW.md for explicit import/local watcher. Retrieve original INSTA chat exports for full lineage; current reconstruction is partial. Validate Windows CI and deployment on user machine before claiming autonomous installed operation. Browser ChatGPT remote connection and full A6 remain open.",
-    "updated_at": "2026-09-24T05:31:02.051685+00:00"
+    "next_step": "Read docs/TERMINAL_PLAN_2026-09-24.md and TASKS.md. Terminal task/HTTP component has110 local passing tests; browser validation is blocked in this environment. Continue with actual browser validation on an allowed host, then bounded Claude/Codex runner and screenshot provenance. No autonomous installed deployment or A6 acceptance claimed.",
+    "updated_at": "2026-09-24T06:55:26.754635+00:00"
   },
   "locations": [
     {
@@ -608,6 +751,119 @@
       "name": "Windows CI encoding failure and explicit UTF-8 correction",
       "observed_at": "2026-09-24",
       "source_id": "S013"
+    },
+    {
+      "access_type": "github_actions",
+      "locator": "https://github.com/loftfull/FIX/actions/runs/35960378708",
+      "name": "Windows and Linux CI passed after UTF-8 correction",
+      "observed_at": "2026-09-24",
+      "source_id": "S014"
+    },
+    {
+      "access_type": "repository_artifact",
+      "locator": "docs/TERMINAL_PLAN_2026-09-24.md",
+      "name": "Analysis of three uploaded Claude brief materials and implementation plan",
+      "observed_at": "2026-09-24",
+      "source_id": "S015"
+    },
+    {
+      "access_type": "repository_artifact",
+      "locator": "docs/TERMINAL_TRIAL_2026-09-24.md",
+      "name": "Terminal component local trial and independent audit",
+      "observed_at": "2026-09-24",
+      "source_id": "S016"
+    },
+    {
+      "content_status": "reported",
+      "input": {
+        "acceptance": [
+          "Контракты и отчёты переживают перезапуск без дублей",
+          "Обещание готовности не считается приёмкой",
+          "Панель читает журнал и отклоняет чужой проект",
+          "Внешний вид и действия интерфейса проверены в браузере"
+        ],
+        "constraints": [
+          {
+            "reason": "Похожее название не является доказательством идентичности проекта",
+            "rule": "Не объединять FIX и отдельные проекты TERMINAL/INSTA без явной связи"
+          },
+          {
+            "reason": "Текст модели не доказывает успешное исполнение",
+            "rule": "Сохранять reported/observed/verified отдельно"
+          },
+          {
+            "reason": "Они остаются первичными источниками предложений",
+            "rule": "Не менять исходные приложенные материалы"
+          }
+        ],
+        "deliverables": [
+          "Анализ трёх файлов и единый план",
+          "CLI контрактов и отчётов",
+          "Русская панель поверх журнала",
+          "Отчёт независимого аудита и испытаний"
+        ],
+        "max_continuations": 2,
+        "purpose": "Сохранять историю и видеть проверяемый ход проекта при смене AI-модели",
+        "stop_conditions": [
+          "Среда блокирует требуемое испытание",
+          "Для подключения нужен недоступный компьютер или источник"
+        ],
+        "task_id": "terminal-visual-control-2026-09-24",
+        "title": "Визуальный контроль разработки — первый этап"
+      },
+      "kind": "terminal_cli",
+      "locator": "terminal-cli:terminal-visual-control-2026-09-24/3a777a8df424c5c632b9596ee8a04d0049e15b3655a959cd7817bb4058e5c90c",
+      "presence_status": "observed",
+      "source_id": "SRC-TERMINAL-3a777a8df424c5c632b9596ee8a04d0049e15b3655a959cd7817bb4058e5c90c"
+    },
+    {
+      "content_status": "reported",
+      "input": {
+        "acceptance_results": [
+          {
+            "criterion": "Контракты и отчёты переживают перезапуск без дублей",
+            "evidence_event_ids": [
+              "EV-00016"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Обещание готовности не считается приёмкой",
+            "evidence_event_ids": [
+              "EV-00016"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Панель читает журнал и отклоняет чужой проект",
+            "evidence_event_ids": [
+              "EV-00016"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Внешний вид и действия интерфейса проверены в браузере",
+            "evidence_event_ids": [],
+            "result": "not_run"
+          }
+        ],
+        "blockers": [
+          "Облачный браузер не открывает localhost и file HTML; визуальная приёмка остаётся открытой"
+        ],
+        "continuation_count": 0,
+        "evidence_event_ids": [
+          "EV-00016"
+        ],
+        "model_id": "unknown",
+        "session_id": "unknown",
+        "status": "blocked",
+        "summary": "Код и HTTP-проверки реализованы. Браузерное испытание заблокировано политикой среды; внешний вид не принят.",
+        "task_id": "terminal-visual-control-2026-09-24"
+      },
+      "kind": "terminal_cli",
+      "locator": "terminal-cli:terminal-visual-control-2026-09-24/6fedbe8affe0b55dc0cbd64b8fbe05e94708e8dc7f2c4f4b5dbf707d874a4395",
+      "presence_status": "observed",
+      "source_id": "SRC-TERMINAL-6fedbe8affe0b55dc0cbd64b8fbe05e94708e8dc7f2c4f4b5dbf707d874a4395"
     }
   ],
   "versions": [

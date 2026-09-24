@@ -10,3 +10,9 @@ Before work:
 6. Preserve evidence classes: requested / planned / reported / observed / verified / inferred / unknown.
 7. Never persist real credentials or secrets. Redact before journal write.
 8. After substantial work, update the journal and regenerate `PROJECT_MEMORY.json` + `PROJECT_MEMORY.md`.
+
+For long tasks, read `TASKS.md` and `docs/TERMINAL_PLAN_2026-09-24.md`.
+Use explicit deliverables, acceptance criteria, constraints with reasons and stop
+conditions. Continue already-authorized work without routine confirmation.
+Record blockers and evidence instead of treating a model's final message as
+completion. Preserve prior decisions when new evidence supersedes them.

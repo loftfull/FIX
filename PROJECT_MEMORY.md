@@ -11,7 +11,7 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.7 candidate
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Use docs/HISTORY_WORKFLOW.md for explicit import/local watcher. Retrieve original INSTA chat exports for full lineage; current reconstruction is partial. Validate Windows CI and deployment on user machine before claiming autonomous installed operation. Browser ChatGPT remote connection and full A6 remain open.
+- Следующий проверяемый шаг: Read docs/TERMINAL_PLAN_2026-09-24.md and TASKS.md. Terminal task/HTTP component has110 local passing tests; browser validation is blocked in this environment. Continue with actual browser validation on an allowed host, then bounded Claude/Codex runner and screenshot provenance. No autonomous installed deployment or A6 acceptance claimed.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -86,6 +86,8 @@
 - Скриншоты не найдены или их источник пока недоступен.
 
 ## 6. Хронология
+- 2026-09-24T06:55:26.704539+00:00 · **reported** · Визуальный контроль разработки — первый этап
+- 2026-09-24T06:55:26.738625+00:00 · **reported** · Код и HTTP-проверки реализованы. Браузерное испытание заблокировано политикой среды; внешний вид не принят.
 - 2026-09-15 · **verified** · Project History Agent originated in ChatGPT chat агент.
 - 2026-09-15 · **verified** · Current chat explicitly requested continuation from chat агент.
 - 2026-09-16 · **verified** · v0.5 durable history package passed its deterministic and real-project candidate gates; A6 remained NOT_RUN.
@@ -100,6 +102,8 @@
 - 2026-09-23 · **observed** · Implemented experimental read-only MCP bridge using official SDK 2.2.0; 42 local tests passed, including 10 bridge checks. Independent agent audit found redaction and provenance defects, corrected with regressions. INSTA completeness, remote ChatGPT access and daily autonomy remain untested; A6 remains open.
 - 2026-09-24 · **observed** · Implemented revision-preserving normalized import, branch-aware ChatGPT adapter, sourced strategy review and local Git watcher with daily catchup. 90 local tests PASS; real 18-message chat and 139 INSTA issue comments plus two documents imported; repeated imports idempotent. Independent audits closed reproduced metadata/date/filter/redaction and handoff constraints defects. Original INSTA chats, user-machine deployment and full A6 remain unavailable/unaccepted.
 - 2026-09-24 · **observed** · Initial Windows CI executed 58 tests with 1 failure and 6 errors from implicit cp1252 reads in test assertions; Linux jobs passed. Four test modules now explicitly read/write UTF-8. Windows rerun pending; no production readiness claim.
+- 2026-09-24 · **verified** · GitHub Actions run 35960378708 completed success at code checkpoint 502677ec58429775bb24c3d602f0ebda22221875; Windows58 tests passed, Linux and repository verification jobs passed.
+- 2026-09-24 · **observed** · Analyzed all three uploaded brief documents; implemented journal-backed terminal tasks and read-only dashboard.110 local tests passed; independent component audit20 passed after3 reproduced fixes. Browser local/file navigation blocked; visual appearance and user-machine deployment not verified.
 
 ## 7. Варианты и ответвления
 - `v0.3-ledger-auditor` — v0.3 deterministic ledger · archived
@@ -133,8 +137,13 @@
 - `S011` — MCP foundation local trial and research 2026-09-23
 - `S012` — Real evidence import, INSTA partial reconstruction and local observer trial
 - `S013` — Windows CI encoding failure and explicit UTF-8 correction
+- `S014` — Windows and Linux CI passed after UTF-8 correction
+- `S015` — Analysis of three uploaded Claude brief materials and implementation plan
+- `S016` — Terminal component local trial and independent audit
+- `SRC-TERMINAL-3a777a8df424c5c632b9596ee8a04d0049e15b3655a959cd7817bb4058e5c90c` — terminal-cli:terminal-visual-control-2026-09-24/3a777a8df424c5c632b9596ee8a04d0049e15b3655a959cd7817bb4058e5c90c
+- `SRC-TERMINAL-6fedbe8affe0b55dc0cbd64b8fbe05e94708e8dc7f2c4f4b5dbf707d874a4395` — terminal-cli:terminal-visual-control-2026-09-24/6fedbe8affe0b55dc0cbd64b8fbe05e94708e8dc7f2c4f4b5dbf707d874a4395
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Use docs/HISTORY_WORKFLOW.md for explicit import/local watcher. Retrieve original INSTA chat exports for full lineage; current reconstruction is partial. Validate Windows CI and deployment on user machine before claiming autonomous installed operation. Browser ChatGPT remote connection and full A6 remain open.
-- Обновлено: 2026-09-24T05:31:02.051685+00:00
+- Следующий шаг: Read docs/TERMINAL_PLAN_2026-09-24.md and TASKS.md. Terminal task/HTTP component has110 local passing tests; browser validation is blocked in this environment. Continue with actual browser validation on an allowed host, then bounded Claude/Codex runner and screenshot provenance. No autonomous installed deployment or A6 acceptance claimed.
+- Обновлено: 2026-09-24T06:55:26.754635+00:00
