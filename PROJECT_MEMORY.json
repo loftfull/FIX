@@ -1826,12 +1826,178 @@
       ],
       "summary": "Message viewing, copy fallback, local favorites and portable JSON added. JS logic tests and4dashboard testsPASS. Actual HTML preview rendered15user messages; favorite addition observed; clipboardAPI blocked, manual selected-copy235chars exact. Private preview excluded from Git.",
       "tool": "unknown"
+    },
+    {
+      "author": "audit agent",
+      "dedupe_key": "884d3a396c10bb96f4a5ad4acb13db39dc874912e4c962b43dfd3da015907ae6",
+      "event_id": "EV-PLAN-COVERAGE-RECONCILED-20260924",
+      "event_type": "audit",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T13:44:29.992503+00:00",
+      "session_id": null,
+      "source_ids": [
+        "S-PLAN-COVERAGE-20260924"
+      ],
+      "summary": "Все сохранённые группы планов сопоставлены с кодом/проверками/пробелами; текущие описания уточнены append-only patches. Добавлены atomic/context/messages подпланы. Полнота исходников и A6 открыты; дополнительные authenticated выборки частичны. Упрощённый UI проверен экспертно и локальными проверками; новое browser испытание ожидается.",
+      "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "98f4caac330c0c612b17970608173c5b25c7811afaa73c02a7028663b6208c19",
+      "event_id": "EV-UI-DISCLOSURE-OBSERVATION-20260924",
+      "event_type": "validation",
+      "evidence_status": "reported",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T13:49:23.223343+00:00",
+      "session_id": null,
+      "source_ids": [
+        "S-UI-DISCLOSURE-OBSERVATION-20260924"
+      ],
+      "summary": "Координатор наблюдал работающий HTML preview: вводная справка открывается, правила сохраняют открытое и закрытое состояние после перерисовки и перехода История → Обзор. Локальный live polling, пользовательская установка и внешний A6 не проверены этим испытанием.",
+      "tool": "unknown"
+    },
+    {
+      "author": "reported executor",
+      "dedupe_key": "57b3293e7315cc49ef19959bf6cb3a52faf4da005038d2338bc037c96acbb6d0",
+      "event_id": "EV-TERMINAL-c3db5ce0582a0081d4f6a3a6c9f5849015952974419457b911657fccbc5d115b",
+      "event_type": "terminal_report",
+      "evidence_status": "reported",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T13:49:23.320390+00:00",
+      "occurred_at": "2026-09-24T13:49:23.305501+00:00",
+      "session_id": "unknown",
+      "source_ids": [
+        "SRC-TERMINAL-c3db5ce0582a0081d4f6a3a6c9f5849015952974419457b911657fccbc5d115b"
+      ],
+      "summary": "HTML preview открыт и проверен: вводная справка и раскрывающиеся сведения работают, их состояние сохраняется. Исходные результаты критериев сохранены: полная браузерная приёмка локального сервера остаётся открытой.",
+      "terminal_payload": {
+        "acceptance_results": [
+          {
+            "criterion": "Контракты и отчёты переживают перезапуск без дублей",
+            "evidence_event_ids": [
+              "EV-00016"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Обещание готовности не считается приёмкой",
+            "evidence_event_ids": [
+              "EV-00016"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Панель читает журнал и отклоняет чужой проект",
+            "evidence_event_ids": [
+              "EV-00016"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Внешний вид и действия интерфейса проверены в браузере",
+            "evidence_event_ids": [],
+            "result": "not_run"
+          }
+        ],
+        "blockers": [
+          "Нужно отдельно испытать локальный сервер и live polling; успешный HTML preview не закрывает этот сценарий.",
+          "Полная независимая приёмка A6 и испытание на компьютере пользователя остаются открытыми."
+        ],
+        "continuation_count": 0,
+        "evidence_event_ids": [
+          "EV-00016",
+          "EV-UI-DISCLOSURE-OBSERVATION-20260924",
+          "EV-PLAN-COVERAGE-RECONCILED-20260924"
+        ],
+        "model_id": "unknown",
+        "session_id": "unknown",
+        "status": "blocked",
+        "summary": "HTML preview открыт и проверен: вводная справка и раскрывающиеся сведения работают, их состояние сохраняется. Исходные результаты критериев сохранены: полная браузерная приёмка локального сервера остаётся открытой.",
+        "task_id": "terminal-visual-control-2026-09-24"
+      },
+      "tool": "unknown"
+    },
+    {
+      "author": "reported executor",
+      "dedupe_key": "46535481a848ecbed1d3516c42b36ffc1191a412442c7174f68db29bf73efbf7",
+      "event_id": "EV-TERMINAL-2e55cf3f5d0d32ed8f7dd9bdad393b5af062ae76efcf7487165cfa1fb449b73a",
+      "event_type": "terminal_report",
+      "evidence_status": "reported",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T13:49:23.419786+00:00",
+      "occurred_at": "2026-09-24T13:49:23.401535+00:00",
+      "session_id": "unknown",
+      "source_ids": [
+        "SRC-TERMINAL-2e55cf3f5d0d32ed8f7dd9bdad393b5af062ae76efcf7487165cfa1fb449b73a"
+      ],
+      "summary": "Все сохранённые группы планов сопоставлены с реализацией и пробелами; память уточнена. Обновлённый HTML preview проверен. Полнота исходной истории и независимая приёмка остаются открытыми.",
+      "terminal_payload": {
+        "acceptance_results": [
+          {
+            "criterion": "Audit distinguishes implemented, planned and unavailable sources",
+            "evidence_event_ids": [
+              "EV-CURRENT-AUDIT-CHECK"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Prior journal entities and critical constraints survive handoff",
+            "evidence_event_ids": [
+              "EV-CURRENT-AUDIT-CHECK"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "New MCP process reads corrected current-project memory",
+            "evidence_event_ids": [
+              "EV-CURRENT-AUDIT-CHECK"
+            ],
+            "result": "pass"
+          }
+        ],
+        "blockers": [
+          "Полные исходные экспорты текущего чата и INSTA не получены; доступные выборки частичны.",
+          "Причина исторической потери хвоста журнала не установлена; исправление OS-блокировки не доказывает причину прежних инцидентов.",
+          "Открыты внешний A6, испытание на компьютере пользователя и live polling локального сервера. HTML preview уже проверен.",
+          "Автоматическая передача обязательных решений в новый чат после лимита сообщений не доказана."
+        ],
+        "continuation_count": 0,
+        "evidence_event_ids": [
+          "EV-CURRENT-AUDIT",
+          "EV-CURRENT-AUDIT-CHECK",
+          "EV-RUN-0f9623ad8baf4c3c9671355fc99fb27c-succeeded",
+          "EV-UI-DISCLOSURE-OBSERVATION-20260924",
+          "EV-PLAN-COVERAGE-RECONCILED-20260924"
+        ],
+        "model_id": "unknown",
+        "session_id": "unknown",
+        "status": "done",
+        "summary": "Все сохранённые группы планов сопоставлены с реализацией и пробелами; память уточнена. Обновлённый HTML preview проверен. Полнота исходной истории и независимая приёмка остаются открытыми.",
+        "task_id": "current-chat-audit-2026-09-24"
+      },
+      "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "029f3374dda923eddbcb43385b754b54dc374dc2c26df8922bc327c8779e730e",
+      "event_id": "EV-CONTINUITY-UI-20260924",
+      "event_type": "validation",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T13:50:31.423014+00:00",
+      "session_id": null,
+      "source_ids": [
+        "S-CONTINUITY-UI-20260924"
+      ],
+      "summary": "Проверены планы и доступные сообщения пяти чатов: сохранность выборки, повторный импорт без дублей, чтение новым процессом. Полный переход после лимита не доказан. Интерфейс проверен в HTML preview: раскрытие, закрытие и сохранение состояния после перерисовки. 213 локальных тестов PASS; A6, полный экспорт и live polling открыты.",
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
-    "next_step": "Read docs/MESSAGE_LIBRARY.md. Messages/Favorites UI added, browser preview checked with storedreal sample. Favorites local origin only, portable JSON for otherprojects/devices. Clipboard fallback required in ChatGPT sandbox. Prior atomic bootstrap and automatic chat capture tasks remain open.",
-    "updated_at": "2026-09-24T11:39:04.086205+00:00"
+    "next_step": "Проверить передачу обязательных решений из старого чата в новый по полному экспорту; затем завершить независимую приёмку.",
+    "updated_at": "2026-09-24T13:50:31.430988+00:00"
   },
   "locations": [
     {
@@ -2022,6 +2188,7 @@
       "title": "MCP memory transport"
     },
     {
+      "coverage_note": "Выбранные сообщения импортируются и сверяются; новые authenticated выборки также частичны. Полная причинная история INSTA, вложения и автоматическое продолжение после лимита не доказаны.",
       "items": [
         "Revision-preserving selected chat import",
         "Explicit sourced strategy review; no autonomous semantic completeness",
@@ -2029,12 +2196,14 @@
       ],
       "plan_id": "P-IMPORT",
       "source_ids": [
-        "S012"
+        "S012",
+        "S-PLAN-COVERAGE-20260924"
       ],
       "status": "partial",
       "title": "Evidence import, decisions and local observation"
     },
     {
+      "coverage_note": "Компоненты и исторический HTML preview испытаны; позднее упрощение интерфейса основано на экспертной оценке, новое браузерное испытание ожидается. Реальные provider/Windows/local-server gates остаются открытыми.",
       "items": [
         "Task contracts, brief, bounded runner, selected-project registry",
         "Offline pixel receipts and read-only dashboard; no real browser acceptance"
@@ -2043,12 +2212,14 @@
       "source_ids": [
         "S015",
         "S016",
-        "S017"
+        "S017",
+        "S-PLAN-COVERAGE-20260924"
       ],
       "status": "partial",
       "title": "Requested agent-terminal supporting workflow"
     },
     {
+      "coverage_note": "Witness обнаруживает контролируемый rollback; исходная причина исторической потери хвоста не установлена. OS-lock repair не доказывает эту причину; off-device backup не принят.",
       "items": [
         "Adapted presentation ideas, full-data preservation",
         "eventsourcing9.5.5 witness and isolated recovery; original rollback cause unknown"
@@ -2057,12 +2228,14 @@
       "source_ids": [
         "S019",
         "S020",
-        "S023"
+        "S023",
+        "S-PLAN-COVERAGE-20260924"
       ],
       "status": "partial",
       "title": "Focus and persistence witness"
     },
     {
+      "coverage_note": "Полная карта всех roadmap групп в PLAN_COVERAGE_2026-09-24.md. Структурный L0/L1/L2 частично перекрывает context roadmap, но не token-budgeted compiler. Внешний A6 остаётся открытым.",
       "items": [
         "A6 raw-source acceptance",
         "Failure-first pre-action guard",
@@ -2072,12 +2245,14 @@
       ],
       "plan_id": "P-V08-REMAINING",
       "source_ids": [
-        "S022"
+        "S022",
+        "S-PLAN-COVERAGE-20260924"
       ],
       "status": "open",
       "title": "v0.8 historical governance and acceptance roadmap"
     },
     {
+      "coverage_note": "Наблюдались выбранные authenticated чаты и фактический HTML preview screenshot. Это заменяет прежнее общее отсутствие доступа/снимка только в этой области; live capture, полнота и build-linked visual acceptance открыты.",
       "items": [
         "Evidence-derived indicators and donor registry",
         "Named code checkpoints and separate-worktree restore",
@@ -2087,10 +2262,63 @@
       "plan_id": "P-CONTROL-VERSIONS",
       "source_ids": [
         "S026",
-        "S027"
+        "S027",
+        "S-PLAN-COVERAGE-20260924"
       ],
       "status": "partial",
       "title": "Truthful dashboard, code rollback and version screenshots"
+    },
+    {
+      "items": [
+        "Atomic source/event batch и идемпотентный retry",
+        "Crash-safe bootstrap и остальные связанные writer workflows остаются открытыми"
+      ],
+      "plan_id": "P-ATOMIC-IMPORT",
+      "source_ids": [
+        "S033",
+        "S-PLAN-COVERAGE-20260924"
+      ],
+      "status": "partial",
+      "title": "Атомарный импорт и структурная проверка runtime"
+    },
+    {
+      "items": [
+        "Структурные L0/L1/L2, пагинация и receipt journal tip",
+        "Token budget, семантическое качество и постоянное подключение не реализованы"
+      ],
+      "plan_id": "P-CONTEXT-LAYERS",
+      "source_ids": [
+        "S030",
+        "S-PLAN-COVERAGE-20260924"
+      ],
+      "status": "partial",
+      "title": "Слои контекста и подключение выбранного архива"
+    },
+    {
+      "items": [
+        "Полный сохранённый текст, поиск, копирование и local-origin избранное",
+        "JSON перенос; browser file-dialog import/export ещё не принят"
+      ],
+      "plan_id": "P-MESSAGE-LIBRARY",
+      "source_ids": [
+        "S034",
+        "S-PLAN-COVERAGE-20260924"
+      ],
+      "status": "partial",
+      "title": "Сообщения пользователя и переносимое избранное"
+    },
+    {
+      "items": [
+        "Сопоставить все сохранённые группы планов с кодом, испытаниями и пробелами",
+        "Проверить доступные исходные чаты; полная история и независимый A6 остаются открытыми",
+        "Экспертно упростить интерфейс; подтвердить поведение в браузере отдельно"
+      ],
+      "plan_id": "P-PLAN-SOURCE-AUDIT",
+      "source_ids": [
+        "S-PLAN-COVERAGE-20260924"
+      ],
+      "status": "partial",
+      "title": "Проверка всех планов и покрытия исходной истории"
     }
   ],
   "project": {
@@ -2104,8 +2332,8 @@
       "Prioritize evidence-based project history and source coverage over optional UI, provider or orchestration expansion.",
       "Current chat archive is partial; never claim complete context preservation or all plans implemented without raw-source evidence."
     ],
-    "description": "Evidence-first project historian with append-only journal, chat lineage, project passport, plan-to-fact ledger, visual provenance and host-native history adapters.",
-    "goal": "Preserve evidence-based project history across chats, models, repositories and environments",
+    "description": "История проекта с источниками: решения, сообщения, планы, версии и передача контекста между чатами и моделями.",
+    "goal": "Сохранять решения, сообщения и изменения проекта с проверяемыми источниками, чтобы продолжать работу в новом чате или другой модели без потери требований и с явными пробелами истории.",
     "name": "Project History Agent",
     "project_id": "project-history-agent"
   },
@@ -2925,6 +3153,140 @@
       "locator": "docs/MESSAGE_LIBRARY.md",
       "name": "User messages and portable favorites trial",
       "source_id": "S034"
+    },
+    {
+      "locator": "docs/PLAN_COVERAGE_2026-09-24.md",
+      "name": "All-plan coverage, scoped status reconciliation and expert newcomer review",
+      "source_id": "S-PLAN-COVERAGE-20260924"
+    },
+    {
+      "content_status": "reported",
+      "input": {
+        "limits": [
+          "No localhost live polling acceptance",
+          "No external A6 acceptance",
+          "No real first-time-user study"
+        ],
+        "observations": [
+          "Preview rendered",
+          "Getting-started disclosure opens",
+          "Project rules open state survives focus rerender and History to Overview tab switch",
+          "Collapsed state survives rerender"
+        ],
+        "scope": "HTML preview only"
+      },
+      "locator": "current-session:coordinating-reviewer:html-preview-20260924",
+      "name": "Coordinating reviewer browser observation of updated HTML preview",
+      "presence_status": "observed",
+      "source_id": "S-UI-DISCLOSURE-OBSERVATION-20260924"
+    },
+    {
+      "content_status": "reported",
+      "input": {
+        "acceptance_results": [
+          {
+            "criterion": "Контракты и отчёты переживают перезапуск без дублей",
+            "evidence_event_ids": [
+              "EV-00016"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Обещание готовности не считается приёмкой",
+            "evidence_event_ids": [
+              "EV-00016"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Панель читает журнал и отклоняет чужой проект",
+            "evidence_event_ids": [
+              "EV-00016"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Внешний вид и действия интерфейса проверены в браузере",
+            "evidence_event_ids": [],
+            "result": "not_run"
+          }
+        ],
+        "blockers": [
+          "Нужно отдельно испытать локальный сервер и live polling; успешный HTML preview не закрывает этот сценарий.",
+          "Полная независимая приёмка A6 и испытание на компьютере пользователя остаются открытыми."
+        ],
+        "continuation_count": 0,
+        "evidence_event_ids": [
+          "EV-00016",
+          "EV-UI-DISCLOSURE-OBSERVATION-20260924",
+          "EV-PLAN-COVERAGE-RECONCILED-20260924"
+        ],
+        "model_id": "unknown",
+        "session_id": "unknown",
+        "status": "blocked",
+        "summary": "HTML preview открыт и проверен: вводная справка и раскрывающиеся сведения работают, их состояние сохраняется. Исходные результаты критериев сохранены: полная браузерная приёмка локального сервера остаётся открытой.",
+        "task_id": "terminal-visual-control-2026-09-24"
+      },
+      "kind": "terminal_cli",
+      "locator": "terminal-cli:terminal-visual-control-2026-09-24/c3db5ce0582a0081d4f6a3a6c9f5849015952974419457b911657fccbc5d115b",
+      "presence_status": "observed",
+      "source_id": "SRC-TERMINAL-c3db5ce0582a0081d4f6a3a6c9f5849015952974419457b911657fccbc5d115b"
+    },
+    {
+      "content_status": "reported",
+      "input": {
+        "acceptance_results": [
+          {
+            "criterion": "Audit distinguishes implemented, planned and unavailable sources",
+            "evidence_event_ids": [
+              "EV-CURRENT-AUDIT-CHECK"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Prior journal entities and critical constraints survive handoff",
+            "evidence_event_ids": [
+              "EV-CURRENT-AUDIT-CHECK"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "New MCP process reads corrected current-project memory",
+            "evidence_event_ids": [
+              "EV-CURRENT-AUDIT-CHECK"
+            ],
+            "result": "pass"
+          }
+        ],
+        "blockers": [
+          "Полные исходные экспорты текущего чата и INSTA не получены; доступные выборки частичны.",
+          "Причина исторической потери хвоста журнала не установлена; исправление OS-блокировки не доказывает причину прежних инцидентов.",
+          "Открыты внешний A6, испытание на компьютере пользователя и live polling локального сервера. HTML preview уже проверен.",
+          "Автоматическая передача обязательных решений в новый чат после лимита сообщений не доказана."
+        ],
+        "continuation_count": 0,
+        "evidence_event_ids": [
+          "EV-CURRENT-AUDIT",
+          "EV-CURRENT-AUDIT-CHECK",
+          "EV-RUN-0f9623ad8baf4c3c9671355fc99fb27c-succeeded",
+          "EV-UI-DISCLOSURE-OBSERVATION-20260924",
+          "EV-PLAN-COVERAGE-RECONCILED-20260924"
+        ],
+        "model_id": "unknown",
+        "session_id": "unknown",
+        "status": "done",
+        "summary": "Все сохранённые группы планов сопоставлены с реализацией и пробелами; память уточнена. Обновлённый HTML preview проверен. Полнота исходной истории и независимая приёмка остаются открытыми.",
+        "task_id": "current-chat-audit-2026-09-24"
+      },
+      "kind": "terminal_cli",
+      "locator": "terminal-cli:current-chat-audit-2026-09-24/2e55cf3f5d0d32ed8f7dd9bdad393b5af062ae76efcf7487165cfa1fb449b73a",
+      "presence_status": "observed",
+      "source_id": "SRC-TERMINAL-2e55cf3f5d0d32ed8f7dd9bdad393b5af062ae76efcf7487165cfa1fb449b73a"
+    },
+    {
+      "locator": "docs/CONTINUITY_UI_AUDIT_2026-09-24.md",
+      "name": "Bounded account continuity and UI trial",
+      "source_id": "S-CONTINUITY-UI-20260924"
     }
   ],
   "versions": [
@@ -3069,8 +3431,9 @@
     {
       "changes": [
         "Task contracts, brief, bounded runner, selected-project registry",
-        "Offline pixel receipts and read-only dashboard; no real browser acceptance"
+        "Offline pixel receipts and read-only dashboard; historical HTML preview observed, local-server/provider/Windows acceptance remains open"
       ],
+      "correction_note": "Earlier no-browser-acceptance wording superseded only for recorded HTML preview; prior journal record retained.",
       "evidence_status": "observed",
       "name": "Requested agent-terminal supporting workflow (development checkpoint)",
       "occurred_at": "2026-09-24",
@@ -3080,7 +3443,9 @@
       "source_ids": [
         "S015",
         "S016",
-        "S017"
+        "S017",
+        "S029",
+        "S-PLAN-COVERAGE-20260924"
       ],
       "version_id": "V-DEV-TERMINAL"
     },
@@ -3105,10 +3470,12 @@
     {
       "acceptance": "candidate",
       "changes": [
-        "Контрольные индикаторы, реестр компонентов и безопасный возврат кода; чат не подключён, снимок не получен"
+        "Контрольные индикаторы, реестр компонентов и безопасный возврат кода",
+        "Позднее наблюдались выбранные authenticated чаты и фактический HTML preview screenshot; непрерывный сбор и полнота не подтверждены"
       ],
       "checkpoint_schema": "fix-code-checkpoint/v1",
       "commit_sha": "ab5324fbd0b3b499bc90f55e2071069da3e89009",
+      "correction_note": "Corrects current summary of later observation only; original checkpoint SHA/tree and reported screenshot build provenance unchanged.",
       "evidence_event_ids": [
         "EV-CONTROL-TRIAL"
       ],
@@ -3126,11 +3493,64 @@
       "repository": "/workspace/scratch/c911ac0d5396/repos/FIX",
       "screenshot_status": "FILE_OBSERVED_BUILD_LINK_REPORTED",
       "source_ids": [
-        "SRC-CHECKPOINT-v0.8.1-candidate.1"
+        "SRC-CHECKPOINT-v0.8.1-candidate.1",
+        "S029",
+        "S-PLAN-COVERAGE-20260924"
       ],
       "tree_sha": "4b7c231a54eb6a414a4f5a2cd29596339d5164ad",
       "version_id": "v0.8.1-candidate.1",
       "visual_id": "VIS-v0.8.1-candidate.1-d62b38fb3a48d1a7983c701132c2cd25b1f5afe0da5380936991a17d0e13c7e2"
+    },
+    {
+      "changes": [
+        "Runtime batch и импорт публикуют согласованную группу; числовой порядок и повтор active segment исправлены",
+        "Тесты компонента есть; power-loss/network FS и оставшиеся writer workflows не приняты"
+      ],
+      "evidence_status": "observed",
+      "name": "Атомарный импорт и структурная проверка runtime — компонент",
+      "occurred_at": "2026-09-24",
+      "plan_ids": [
+        "P-ATOMIC-IMPORT"
+      ],
+      "source_ids": [
+        "S033",
+        "S-PLAN-COVERAGE-20260924"
+      ],
+      "version_id": "V-DEV-ATOMIC-IMPORT"
+    },
+    {
+      "changes": [
+        "Структурные слои памяти и fix.py attach/context с выбранным источником",
+        "Проверено сохранение источников; upstream OpenViking runtime не установлен"
+      ],
+      "evidence_status": "observed",
+      "name": "Слои контекста и подключение выбранного архива — компонент",
+      "occurred_at": "2026-09-24",
+      "plan_ids": [
+        "P-CONTEXT-LAYERS"
+      ],
+      "source_ids": [
+        "S030",
+        "S-PLAN-COVERAGE-20260924"
+      ],
+      "version_id": "V-DEV-CONTEXT-LAYERS"
+    },
+    {
+      "changes": [
+        "Просмотр сообщений и local-origin избранное с JSON импортом/экспортом",
+        "JS проверки и исторический preview подтверждены; нет облачной синхронизации"
+      ],
+      "evidence_status": "observed",
+      "name": "Сообщения пользователя и переносимое избранное — компонент",
+      "occurred_at": "2026-09-24",
+      "plan_ids": [
+        "P-MESSAGE-LIBRARY"
+      ],
+      "source_ids": [
+        "S034",
+        "S-PLAN-COVERAGE-20260924"
+      ],
+      "version_id": "V-DEV-MESSAGE-LIBRARY"
     }
   ],
   "visuals": [

@@ -3,15 +3,15 @@
 ## 0. Карточка проекта
 - Project ID: `project-history-agent`
 - Имя: Project History Agent
-- Описание: Evidence-first project historian with append-only journal, chat lineage, project passport, plan-to-fact ledger, visual provenance and host-native history adapters.
-- Цель: Preserve evidence-based project history across chats, models, repositories and environments
+- Описание: История проекта с источниками: решения, сообщения, планы, версии и передача контекста между чатами и моделями.
+- Цель: Сохранять решения, сообщения и изменения проекта с проверяемыми источниками, чтобы продолжать работу в новом чате или другой модели без потери требований и с явными пробелами истории.
 - Каноническая версия: v0.8.1-candidate.1 + browser observation correction; continuous ingestion and A6 open
 
 ## 0.1 Быстрый handoff для новой AI-модели
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.8.1-candidate.1 + browser observation correction; continuous ingestion and A6 open
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Read docs/MESSAGE_LIBRARY.md. Messages/Favorites UI added, browser preview checked with storedreal sample. Favorites local origin only, portable JSON for otherprojects/devices. Clipboard fallback required in ChatGPT sandbox. Prior atomic bootstrap and automatic chat capture tasks remain open.
+- Следующий проверяемый шаг: Проверить передачу обязательных решений из старого чата в новый по полному экспорту; затем завершить независимую приёмку.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -52,14 +52,19 @@
 | v0.7 stable-identity candidate ranking | implemented | v0.7 direct host-history wiring | HostHistoryDiscovery with bounded Claude Code/Codex roots; ChatGPT explicit-export-only discovery; doctor auto-wires discovered adapter; discover-history and history-search CLI; provider discovery remains candidate-only, not lineage authority; stable-identity candidate ranking with explicit ref > repository > project+identity > path > project > artifact > topic; CLI optional current-context ranking without lineage classification |
 | MCP memory transport | component_implemented_host_acceptance_open | MCP memory transport (development checkpoint) | Official mcp2.2.0 stdio read-only transport, source-preserving handoff |
 | Evidence import, decisions and local observation | partial | Evidence import, decisions and local observation (development checkpoint) | Revision-preserving selected chat import; Explicit sourced strategy review; no autonomous semantic completeness; Scoped Git watcher and known-day catchup; no installed daily service |
-| Requested agent-terminal supporting workflow | partial | Requested agent-terminal supporting workflow (development checkpoint) | Task contracts, brief, bounded runner, selected-project registry; Offline pixel receipts and read-only dashboard; no real browser acceptance |
+| Requested agent-terminal supporting workflow | partial | Requested agent-terminal supporting workflow (development checkpoint) | Task contracts, brief, bounded runner, selected-project registry; Offline pixel receipts and read-only dashboard; historical HTML preview observed, local-server/provider/Windows acceptance remains open |
 | Focus and persistence witness | partial | Focus and persistence witness (development checkpoint) | Adapted presentation ideas, full-data preservation; eventsourcing9.5.5 witness and isolated recovery; original rollback cause unknown |
 | v0.8 historical governance and acceptance roadmap | open | — | — |
-| Truthful dashboard, code rollback and version screenshots | partial | v0.8.1-candidate.1 | Контрольные индикаторы, реестр компонентов и безопасный возврат кода; чат не подключён, снимок не получен |
+| Truthful dashboard, code rollback and version screenshots | partial | v0.8.1-candidate.1 | Контрольные индикаторы, реестр компонентов и безопасный возврат кода; Позднее наблюдались выбранные authenticated чаты и фактический HTML preview screenshot; непрерывный сбор и полнота не подтверждены |
+| Атомарный импорт и структурная проверка runtime | partial | Атомарный импорт и структурная проверка runtime — компонент | Runtime batch и импорт публикуют согласованную группу; числовой порядок и повтор active segment исправлены; Тесты компонента есть; power-loss/network FS и оставшиеся writer workflows не приняты |
+| Слои контекста и подключение выбранного архива | partial | Слои контекста и подключение выбранного архива — компонент | Структурные слои памяти и fix.py attach/context с выбранным источником; Проверено сохранение источников; upstream OpenViking runtime не установлен |
+| Сообщения пользователя и переносимое избранное | partial | Сообщения пользователя и переносимое избранное — компонент | Просмотр сообщений и local-origin избранное с JSON импортом/экспортом; JS проверки и исторический preview подтверждены; нет облачной синхронизации |
+| Проверка всех планов и покрытия исходной истории | partial | — | — |
 
 ## 4. Версии и фактические изменения
 ### v0.8.1-candidate.1 · 2026-09-24T09:07:00.573490+00:00 · observed
-- Контрольные индикаторы, реестр компонентов и безопасный возврат кода; чат не подключён, снимок не получен
+- Контрольные индикаторы, реестр компонентов и безопасный возврат кода
+- Позднее наблюдались выбранные authenticated чаты и фактический HTML preview screenshot; непрерывный сбор и полнота не подтверждены
 ### v0.3 deterministic ledger + auditor · 2026-09-15 · verified
 - canonical PROJECT_MEMORY.json
 - deterministic dedupe
@@ -96,13 +101,22 @@
 - CLI optional current-context ranking without lineage classification
 ### MCP memory transport (development checkpoint) · 2026-09-23 · observed
 - Official mcp2.2.0 stdio read-only transport, source-preserving handoff
+### Атомарный импорт и структурная проверка runtime — компонент · 2026-09-24 · observed
+- Runtime batch и импорт публикуют согласованную группу; числовой порядок и повтор active segment исправлены
+- Тесты компонента есть; power-loss/network FS и оставшиеся writer workflows не приняты
+### Слои контекста и подключение выбранного архива — компонент · 2026-09-24 · observed
+- Структурные слои памяти и fix.py attach/context с выбранным источником
+- Проверено сохранение источников; upstream OpenViking runtime не установлен
 ### Evidence import, decisions and local observation (development checkpoint) · 2026-09-24 · observed
 - Revision-preserving selected chat import
 - Explicit sourced strategy review; no autonomous semantic completeness
 - Scoped Git watcher and known-day catchup; no installed daily service
+### Сообщения пользователя и переносимое избранное — компонент · 2026-09-24 · observed
+- Просмотр сообщений и local-origin избранное с JSON импортом/экспортом
+- JS проверки и исторический preview подтверждены; нет облачной синхронизации
 ### Requested agent-terminal supporting workflow (development checkpoint) · 2026-09-24 · observed
 - Task contracts, brief, bounded runner, selected-project registry
-- Offline pixel receipts and read-only dashboard; no real browser acceptance
+- Offline pixel receipts and read-only dashboard; historical HTML preview observed, local-server/provider/Windows acceptance remains open
 ### Focus and persistence witness (development checkpoint) · 2026-09-24 · observed
 - Adapted presentation ideas, full-data preservation
 - eventsourcing9.5.5 witness and isolated recovery; original rollback cause unknown
@@ -128,6 +142,8 @@
 - 2026-09-24T09:06:43.552134+00:00 · **reported** · Панель и безопасные версии реализованы и испытаны локально. Подключение текущего чата и скриншот не подтверждены.
 - 2026-09-24T09:07:31.627244+00:00 · **observed** · Restored code v0.8.1-candidate.1 into separate worktree; current memory retained
 - 2026-09-24T09:38:06.037363+00:00 · **reported** · Панель, безопасный возврат, реальный screenshot HTML snapshot и две выборки аккаунта испытаны. Автосбор текущего чата не реализован.
+- 2026-09-24T13:49:23.305501+00:00 · **reported** · HTML preview открыт и проверен: вводная справка и раскрывающиеся сведения работают, их состояние сохраняется. Исходные результаты критериев сохранены: полная браузерная приёмка локального сервера остаётся открытой.
+- 2026-09-24T13:49:23.401535+00:00 · **reported** · Все сохранённые группы планов сопоставлены с реализацией и пробелами; память уточнена. Обновлённый HTML preview проверен. Полнота исходной истории и независимая приёмка остаются открытыми.
 - 2026-09-15 · **verified** · Project History Agent originated in ChatGPT chat агент.
 - 2026-09-15 · **verified** · Current chat explicitly requested continuation from chat агент.
 - 2026-09-16 · **verified** · v0.5 durable history package passed its deterministic and real-project candidate gates; A6 remained NOT_RUN.
@@ -168,10 +184,13 @@
 - unknown date · **observed** · Authenticated browser observed current request. Private samples28+15 imported exactly after redaction, repeat0, fresh MCP reads43. Partial DOM only; original completeness unknown; continuous ingestion absent. Supersedes earlier logged-out availability observation only.
 - unknown date · **observed** · Independent no-brief audit:204existing testsPASS but five defects reproduced in temporary fixtures: stale-lock stealing, unreplayable appended mutation, lifecycle cross-project identity, Cookie header redaction gap, native handoff truncation. No fixes applied. Alternatives assessed; not external A6.
 - unknown date · **observed** · Observed on2026-09-24: previous-code CI35971960099 success at0b86b839; supersedes pending rerun expectation, not historical failed records.
+- unknown date · **observed** · Проверены планы и доступные сообщения пяти чатов: сохранность выборки, повторный импорт без дублей, чтение новым процессом. Полный переход после лимита не доказан. Интерфейс проверен в HTML preview: раскрытие, закрытие и сохранение состояния после перерисовки. 213 локальных тестов PASS; A6, полный экспорт и live polling открыты.
 - unknown date · **observed** · Browser access evidence updated after secure login
 - unknown date · **observed** · Correct integration limitation field; manual browser reading observed, subscription absent
 - unknown date · **observed** · Message viewing, copy fallback, local favorites and portable JSON added. JS logic tests and4dashboard testsPASS. Actual HTML preview rendered15user messages; favorite addition observed; clipboardAPI blocked, manual selected-copy235chars exact. Private preview excluded from Git.
 - unknown date · **observed** · Progressive context tool and selected-chat quick import implemented;12tests PASS; private real43message sample pagination/import checks PASS. No OpenViking runtime or account subscription installed.
+- unknown date · **observed** · Все сохранённые группы планов сопоставлены с кодом/проверками/пробелами; текущие описания уточнены append-only patches. Добавлены atomic/context/messages подпланы. Полнота исходников и A6 открыты; дополнительные authenticated выборки частичны. Упрощённый UI проверен экспертно и локальными проверками; новое browser испытание ожидается.
+- unknown date · **reported** · Координатор наблюдал работающий HTML preview: вводная справка открывается, правила сохраняют открытое и закрытое состояние после перерисовки и перехода История → Обзор. Локальный live polling, пользовательская установка и внешний A6 не проверены этим испытанием.
 - unknown date · **requested** · Use terminal in current chat; audit history, plan completeness, context loss and donor benefits; GitHub-first before new features. Original message timestamp unknown; observed this session.
 
 ## 7. Варианты и ответвления
@@ -252,8 +271,13 @@
 - `S032` — Audit repair decisions and209test validation
 - `S033` — Atomic import and structural runtime validation
 - `S034` — User messages and portable favorites trial
+- `S-PLAN-COVERAGE-20260924` — All-plan coverage, scoped status reconciliation and expert newcomer review
+- `S-UI-DISCLOSURE-OBSERVATION-20260924` — Coordinating reviewer browser observation of updated HTML preview
+- `SRC-TERMINAL-c3db5ce0582a0081d4f6a3a6c9f5849015952974419457b911657fccbc5d115b` — terminal-cli:terminal-visual-control-2026-09-24/c3db5ce0582a0081d4f6a3a6c9f5849015952974419457b911657fccbc5d115b
+- `SRC-TERMINAL-2e55cf3f5d0d32ed8f7dd9bdad393b5af062ae76efcf7487165cfa1fb449b73a` — terminal-cli:current-chat-audit-2026-09-24/2e55cf3f5d0d32ed8f7dd9bdad393b5af062ae76efcf7487165cfa1fb449b73a
+- `S-CONTINUITY-UI-20260924` — Bounded account continuity and UI trial
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Read docs/MESSAGE_LIBRARY.md. Messages/Favorites UI added, browser preview checked with storedreal sample. Favorites local origin only, portable JSON for otherprojects/devices. Clipboard fallback required in ChatGPT sandbox. Prior atomic bootstrap and automatic chat capture tasks remain open.
-- Обновлено: 2026-09-24T11:39:04.086205+00:00
+- Следующий шаг: Проверить передачу обязательных решений из старого чата в новый по полному экспорту; затем завершить независимую приёмку.
+- Обновлено: 2026-09-24T13:50:31.430988+00:00

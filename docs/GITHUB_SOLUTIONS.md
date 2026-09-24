@@ -144,3 +144,17 @@ Clipboard API текст выделяется для ручного копиро
 экспорт/импорт, отказы неправильных/слишком больших файлов. Clipboard и localStorage
 зависят от разрешений браузера; при storage failure сохранение только на эту вкладку
 с явным предупреждением. Между origin/устройствами перенос через экспорт/импорт.
+
+## Раскрываемые сведения — 2026-09-24
+
+GitHub-first: запросы `github progressive disclosure details summary`,
+`accessible-ui/disclosure`. Изучены primer/design,
+content/ui-patterns/progressive-disclosure.mdx и опубликованная редакция
+https://primer.github.io/design/ui-patterns/progressive-disclosure/
+(last edited 2023-02-10; commit SHA не закреплён), accessible-ui/disclosure.
+React-компонент не подходит plain-JS панели без дополнительной зависимости.
+Применён общий паттерн через native HTML details/summary: без копирования кода,
+изображений или текста и без новой зависимости. Разрешение на перенос donor code
+не заявляется. Цель: читать историю и следующий шаг, раскрывая IDs/SHA/команды
+по запросу. Проверка: HTML preview, раскрытие и сохранение состояния при
+перерисовке. Время освоения случайным пользователем пока не измерено.

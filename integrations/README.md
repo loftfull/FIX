@@ -63,3 +63,10 @@ Codex commands contain the absolute project path generated on the target machine
 - closes the active runtime journal segment.
 
 All runtime mutations continue the global hash chain without changing the immutable base journal.
+
+## Later handoff correction — 2026-09-24
+
+The SessionStart wording “compact” above describes the earlier implementation.
+B5 now passes the full Markdown handoff, without the old character truncation.
+This preserves constraints but has no token budget. Templates still do not prove
+installation or a successful real-host lifecycle. See ../docs/AUDIT_REPAIRS_2026-09-24.md.
