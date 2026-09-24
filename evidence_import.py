@@ -29,7 +29,7 @@ from project_history_hooks import checkpoint
 from project_history_journal import (ProjectLock, bootstrap_journal_from_state,
     journal_paths, redact_secrets, replay_journal_set, verify_journal_set,
     atomic_save_state, atomic_write_text)
-from runtime_journal import append_mutation_set
+from runtime_journal import append_mutation_set, append_mutation_batch
 
 
 def digest(value: Any) -> str:
@@ -143,11 +143,12 @@ def import_sessions(root: Path | str, project_id: str, document: dict,
         added = 0
         session_observations_added = 0
         mutated = False
+        mutations = []
         for item in prepared:
             source, event = item["source"], item["event"]
             if event is None:
                 if source["source_id"] not in known_sources:
-                    append_mutation_set(root, "source.add", source)
+                    mutations.append(("source.add", source))
                     known_sources.add(source["source_id"])
                     session_observations_added += 1
                     mutated = True
@@ -157,15 +158,16 @@ def import_sessions(root: Path | str, project_id: str, document: dict,
             event["prior_revision_event_ids"] = [x["event_id"] for x in state["events"]
                 if x.get("message_identity") == event["message_identity"]]
             if source["source_id"] not in known_sources:
-                append_mutation_set(root, "source.add", source)
+                mutations.append(("source.add", source))
                 known_sources.add(source["source_id"])
                 mutated = True
-            append_mutation_set(root, "event.add", event)
+            mutations.append(("event.add", event))
             known_events.add(event["event_id"])
             state["events"].append(event)
             added += 1
             mutated = True
         if mutated:
+            append_mutation_batch(root, mutations, segment_label="import")
             checkpoint(root)
         else:
             # Recover snapshots after a crash between journal append and checkpoint.

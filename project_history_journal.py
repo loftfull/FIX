@@ -317,7 +317,8 @@ def journal_paths(project_root: Path | str) -> list[Path]:
         paths.append(base)
     seg_dir = root / "PROJECT_HISTORY.segments"
     if seg_dir.is_dir():
-        paths.extend(sorted(x for x in seg_dir.glob("*.jsonl") if x.is_file()))
+        paths.extend(sorted((x for x in seg_dir.glob("*.jsonl") if x.is_file()),
+                            key=lambda x: (int(x.name.split("-", 1)[0]) if x.name.split("-", 1)[0].isdigit() else -1, x.name)))
     return paths
 
 

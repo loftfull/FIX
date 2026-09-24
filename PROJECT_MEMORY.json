@@ -1796,12 +1796,27 @@
       ],
       "summary": "Initial B1-B5 audit cases fixed.209local testsPASS including5targeted regressions. Portalocker3.2.0 OS locks, replay preflight, lifecycle identity checks, Cookie headers scrub, full native handoff. Structural references/batch atomicity and Windows CI remain separate boundaries.",
       "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "3a0125edaebe4e0ec9d9217d67835501307b3ea28bec03737a2104ea902fa27e",
+      "event_id": "EV-ATOMIC-IMPORT-20260924",
+      "event_type": "validation",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T11:00:12.172276+00:00",
+      "session_id": null,
+      "source_ids": [
+        "S033"
+      ],
+      "summary": "213local testsPASS; runtime batch structural validation and atomic segment publication; real stored28+15messages preservationPASS/repeat0. Numeric rollover fixed and active segment reused. Prior repair CI35989946526success. Legacy bootstrap remains separate.",
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
-    "next_step": "Read docs/AUDIT_REPAIRS_2026-09-24.md. Initial5audit cases repaired and209local testsPASS. Install requirements-core.txt and stop old writers before upgrade. Next: batch-aware structural validation for dangling references and crash atomicity; Windows CI result; full chat coverage/capture and A6 remain open.",
-    "updated_at": "2026-09-24T10:53:58.495785+00:00"
+    "next_step": "Read docs/ATOMIC_IMPORT_2026-09-24.md. Runtime/import batches validated and atomically published;213local testsPASS, stored43messagesPASS. Next: crash-safe bootstrap and other multi-step writer workflows. New CI pending; no automatic account capture or fullA6.",
+    "updated_at": "2026-09-24T11:00:12.177239+00:00"
   },
   "locations": [
     {
@@ -2885,6 +2900,11 @@
       "locator": "docs/AUDIT_REPAIRS_2026-09-24.md",
       "name": "Audit repair decisions and209test validation",
       "source_id": "S032"
+    },
+    {
+      "locator": "docs/ATOMIC_IMPORT_2026-09-24.md",
+      "name": "Atomic import and structural runtime validation",
+      "source_id": "S033"
     }
   ],
   "versions": [

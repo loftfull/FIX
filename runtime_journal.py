@@ -78,55 +78,57 @@ def close_runtime_segment(project_root: Path | str, *, lock_timeout: float = 5.0
         (root / ACTIVE_SEGMENT_MARKER).unlink(missing_ok=True)
 
 
-def append_mutation_set(
-    project_root: Path | str,
-    op: str,
-    payload: Any,
-    *,
-    timestamp: str | None = None,
-    segment_label: str = "runtime",
-    lock_timeout: float = 5.0,
-) -> Dict[str, Any]:
-    if op not in SUPPORTED_OPS:
-        raise ValueError(f"unsupported journal operation: {op}")
+def append_mutation_batch(project_root, mutations, *, timestamp=None,
+                          segment_label="batch", lock_timeout=5.0):
+    """Publish a validated batch by atomically replacing the active segment.
+
+    A failed pre-publication write leaves no visible batch. A crash after rename
+    may have committed it: callers must reconcile evidence IDs before retrying.
+    """
+    from project_history_auditor import audit_state
+    mutations = list(mutations)
+    if not mutations:
+        raise ValueError("Empty mutation batch")
     root = Path(project_root)
-    root.mkdir(parents=True, exist_ok=True)
     with ProjectLock(root / ".project-history.lock", timeout=lock_timeout):
         verification = verify_journal_set(root)
         if not verification["ok"]:
-            raise ValueError(f"journal set integrity failure: {verification['issues']}")
-        _apply_mutation(deepcopy(replay_journal_set(root)), op, redact_secrets(deepcopy(payload)))
+            raise ValueError("Journal set integrity failure")
+        state = replay_journal_set(root)
+        ts = timestamp or __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat()
+        records = []
+        previous = verification["last_hash"]
+        for op, payload in mutations:
+            if op not in SUPPORTED_OPS:
+                raise ValueError("Unsupported journal operation")
+            prepared = redact_secrets(deepcopy(payload))
+            if op == "event.add":
+                for key, value in {"source_ids": [], "observed_at": ts,
+                    "model_id": "unknown", "author": "unknown", "tool": "unknown",
+                    "session_id": None, "evidence_status": "unknown"}.items():
+                    prepared.setdefault(key, value)
+                prepared["dedupe_key"] = event_dedupe_key(prepared)
+            state = _apply_mutation(state, op, prepared)
+            base = {"schema": JOURNAL_SCHEMA,
+                    "journal_id": f"J-{verification['records'] + len(records) + 1:06d}",
+                    "timestamp": ts, "op": op, "payload": prepared, "prev_hash": previous}
+            record = dict(base, hash=_record_hash(base))
+            previous = record["hash"]
+            records.append(record)
+        if any(x.get("severity") == "error" for x in audit_state(state)):
+            raise ValueError("Batch would leave structurally invalid state")
         target = _active_segment_path_unlocked(root, create=True, label=segment_label)
-        assert target is not None
         existing = journal_paths(root)
         if target.exists() and existing and existing[-1] != target:
-            raise ValueError(f"active segment is not the journal tail: {target.name}")
+            raise ValueError("Active segment is not the journal tail")
+        prefix = target.read_bytes().decode("utf-8") if target.exists() else ""
+        # Preserve all previous bytes; readers see the old or entire new segment.
+        atomic_write_text(target, prefix + "".join(json.dumps(r, ensure_ascii=False,
+            sort_keys=True, separators=(",", ":")) + "\n" for r in records))
+        return records
 
-        ts = timestamp or __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat()
-        prepared = redact_secrets(deepcopy(payload))
-        if op == "event.add":
-            prepared.setdefault("source_ids", [])
-            prepared.setdefault("observed_at", ts)
-            prepared.setdefault("model_id", "unknown")
-            prepared.setdefault("author", "unknown")
-            prepared.setdefault("tool", "unknown")
-            prepared.setdefault("session_id", None)
-            prepared.setdefault("evidence_status", "unknown")
-            prepared["dedupe_key"] = event_dedupe_key(prepared)
 
-        base = {
-            "schema": JOURNAL_SCHEMA,
-            "journal_id": f"J-{verification['records'] + 1:06d}",
-            "timestamp": ts,
-            "op": op,
-            "payload": prepared,
-            "prev_hash": verification.get("last_hash", ""),
-        }
-        record = dict(base)
-        record["hash"] = _record_hash(base)
-        target.parent.mkdir(parents=True, exist_ok=True)
-        with target.open("a", encoding="utf-8", newline="") as handle:
-            handle.write(json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n")
-            handle.flush()
-            os.fsync(handle.fileno())
-        return record
+def append_mutation_set(project_root, op, payload, *, timestamp=None,
+                        segment_label="runtime", lock_timeout=5.0):
+    return append_mutation_batch(project_root, [(op, payload)], timestamp=timestamp,
+        segment_label=segment_label, lock_timeout=lock_timeout)[0]

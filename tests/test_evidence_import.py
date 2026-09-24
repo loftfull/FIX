@@ -109,14 +109,15 @@ class EvidenceImportTests(unittest.TestCase):
 
     def test_interrupted_source_write_is_recoverable(self):
         from unittest.mock import patch
-        from runtime_journal import append_mutation_set as real_append
-        def fail_event(root, op, payload):
-            if op == "event.add":
-                raise OSError("simulated interruption")
-            return real_append(root, op, payload)
-        with patch("evidence_import.append_mutation_set", side_effect=fail_event):
+        from project_history_journal import atomic_write_text as real_write
+        def fail_segment(path, content):
+            if str(path).endswith('-import.jsonl'):
+                raise OSError("simulated interruption before publication")
+            return real_write(path, content)
+        with patch("runtime_journal.atomic_write_text", side_effect=fail_segment):
             with self.assertRaises(OSError):
                 self.run_import()
+        self.assertEqual(len(replay_journal_set(self.root)["events"]), 0)
         self.assertEqual(self.run_import()["messages_added"], 1)
         state = replay_journal_set(self.root)
         self.assertEqual(len(state["sources"]), 2)

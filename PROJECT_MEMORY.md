@@ -11,7 +11,7 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.8.1-candidate.1 + browser observation correction; continuous ingestion and A6 open
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Read docs/AUDIT_REPAIRS_2026-09-24.md. Initial5audit cases repaired and209local testsPASS. Install requirements-core.txt and stop old writers before upgrade. Next: batch-aware structural validation for dangling references and crash atomicity; Windows CI result; full chat coverage/capture and A6 remain open.
+- Следующий проверяемый шаг: Read docs/ATOMIC_IMPORT_2026-09-24.md. Runtime/import batches validated and atomically published;213local testsPASS, stored43messagesPASS. Next: crash-safe bootstrap and other multi-step writer workflows. New CI pending; no automatic account capture or fullA6.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -163,6 +163,7 @@
 - unknown date · **observed** · Windows ran136 tests:3 assertions compared short8.3 paths with canonical paths. Expected paths corrected;30 affected local tests pass. Windows rerun pending. Journal-tail loss reproduced in diagnostic probe; cause remains unknown.
 - unknown date · **observed** · Integrated adapted MIT i-have-adhd focus and eventsourcing9.5.5 SQLite witness.190 local testsPASS,47 independent component checksPASS. Real18messages MCP preserved; controlledrollback rejected and recovered in newfolder. Natural loss cause and reappearinglock remain unknown. ACP/restic/Playwright evaluated, not connected.
 - unknown date · **observed** · Windows158tests found4cleanup errors: SQLite handle leaked by eventsourcing9.5.5 connection setup failure and test fixtures. Narrow local pool closes handle on setup error; fixtures explicitly close. New resource regression added;48 related local checksPASS. Windowsrerun pending; original journal rollback stillunknown.
+- unknown date · **observed** · 213local testsPASS; runtime batch structural validation and atomic segment publication; real stored28+15messages preservationPASS/repeat0. Numeric rollover fixed and active segment reused. Prior repair CI35989946526success. Legacy bootstrap remains separate.
 - unknown date · **observed** · Initial B1-B5 audit cases fixed.209local testsPASS including5targeted regressions. Portalocker3.2.0 OS locks, replay preflight, lifecycle identity checks, Cookie headers scrub, full native handoff. Structural references/batch atomicity and Windows CI remain separate boundaries.
 - unknown date · **observed** · Authenticated browser observed current request. Private samples28+15 imported exactly after redaction, repeat0, fresh MCP reads43. Partial DOM only; original completeness unknown; continuous ingestion absent. Supersedes earlier logged-out availability observation only.
 - unknown date · **observed** · Independent no-brief audit:204existing testsPASS but five defects reproduced in temporary fixtures: stale-lock stealing, unreplayable appended mutation, lifecycle cross-project identity, Cookie header redaction gap, native handoff truncation. No fixes applied. Alternatives assessed; not external A6.
@@ -248,8 +249,9 @@
 - `S030` — OpenViking bounded adoption and real-sample trial
 - `S031` — Independent no-brief code audit and synthetic reproductions
 - `S032` — Audit repair decisions and209test validation
+- `S033` — Atomic import and structural runtime validation
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Read docs/AUDIT_REPAIRS_2026-09-24.md. Initial5audit cases repaired and209local testsPASS. Install requirements-core.txt and stop old writers before upgrade. Next: batch-aware structural validation for dangling references and crash atomicity; Windows CI result; full chat coverage/capture and A6 remain open.
-- Обновлено: 2026-09-24T10:53:58.495785+00:00
+- Следующий шаг: Read docs/ATOMIC_IMPORT_2026-09-24.md. Runtime/import batches validated and atomically published;213local testsPASS, stored43messagesPASS. Next: crash-safe bootstrap and other multi-step writer workflows. New CI pending; no automatic account capture or fullA6.
+- Обновлено: 2026-09-24T11:00:12.177239+00:00
