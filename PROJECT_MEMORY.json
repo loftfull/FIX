@@ -2038,12 +2038,27 @@
       ],
       "summary": "Исправлена потеря текстов/источников заменённых решений в review output. Новый тест RED→GREEN, 215 локальных тестов PASS. Читатель без контекста правильно разобрал документированный curated пример. Browser download event timed out; скачанные bytes не подтверждены.",
       "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "d233173cb428b22b10e84592a4072aae3f04d5f77001efd7fdef5a4b1109aba3",
+      "event_id": "EV-ATOMIC-BOOTSTRAP-20260924",
+      "event_type": "validation",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T17:45:26.211160+00:00",
+      "session_id": null,
+      "source_ids": [
+        "S-ATOMIC-BOOTSTRAP-20260924"
+      ],
+      "summary": "Воспроизведена частичная публикация bootstrap. Исправлено создание полного журнала под writer lock с одной атомарной публикацией. 218 тестов полного прогона PASS и 4 bootstrap теста PASS после добавления concurrency. Это не доказательство первопричины прежнего rollback и не power-loss испытание.",
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
-    "next_step": "Продолжить проверку аварийного создания журнала и причин потери хвоста. Перенос полного пакета и заменённых решений испытан в ограниченном сценарии; скачивание браузером, автосбор и A6 остаются открытыми.",
-    "updated_at": "2026-09-24T17:40:34.405064+00:00"
+    "next_step": "Проверить оставшиеся прямые writers и сценарий оборванной записи. Первоначальный bootstrap теперь публикуется атомарно; сохранность проверена исключениями и конкуренцией. Полная структурная bootstrap валидация, power-loss/Windows, A6 и автосбор остаются открыты.",
+    "updated_at": "2026-09-24T17:45:26.217325+00:00"
   },
   "locations": [
     {
@@ -3348,6 +3363,11 @@
       "locator": "docs/SUPERSESSION_TRIAL_2026-09-24.md",
       "name": "Superseded decision preservation and reader trial",
       "source_id": "S-SUPERSESSION-TRIAL-20260924"
+    },
+    {
+      "locator": "docs/ATOMIC_BOOTSTRAP_2026-09-24.md",
+      "name": "Atomic initial journal publication repair",
+      "source_id": "S-ATOMIC-BOOTSTRAP-20260924"
     }
   ],
   "versions": [

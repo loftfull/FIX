@@ -11,7 +11,7 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.8.1-candidate.1 + browser observation correction; continuous ingestion and A6 open
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Продолжить проверку аварийного создания журнала и причин потери хвоста. Перенос полного пакета и заменённых решений испытан в ограниченном сценарии; скачивание браузером, автосбор и A6 остаются открытыми.
+- Следующий проверяемый шаг: Проверить оставшиеся прямые writers и сценарий оборванной записи. Первоначальный bootstrap теперь публикуется атомарно; сохранность проверена исключениями и конкуренцией. Полная структурная bootstrap валидация, power-loss/Windows, A6 и автосбор остаются открыты.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -179,6 +179,7 @@
 - unknown date · **observed** · Windows ran136 tests:3 assertions compared short8.3 paths with canonical paths. Expected paths corrected;30 affected local tests pass. Windows rerun pending. Journal-tail loss reproduced in diagnostic probe; cause remains unknown.
 - unknown date · **observed** · Integrated adapted MIT i-have-adhd focus and eventsourcing9.5.5 SQLite witness.190 local testsPASS,47 independent component checksPASS. Real18messages MCP preserved; controlledrollback rejected and recovered in newfolder. Natural loss cause and reappearinglock remain unknown. ACP/restic/Playwright evaluated, not connected.
 - unknown date · **observed** · Windows158tests found4cleanup errors: SQLite handle leaked by eventsourcing9.5.5 connection setup failure and test fixtures. Narrow local pool closes handle on setup error; fixtures explicitly close. New resource regression added;48 related local checksPASS. Windowsrerun pending; original journal rollback stillunknown.
+- unknown date · **observed** · Воспроизведена частичная публикация bootstrap. Исправлено создание полного журнала под writer lock с одной атомарной публикацией. 218 тестов полного прогона PASS и 4 bootstrap теста PASS после добавления concurrency. Это не доказательство первопричины прежнего rollback и не power-loss испытание.
 - unknown date · **observed** · 213local testsPASS; runtime batch structural validation and atomic segment publication; real stored28+15messages preservationPASS/repeat0. Numeric rollover fixed and active segment reused. Prior repair CI35989946526success. Legacy bootstrap remains separate.
 - unknown date · **observed** · Initial B1-B5 audit cases fixed.209local testsPASS including5targeted regressions. Portalocker3.2.0 OS locks, replay preflight, lifecycle identity checks, Cookie headers scrub, full native handoff. Structural references/batch atomicity and Windows CI remain separate boundaries.
 - unknown date · **observed** · Authenticated browser observed current request. Private samples28+15 imported exactly after redaction, repeat0, fresh MCP reads43. Partial DOM only; original completeness unknown; continuous ingestion absent. Supersedes earlier logged-out availability observation only.
@@ -282,8 +283,9 @@
 - `S-CRITIC-REPAIRS-20260924` — Critic findings and scoped export repairs
 - `S-HANDOFF-BROWSER-20260924` — Real clipboard and package-only reader trial
 - `S-SUPERSESSION-TRIAL-20260924` — Superseded decision preservation and reader trial
+- `S-ATOMIC-BOOTSTRAP-20260924` — Atomic initial journal publication repair
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Продолжить проверку аварийного создания журнала и причин потери хвоста. Перенос полного пакета и заменённых решений испытан в ограниченном сценарии; скачивание браузером, автосбор и A6 остаются открытыми.
-- Обновлено: 2026-09-24T17:40:34.405064+00:00
+- Следующий шаг: Проверить оставшиеся прямые writers и сценарий оборванной записи. Первоначальный bootstrap теперь публикуется атомарно; сохранность проверена исключениями и конкуренцией. Полная структурная bootstrap валидация, power-loss/Windows, A6 и автосбор остаются открыты.
+- Обновлено: 2026-09-24T17:45:26.217325+00:00

@@ -400,9 +400,35 @@ def _state_mutations(state: Dict[str, Any]) -> Iterable[tuple[str, Any]]:
 
 
 def bootstrap_journal_from_state(state: Dict[str, Any], path: Path | str) -> None:
+    """Publish the entire initial journal under the cooperative writer lock.
+
+    Failure before rename leaves no journal. Failure after rename may have
+    committed: callers must verify/replay, never delete and blindly retry.
+    """
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
-    if p.exists():
-        raise FileExistsError(p)
-    for op, payload in _state_mutations(state):
-        append_mutation(p, op, payload)
+    with ProjectLock(p.parent / '.project-history.lock', timeout=5.0):
+        if p.exists():
+            raise FileExistsError(p)
+        ts = __import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat()
+        records = []
+        replayed = None
+        previous = ''
+        for op, payload in _state_mutations(state):
+            prepared = redact_secrets(deepcopy(payload))
+            if op == 'event.add':
+                for key, value in {'source_ids': [], 'observed_at': ts,
+                    'model_id': 'unknown', 'author': 'unknown', 'tool': 'unknown',
+                    'session_id': None, 'evidence_status': 'unknown'}.items():
+                    prepared.setdefault(key, value)
+                prepared['dedupe_key'] = event_dedupe_key(prepared)
+            replayed = _apply_mutation(replayed, op, prepared)
+            base = {'schema': JOURNAL_SCHEMA,
+                    'journal_id': f'J-{len(records) + 1:06d}',
+                    'timestamp': ts, 'op': op, 'payload': prepared,
+                    'prev_hash': previous}
+            record = dict(base, hash=_record_hash(base))
+            previous = record['hash']
+            records.append(record)
+        atomic_write_text(p, ''.join(json.dumps(r, ensure_ascii=False,
+            sort_keys=True, separators=(',', ':')) + '\n' for r in records))
