@@ -5,13 +5,13 @@
 - Имя: Project History Agent
 - Описание: Evidence-first project historian with append-only journal, chat lineage, project passport, plan-to-fact ledger, visual provenance and host-native history adapters.
 - Цель: Preserve evidence-based project history across chats, models, repositories and environments
-- Каноническая версия: v0.7 candidate
+- Каноническая версия: v0.8 development candidate; no release acceptance
 
 ## 0.1 Быстрый handoff для новой AI-модели
 - Project ID: `project-history-agent`
-- Каноническая версия: v0.7 candidate
+- Каноническая версия: v0.8 development candidate; no release acceptance
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Read docs/GITHUB_SOLUTIONS.md and VAULT_REAL_CHAT_TRIAL_2026-09-24.md. Optional external vault and focus implemented; real recovery test passed. Investigate historical rollback/stale locks and pilot independent restic backup; provider/browser/user-machine gates remain open.
+- Следующий проверяемый шаг: Read docs/CURRENT_CHAT_AUDIT_2026-09-24.md. Prioritize full source coverage and requirement→change→evidence history of FIX/INSTA; obtain available original chats, keep missing sources explicit. Investigate rollback/stale locks and A6. New features require GitHub-first evidence; optional UI/provider/backup expansion is secondary.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -19,16 +19,21 @@
 - Keep requested/planned/reported/observed/verified distinct
 - Redact secrets before persistence
 - Do not call the system fully accepted before A6 independent external-model audit passes
+- Before any new functionality search GitHub first; reuse suitable licensed code or dependencies; record exact provenance, scope, tests and reasons when none fits.
+- Prioritize evidence-based project history and source coverage over optional UI, provider or orchestration expansion.
+- Current chat archive is partial; never claim complete context preservation or all plans implemented without raw-source evidence.
 
 ## 1. Где находится проект
 | Среда | Расположение | Branch | SHA | Статус | Проверено |
 |---|---|---|---|---|---|
 | github_code_checkpoint | https://github.com/loftfull/FIX | project-history-agent-v0.6 | f27e837e5941a9ecd6a36160f5efccc743e155f1 | historical_code_checkpoint | 2026-09-16 |
 | chatgpt_library | /Project History Agent/v0.5 | — | — | observed | 2026-09-16 |
-| github_branch | https://github.com/loftfull/FIX/tree/project-history-agent-v0.6 | project-history-agent-v0.6 | — | observed_now | 2026-09-16 |
-| github_branch | https://github.com/loftfull/FIX/tree/project-history-agent-v0.7 | project-history-agent-v0.7 | — | observed_now | 2026-09-16 |
+| github_branch | https://github.com/loftfull/FIX/tree/project-history-agent-v0.6 | project-history-agent-v0.6 | — | historical_observation | 2026-09-16 |
+| github_branch | https://github.com/loftfull/FIX/tree/project-history-agent-v0.7 | project-history-agent-v0.7 | — | historical_observation | 2026-09-16 |
 | github_code_checkpoint | https://github.com/loftfull/FIX/commit/bfbc90f6200150e171036a8367def055f49fd106 | project-history-agent-v0.7 | bfbc90f6200150e171036a8367def055f49fd106 | verified_code_checkpoint | 2026-09-16 |
 | github_code_checkpoint | https://github.com/loftfull/FIX/commit/f2628d2a65294c063b0098ceb84b3d011b8208a4 | project-history-agent-v0.7 | f2628d2a65294c063b0098ceb84b3d011b8208a4 | verified_code_checkpoint | 2026-09-16 |
+| local_checkout | /workspace/scratch/c911ac0d5396/repos/FIX | codex/history-mcp-foundation | f583fd84ea7505f399295b8c86ac17a868f92343 | observed_now | 2026-09-24 |
+| github_working_branch | https://github.com/loftfull/FIX/tree/codex/history-mcp-foundation | codex/history-mcp-foundation | 0b86b8391b9c5c532bc4f09bfa905bfcc7f22c71 | historical_ci_code_checkpoint; branch exists; latest HEAD not asserted | 2026-09-24 |
 
 ## 2. Цепочка чатов
 | Дата | Чат | Класс | Родитель | Основание |
@@ -44,7 +49,12 @@
 | v0.5 durable journal + adapters + lifecycle + doctor | implemented | v0.5 durable project history | append-only SHA-256 journal; atomic persistence and lock; pre-persistence secret redaction; HistoryAdapter boundary; lifecycle hooks; doctor; deterministic replay |
 | v0.6 canonical FIX transfer + host-native history adapters | implemented | v0.6 FIX canonical transfer + host-native adapters | canonical repository loftfull/FIX; current chat bundle in chat/current; Claude Code JSONL adapter; Codex rollout/session adapter; explicit ChatGPT conversations.json export adapter; v0.6 regression tests |
 | v0.7 bounded direct host-history wiring | implemented | v0.7 direct host-history wiring | HostHistoryDiscovery with bounded Claude Code/Codex roots; ChatGPT explicit-export-only discovery; doctor auto-wires discovered adapter; discover-history and history-search CLI; provider discovery remains candidate-only, not lineage authority; stable-identity candidate ranking with explicit ref > repository > project+identity > path > project > artifact > topic; CLI optional current-context ranking without lineage classification |
-| v0.7 stable-identity candidate ranking | implemented | — | — |
+| v0.7 stable-identity candidate ranking | implemented | v0.7 direct host-history wiring | HostHistoryDiscovery with bounded Claude Code/Codex roots; ChatGPT explicit-export-only discovery; doctor auto-wires discovered adapter; discover-history and history-search CLI; provider discovery remains candidate-only, not lineage authority; stable-identity candidate ranking with explicit ref > repository > project+identity > path > project > artifact > topic; CLI optional current-context ranking without lineage classification |
+| MCP memory transport | component_implemented_host_acceptance_open | MCP memory transport (development checkpoint) | Official mcp2.2.0 stdio read-only transport, source-preserving handoff |
+| Evidence import, decisions and local observation | partial | Evidence import, decisions and local observation (development checkpoint) | Revision-preserving selected chat import; Explicit sourced strategy review; no autonomous semantic completeness; Scoped Git watcher and known-day catchup; no installed daily service |
+| Requested agent-terminal supporting workflow | partial | Requested agent-terminal supporting workflow (development checkpoint) | Task contracts, brief, bounded runner, selected-project registry; Offline pixel receipts and read-only dashboard; no real browser acceptance |
+| Focus and persistence witness | partial | Focus and persistence witness (development checkpoint) | Adapted presentation ideas, full-data preservation; eventsourcing9.5.5 witness and isolated recovery; original rollback cause unknown |
+| v0.8 historical governance and acceptance roadmap | open | — | — |
 
 ## 4. Версии и фактические изменения
 ### v0.3 deterministic ledger + auditor · 2026-09-15 · verified
@@ -81,6 +91,18 @@
 - provider discovery remains candidate-only, not lineage authority
 - stable-identity candidate ranking with explicit ref > repository > project+identity > path > project > artifact > topic
 - CLI optional current-context ranking without lineage classification
+### MCP memory transport (development checkpoint) · 2026-09-23 · observed
+- Official mcp2.2.0 stdio read-only transport, source-preserving handoff
+### Evidence import, decisions and local observation (development checkpoint) · 2026-09-24 · observed
+- Revision-preserving selected chat import
+- Explicit sourced strategy review; no autonomous semantic completeness
+- Scoped Git watcher and known-day catchup; no installed daily service
+### Requested agent-terminal supporting workflow (development checkpoint) · 2026-09-24 · observed
+- Task contracts, brief, bounded runner, selected-project registry
+- Offline pixel receipts and read-only dashboard; no real browser acceptance
+### Focus and persistence witness (development checkpoint) · 2026-09-24 · observed
+- Adapted presentation ideas, full-data preservation
+- eventsourcing9.5.5 witness and isolated recovery; original rollback cause unknown
 
 ## 5. Скриншоты и визуальные подтверждения
 - Скриншоты не найдены или их источник пока недоступен.
@@ -88,6 +110,13 @@
 ## 6. Хронология
 - 2026-09-24T06:55:26.704539+00:00 · **reported** · Визуальный контроль разработки — первый этап
 - 2026-09-24T06:55:26.738625+00:00 · **reported** · Код и HTTP-проверки реализованы. Браузерное испытание заблокировано политикой среды; внешний вид не принят.
+- 2026-09-24T08:37:09.540119+00:00 · **reported** · Аудит собственного проекта в текущем чате
+- 2026-09-24T08:37:09.568416+00:00 · **reported** · Аудит и актуализация памяти выполнены; запускается проверка передачи.
+- 2026-09-24T08:37:47.906886+00:00 · **observed** · Local run starting
+- 2026-09-24T08:37:47.949022+00:00 · **observed** · Local run running
+- 2026-09-24T08:37:51.684809+00:00 · **observed** · Own FIX task executed by terminal_runner:31 testsPASS and real MCP read preserves existing events, identities and7critical constraints. Independent scope audit agrees; full chat coverage/A6 not accepted.
+- 2026-09-24T08:37:51.688448+00:00 · **observed** · Local run succeeded
+- 2026-09-24T08:39:33.461408+00:00 · **reported** · Аудит выполнен: паспорт обновлён, доноры разделены по фактическому внедрению, GitHub-first закреплён; проверка MCP и31 тест прошли. Полная история чата и A6 остаются открытыми.
 - 2026-09-15 · **verified** · Project History Agent originated in ChatGPT chat агент.
 - 2026-09-15 · **verified** · Current chat explicitly requested continuation from chat агент.
 - 2026-09-16 · **verified** · v0.5 durable history package passed its deterministic and real-project candidate gates; A6 remained NOT_RUN.
@@ -105,9 +134,12 @@
 - 2026-09-24 · **verified** · GitHub Actions run 35960378708 completed success at code checkpoint 502677ec58429775bb24c3d602f0ebda22221875; Windows58 tests passed, Linux and repository verification jobs passed.
 - 2026-09-24 · **observed** · Analyzed all three uploaded brief documents; implemented journal-backed terminal tasks and read-only dashboard.110 local tests passed; independent component audit20 passed after3 reproduced fixes. Browser local/file navigation blocked; visual appearance and user-machine deployment not verified.
 - 2026-09-24 · **observed** · Added brief compiler, explicit bounded command supervisor, scoped project registry, offline pixel receipts and real-chat preservation checker.168 local tests and57 independent component tests passed.18-message real archive preserved and read over MCP in successful control trials; cold handoff recovered scope. Two earlier journal-tail-loss incidents remain unexplained; full acceptance blocked. Claude/Codex CLI and user-machine autostart not tested.
+- 2026-09-24 · **observed** · Audited own history and donor implementation; found stale structured memory and incomplete raw-chat coverage. Independent reviewer agrees core coherence but priority risk; no full acceptance.
 - unknown date · **observed** · Windows ran136 tests:3 assertions compared short8.3 paths with canonical paths. Expected paths corrected;30 affected local tests pass. Windows rerun pending. Journal-tail loss reproduced in diagnostic probe; cause remains unknown.
 - unknown date · **observed** · Integrated adapted MIT i-have-adhd focus and eventsourcing9.5.5 SQLite witness.190 local testsPASS,47 independent component checksPASS. Real18messages MCP preserved; controlledrollback rejected and recovered in newfolder. Natural loss cause and reappearinglock remain unknown. ACP/restic/Playwright evaluated, not connected.
 - unknown date · **observed** · Windows158tests found4cleanup errors: SQLite handle leaked by eventsourcing9.5.5 connection setup failure and test fixtures. Narrow local pool closes handle on setup error; fixtures explicitly close. New resource regression added;48 related local checksPASS. Windowsrerun pending; original journal rollback stillunknown.
+- unknown date · **observed** · Observed on2026-09-24: previous-code CI35971960099 success at0b86b839; supersedes pending rerun expectation, not historical failed records.
+- unknown date · **requested** · Use terminal in current chat; audit history, plan completeness, context loss and donor benefits; GitHub-first before new features. Original message timestamp unknown; observed this session.
 
 ## 7. Варианты и ответвления
 - `v0.3-ledger-auditor` — v0.3 deterministic ledger · archived
@@ -119,9 +151,17 @@
   - continues → `v0.5-durable-journal`
 - `v0.7-host-wiring` — v0.7 bounded direct host-history wiring · candidate
   - continues → `v0.6-host-native-adapters`
+- `history-runtime` — MCP/import/watch historian continuation · candidate
+  - continues → `v0.7-host-wiring`
+- `terminal-support` — Requested terminal supporting components · candidate
+  - continues → `history-runtime`
+- `vault-integrity` — Persistence witness investigation · candidate
+  - continues → `history-runtime`
 
 ## 8. Нерешённые противоречия
-- Нет зафиксированных противоречий.
+- Coverage gap: full current-chat export and original INSTA chats unavailable; no complete-history claim.
+- Integrity incident: natural journal-tail rollback and reappearing stale locks remain unexplained. Witness recovery does not establish root cause.
+- Priority risk: terminal UI/supervisor advanced before A6 and P1 historian governance; prioritize history completeness now.
 
 ## 9. Очередь поиска
 - Run A6 independent external-model audit against primary evidence + segmented journal + snapshot + current-chat bundle.
@@ -150,8 +190,19 @@
 - `S018` — Windows CI path normalization failures
 - `S019` — GitHub integration and real vault trial
 - `S020` — Windows SQLite resource failure and fix
+- `S021` — Current visible user request, partial chat coverage
+- `S022` — Source and implementation audit of FIX
+- `S023` — CI35971960099 success rechecked
+- `SRC-TERMINAL-6700a8a7383052d78f91281cb4b26f785ef8d1da3b9a22a90c9d1ec4e894152c` — terminal-cli:current-chat-audit-2026-09-24/6700a8a7383052d78f91281cb4b26f785ef8d1da3b9a22a90c9d1ec4e894152c
+- `SRC-TERMINAL-a84ad43efe3409331e01513993cc4fae4fcd6418f168745e34825e9901b04f56` — terminal-cli:current-chat-audit-2026-09-24/a84ad43efe3409331e01513993cc4fae4fcd6418f168745e34825e9901b04f56
+- `SRC-EV-RUN-0f9623ad8baf4c3c9671355fc99fb27c-starting` — local-run:0f9623ad8baf4c3c9671355fc99fb27c
+- `SRC-EV-RUN-0f9623ad8baf4c3c9671355fc99fb27c-running` — local-run:0f9623ad8baf4c3c9671355fc99fb27c
+- `SRC-EV-RUN-0f9623ad8baf4c3c9671355fc99fb27c-succeeded` — local-run:0f9623ad8baf4c3c9671355fc99fb27c
+- `S024` — Current project runner and MCP audit receipt
+- `S025` — Independent audit scope review
+- `SRC-TERMINAL-c96b6a2251ecd69dad30b37726282c9eddcb0dff072d69cedb1db8365b13f765` — terminal-cli:current-chat-audit-2026-09-24/c96b6a2251ecd69dad30b37726282c9eddcb0dff072d69cedb1db8365b13f765
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Read docs/GITHUB_SOLUTIONS.md and VAULT_REAL_CHAT_TRIAL_2026-09-24.md. Optional external vault and focus implemented; real recovery test passed. Investigate historical rollback/stale locks and pilot independent restic backup; provider/browser/user-machine gates remain open.
-- Обновлено: 2026-09-24T07:51:32.915745+00:00
+- Следующий шаг: Read docs/CURRENT_CHAT_AUDIT_2026-09-24.md. Prioritize full source coverage and requirement→change→evidence history of FIX/INSTA; obtain available original chats, keep missing sources explicit. Investigate rollback/stale locks and A6. New features require GitHub-first evidence; optional UI/provider/backup expansion is secondary.
+- Обновлено: 2026-09-24T08:39:33.484675+00:00
