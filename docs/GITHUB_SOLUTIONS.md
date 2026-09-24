@@ -115,3 +115,11 @@ python terminal_vault.py recover --project-id 'project-id' --vault 'D:\HistoryVa
 Случайное продвижение NProgress отключено. Он не измеряет готовность проекта.
 uPlot и ChatGPT exporters изучены, не интегрированы. Автоматическое подключение
 текущего браузерного чата НЕ реализовано; факт CLI/MCP не заменяет его.
+
+## OpenViking — 2026-09-24
+
+volcengine/OpenViking, commit c9a869cb145aac98f4be1586da32174d220c8800,
+AGPL-3.0. Adopted progressive structural L0/L1/L2 retrieval and project scoping as
+ideas, implemented over existing FIX reader/importer. No upstream source copied,
+no runtime installed. New MCP tool and one-command selected-chat import tested
+on real43-message samples. See docs/OPENVIKING_ADOPTION.md for boundaries.

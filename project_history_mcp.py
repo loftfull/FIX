@@ -134,6 +134,12 @@ def create_server(root: str | Path, project_id: str, vault: str | Path | None = 
         """Read one event and its registered provenance. Source contents are not fetched."""
         return reader.event(event_id)
 
+    @server.tool(annotations=annotations, structured_output=True)
+    def read_context_layer(level: str = 'L0', offset: int = 0, limit: int = 20) -> dict[str, Any]:
+        """Progressive structural context: L0 passport, L1 event index, L2 evidence pages."""
+        from terminal_context import read_layer
+        return read_layer(root, project_id, level, offset, limit, vault=vault)
+
     return server
 
 

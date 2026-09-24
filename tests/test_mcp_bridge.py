@@ -108,7 +108,7 @@ class ProtocolTests(unittest.IsolatedAsyncioTestCase):
         async with Client(params, read_timeout_seconds=15) as client:
             tools = await client.list_tools()
             names = {t.name for t in tools.tools}
-            self.assertEqual({'get_project_context','search_evidence','get_event'}, names)
+            self.assertEqual({'get_project_context','search_evidence','get_event','read_context_layer'}, names)
             reply = await client.call_tool('get_project_context', {})
             self.assertFalse(reply.is_error)
             data = reply.structured_content

@@ -1739,12 +1739,39 @@
       ],
       "summary": "Correct integration limitation field; manual browser reading observed, subscription absent",
       "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "561f7410dcbee49bcb97383fd0144ae283aa5460614261216855d576ba60c586",
+      "event_id": "EV-OPENVIKING-IDEAS-TRIAL",
+      "event_type": "integration_observation",
+      "evidence_status": "observed",
+      "integration": {
+        "benefit": "43sample messages retrievable with source IDs and explicit pagination; repeated import0",
+        "id": "openviking-ideas",
+        "kind": "repository",
+        "license": "AGPL-3.0",
+        "limitation": "No copied upstream code or runtime; no continuous ChatGPT capture; no semantic or performance improvement measured",
+        "name": "volcengine/OpenViking",
+        "repository": "https://github.com/volcengine/OpenViking",
+        "scope": "L0/L1/L2 structural retrieval over FIX; existing importer composed into quick command",
+        "stage": "ideas_adapted_tested",
+        "version": "c9a869cb145aac98f4be1586da32174d220c8800"
+      },
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T09:56:45.915448+00:00",
+      "session_id": null,
+      "source_ids": [
+        "S030"
+      ],
+      "summary": "Progressive context tool and selected-chat quick import implemented;12tests PASS; private real43message sample pagination/import checks PASS. No OpenViking runtime or account subscription installed.",
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
-    "next_step": "Read docs/AUTHENTICATED_CHAT_TRIAL.md. Authenticated browser manually read current and INSTA samples28+15; exact/repeat/MCP PASS. Private originals outside public Git. Continuous ingestion absent and original completeness unknown. Real candidate1 HTML preview screenshot obtained; live polling and external A6 remain open. Prior logged-out blocker superseded. GitHub-first before new capability.",
-    "updated_at": "2026-09-24T09:39:12.837406+00:00"
+    "next_step": "Read docs/OPENVIKING_ADOPTION.md. fix.py attach imports selected normalized/original-export chat and verifies; read_context_layer MCP serves L0/L1/L2. 12tests and real43sample trial PASS. ChatGPT native app installation/capture adapter remains not installed; a prompt is not permission or full archive access. Preserve private originals outside public git.",
+    "updated_at": "2026-09-24T09:56:45.924020+00:00"
   },
   "locations": [
     {
@@ -2813,6 +2840,11 @@
       "locator": "terminal-cli:dashboard-versions-20260924/f2e7a1bee17fed0a5879a66bea4bfae7fb2837b1698c31a3afa31acc83ae4cb2",
       "presence_status": "observed",
       "source_id": "SRC-TERMINAL-f2e7a1bee17fed0a5879a66bea4bfae7fb2837b1698c31a3afa31acc83ae4cb2"
+    },
+    {
+      "locator": "docs/OPENVIKING_ADOPTION.md",
+      "name": "OpenViking bounded adoption and real-sample trial",
+      "source_id": "S030"
     }
   ],
   "versions": [

@@ -11,7 +11,7 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.8.1-candidate.1 + browser observation correction; continuous ingestion and A6 open
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Read docs/AUTHENTICATED_CHAT_TRIAL.md. Authenticated browser manually read current and INSTA samples28+15; exact/repeat/MCP PASS. Private originals outside public Git. Continuous ingestion absent and original completeness unknown. Real candidate1 HTML preview screenshot obtained; live polling and external A6 remain open. Prior logged-out blocker superseded. GitHub-first before new capability.
+- Следующий проверяемый шаг: Read docs/OPENVIKING_ADOPTION.md. fix.py attach imports selected normalized/original-export chat and verifies; read_context_layer MCP serves L0/L1/L2. 12tests and real43sample trial PASS. ChatGPT native app installation/capture adapter remains not installed; a prompt is not permission or full archive access. Preserve private originals outside public git.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -167,6 +167,7 @@
 - unknown date · **observed** · Observed on2026-09-24: previous-code CI35971960099 success at0b86b839; supersedes pending rerun expectation, not historical failed records.
 - unknown date · **observed** · Browser access evidence updated after secure login
 - unknown date · **observed** · Correct integration limitation field; manual browser reading observed, subscription absent
+- unknown date · **observed** · Progressive context tool and selected-chat quick import implemented;12tests PASS; private real43message sample pagination/import checks PASS. No OpenViking runtime or account subscription installed.
 - unknown date · **requested** · Use terminal in current chat; audit history, plan completeness, context loss and donor benefits; GitHub-first before new features. Original message timestamp unknown; observed this session.
 
 ## 7. Варианты и ответвления
@@ -242,8 +243,9 @@
 - `SRC-SCREENSHOT-d62b38fb3a48d1a7983c701132c2cd25b1f5afe0da5380936991a17d0e13c7e2-v0.8.1-candidate.1` — Actual ChatGPT Library HTML preview browser capture; snapshot dated 2026-09-24T09:07:32Z; application area only; no live polling tested
 - `S029` — Authenticated browser sample and snapshot trial, private originals excluded
 - `SRC-TERMINAL-f2e7a1bee17fed0a5879a66bea4bfae7fb2837b1698c31a3afa31acc83ae4cb2` — terminal-cli:dashboard-versions-20260924/f2e7a1bee17fed0a5879a66bea4bfae7fb2837b1698c31a3afa31acc83ae4cb2
+- `S030` — OpenViking bounded adoption and real-sample trial
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Read docs/AUTHENTICATED_CHAT_TRIAL.md. Authenticated browser manually read current and INSTA samples28+15; exact/repeat/MCP PASS. Private originals outside public Git. Continuous ingestion absent and original completeness unknown. Real candidate1 HTML preview screenshot obtained; live polling and external A6 remain open. Prior logged-out blocker superseded. GitHub-first before new capability.
-- Обновлено: 2026-09-24T09:39:12.837406+00:00
+- Следующий шаг: Read docs/OPENVIKING_ADOPTION.md. fix.py attach imports selected normalized/original-export chat and verifies; read_context_layer MCP serves L0/L1/L2. 12tests and real43sample trial PASS. ChatGPT native app installation/capture adapter remains not installed; a prompt is not permission or full archive access. Preserve private originals outside public git.
+- Обновлено: 2026-09-24T09:56:45.924020+00:00
