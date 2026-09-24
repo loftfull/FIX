@@ -2007,12 +2007,27 @@
       ],
       "summary": "Исправлена потеря canonical полей в экспорте панели. Все поля сравнены при JSON roundtrip новым процессом и с HTML payload. Пять dashboard тестов PASS. README/current checkpoint уточнены. Browser copy/download и семантическая передача новой модели ещё не проверены.",
       "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "a8f33721d0dd9d27c2a35438da20bac37a2fbe8d9e672b59a8de910502238c04",
+      "event_id": "EV-HANDOFF-BROWSER-20260924",
+      "event_type": "validation",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T17:32:27.347352+00:00",
+      "session_id": null,
+      "source_ids": [
+        "S-HANDOFF-BROWSER-20260924"
+      ],
+      "summary": "Реальный browser clipboard после ручного копирования точно совпал с полным JSON пакетом. Независимый читатель без контекста восстановил 7 ограничений, 3 конфликта, 2 вопроса и цепочку чатов. Download bytes не проверены; отменённое решение отсутствует в эталоне; A6 открыт.",
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
-    "next_step": "Проверить кнопки копирования и скачивания исправленного пакета в браузере; передать пакет новой модели и проверить сохранение обязательных решений, конфликтов и неизвестных источников. Затем продолжить диагностику сохранности; A6 открыт.",
-    "updated_at": "2026-09-24T17:02:10.782859+00:00"
+    "next_step": "Проверить скачанный файл и перенос явно отменённого решения; уточнить формулировки покрытия источников. Затем продолжить причинную диагностику сохранности. Ручное копирование полного пакета и чтение без контекста проверены; автоматического перехода после лимита нет.",
+    "updated_at": "2026-09-24T17:32:27.354213+00:00"
   },
   "locations": [
     {
@@ -3307,6 +3322,11 @@
       "locator": "docs/CRITIC_REPAIRS_2026-09-24.md",
       "name": "Critic findings and scoped export repairs",
       "source_id": "S-CRITIC-REPAIRS-20260924"
+    },
+    {
+      "locator": "docs/HANDOFF_BROWSER_TRIAL_2026-09-24.md",
+      "name": "Real clipboard and package-only reader trial",
+      "source_id": "S-HANDOFF-BROWSER-20260924"
     }
   ],
   "versions": [

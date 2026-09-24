@@ -11,7 +11,7 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.8.1-candidate.1 + browser observation correction; continuous ingestion and A6 open
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Проверить кнопки копирования и скачивания исправленного пакета в браузере; передать пакет новой модели и проверить сохранение обязательных решений, конфликтов и неизвестных источников. Затем продолжить диагностику сохранности; A6 открыт.
+- Следующий проверяемый шаг: Проверить скачанный файл и перенос явно отменённого решения; уточнить формулировки покрытия источников. Затем продолжить причинную диагностику сохранности. Ручное копирование полного пакета и чтение без контекста проверены; автоматического перехода после лимита нет.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -188,6 +188,7 @@
 - unknown date · **observed** · Browser access evidence updated after secure login
 - unknown date · **observed** · Correct integration limitation field; manual browser reading observed, subscription absent
 - unknown date · **observed** · Исправлена потеря canonical полей в экспорте панели. Все поля сравнены при JSON roundtrip новым процессом и с HTML payload. Пять dashboard тестов PASS. README/current checkpoint уточнены. Browser copy/download и семантическая передача новой модели ещё не проверены.
+- unknown date · **observed** · Реальный browser clipboard после ручного копирования точно совпал с полным JSON пакетом. Независимый читатель без контекста восстановил 7 ограничений, 3 конфликта, 2 вопроса и цепочку чатов. Download bytes не проверены; отменённое решение отсутствует в эталоне; A6 открыт.
 - unknown date · **observed** · Message viewing, copy fallback, local favorites and portable JSON added. JS logic tests and4dashboard testsPASS. Actual HTML preview rendered15user messages; favorite addition observed; clipboardAPI blocked, manual selected-copy235chars exact. Private preview excluded from Git.
 - unknown date · **observed** · Progressive context tool and selected-chat quick import implemented;12tests PASS; private real43message sample pagination/import checks PASS. No OpenViking runtime or account subscription installed.
 - unknown date · **observed** · Все сохранённые группы планов сопоставлены с кодом/проверками/пробелами; текущие описания уточнены append-only patches. Добавлены atomic/context/messages подпланы. Полнота исходников и A6 открыты; дополнительные authenticated выборки частичны. Упрощённый UI проверен экспертно и локальными проверками; новое browser испытание ожидается.
@@ -278,8 +279,9 @@
 - `SRC-TERMINAL-2e55cf3f5d0d32ed8f7dd9bdad393b5af062ae76efcf7487165cfa1fb449b73a` — terminal-cli:current-chat-audit-2026-09-24/2e55cf3f5d0d32ed8f7dd9bdad393b5af062ae76efcf7487165cfa1fb449b73a
 - `S-CONTINUITY-UI-20260924` — Bounded account continuity and UI trial
 - `S-CRITIC-REPAIRS-20260924` — Critic findings and scoped export repairs
+- `S-HANDOFF-BROWSER-20260924` — Real clipboard and package-only reader trial
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Проверить кнопки копирования и скачивания исправленного пакета в браузере; передать пакет новой модели и проверить сохранение обязательных решений, конфликтов и неизвестных источников. Затем продолжить диагностику сохранности; A6 открыт.
-- Обновлено: 2026-09-24T17:02:10.782859+00:00
+- Следующий шаг: Проверить скачанный файл и перенос явно отменённого решения; уточнить формулировки покрытия источников. Затем продолжить причинную диагностику сохранности. Ручное копирование полного пакета и чтение без контекста проверены; автоматического перехода после лимита нет.
+- Обновлено: 2026-09-24T17:32:27.354213+00:00
