@@ -177,7 +177,7 @@ class TerminalRunnerTests(unittest.TestCase):
             '--request', str(request)], capture_output=True, text=True, encoding='utf-8', env=env, timeout=15)
         self.assertEqual(process.returncode, 0, process.stderr)
         receipt = json.loads(process.stdout)
-        self.assertEqual(receipt['cwd'], str(cwd))
+        self.assertEqual(receipt['cwd'], str(cwd.resolve()))
         self.assertEqual(receipt['stdout']['text'], 'Привет\n')
 
     def test_cli_json_real_process(self):

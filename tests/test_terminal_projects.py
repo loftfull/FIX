@@ -28,7 +28,9 @@ class RegistryTests(unittest.TestCase):
 
     def test_roundtrip_cyrillic_spaces_and_remove(self):
         update_registry(self.registry, add=self.entry)
-        self.assertEqual(self.entry, read_registry(self.registry)[0])
+        expected = dict(self.entry, memory_root=str(self.memory.resolve()),
+                        checkout_root=str(self.checkout.resolve()))
+        self.assertEqual(expected, read_registry(self.registry)[0])
         self.assertEqual('verified-memory', probe_entry(self.entry)['status'])
         update_registry(self.registry, remove='example')
         self.assertEqual([], read_registry(self.registry))
@@ -69,7 +71,7 @@ class RegistryTests(unittest.TestCase):
     def test_launch_plan_preserves_argv_and_quotes_powershell(self):
         plan = launch_plan(self.entry, sys.executable, Path(__file__).resolve().parents[1])
         self.assertFalse(plan['executed'])
-        self.assertIn(str(self.checkout), plan['commands']['watch'])
+        self.assertIn(str(self.checkout.resolve()), plan['commands']['watch'])
         self.assertIn("O''Brien", plan['powershell']['watch'])
         self.assertEqual("& 'hello' '$(touch evil); x'", powershell_command(['hello', '$(touch evil); x']))
 

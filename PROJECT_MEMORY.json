@@ -496,12 +496,27 @@
       ],
       "summary": "Added brief compiler, explicit bounded command supervisor, scoped project registry, offline pixel receipts and real-chat preservation checker.168 local tests and57 independent component tests passed.18-message real archive preserved and read over MCP in successful control trials; cold handoff recovered scope. Two earlier journal-tail-loss incidents remain unexplained; full acceptance blocked. Claude/Codex CLI and user-machine autostart not tested.",
       "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "7c1e0ce9bf6b2747f2a606a7e8891e2f06b641221a4a9e4e9207c7428a770b08",
+      "event_id": "EV-00018",
+      "event_type": "test_correction",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T07:26:04.430592+00:00",
+      "session_id": null,
+      "source_ids": [
+        "S018"
+      ],
+      "summary": "Windows ran136 tests:3 assertions compared short8.3 paths with canonical paths. Expected paths corrected;30 affected local tests pass. Windows rerun pending. Journal-tail loss reproduced in diagnostic probe; cause remains unknown.",
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
     "next_step": "Investigate unresolved journal-tail-loss incidents documented in docs/REAL_CHAT_TERMINAL_TRIAL_2026-09-24.md before full acceptance. Core brief/runner/registry/visual mechanisms implemented,168 local tests passed, real18-message chat and independent cold handoff tested. Read RECOMMENDATIONS_IMPLEMENTATION.md for actual host limits; browser and user-machine Claude/Codex/autostart remain unverified.",
-    "updated_at": "2026-09-24T07:20:03.885155+00:00"
+    "updated_at": "2026-09-24T07:26:04.432230+00:00"
   },
   "locations": [
     {
@@ -887,6 +902,11 @@
       "name": "Recommendation implementation and real-chat terminal trial",
       "observed_at": "2026-09-24",
       "source_id": "S017"
+    },
+    {
+      "locator": "https://github.com/loftfull/FIX/actions/runs/35969374287",
+      "name": "Windows CI path normalization failures",
+      "source_id": "S018"
     }
   ],
   "versions": [
