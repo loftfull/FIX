@@ -11,7 +11,7 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.8.1-candidate.1 + browser observation correction; continuous ingestion and A6 open
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Проверить скачанный файл и перенос явно отменённого решения; уточнить формулировки покрытия источников. Затем продолжить причинную диагностику сохранности. Ручное копирование полного пакета и чтение без контекста проверены; автоматического перехода после лимита нет.
+- Следующий проверяемый шаг: Продолжить проверку аварийного создания журнала и причин потери хвоста. Перенос полного пакета и заменённых решений испытан в ограниченном сценарии; скачивание браузером, автосбор и A6 остаются открытыми.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -192,6 +192,7 @@
 - unknown date · **observed** · Message viewing, copy fallback, local favorites and portable JSON added. JS logic tests and4dashboard testsPASS. Actual HTML preview rendered15user messages; favorite addition observed; clipboardAPI blocked, manual selected-copy235chars exact. Private preview excluded from Git.
 - unknown date · **observed** · Progressive context tool and selected-chat quick import implemented;12tests PASS; private real43message sample pagination/import checks PASS. No OpenViking runtime or account subscription installed.
 - unknown date · **observed** · Все сохранённые группы планов сопоставлены с кодом/проверками/пробелами; текущие описания уточнены append-only patches. Добавлены atomic/context/messages подпланы. Полнота исходников и A6 открыты; дополнительные authenticated выборки частичны. Упрощённый UI проверен экспертно и локальными проверками; новое browser испытание ожидается.
+- unknown date · **observed** · Исправлена потеря текстов/источников заменённых решений в review output. Новый тест RED→GREEN, 215 локальных тестов PASS. Читатель без контекста правильно разобрал документированный curated пример. Browser download event timed out; скачанные bytes не подтверждены.
 - unknown date · **reported** · Координатор наблюдал работающий HTML preview: вводная справка открывается, правила сохраняют открытое и закрытое состояние после перерисовки и перехода История → Обзор. Локальный live polling, пользовательская установка и внешний A6 не проверены этим испытанием.
 - unknown date · **requested** · Use terminal in current chat; audit history, plan completeness, context loss and donor benefits; GitHub-first before new features. Original message timestamp unknown; observed this session.
 
@@ -213,7 +214,7 @@
   - continues → `history-runtime`
 
 ## 8. Нерешённые противоречия
-- Coverage gap: full current-chat export and original INSTA chats unavailable; no complete-history claim.
+- Полные экспорты текущего чата и INSTA отсутствуют. Позднее получены авторизованные частичные наблюдения сообщений; они не подтверждают полноту истории или отсутствие потерь.
 - Integrity incident: natural journal-tail rollback and reappearing stale locks remain unexplained. Witness recovery does not establish root cause.
 - Priority risk: terminal UI/supervisor advanced before A6 and P1 historian governance; prioritize history completeness now.
 
@@ -280,8 +281,9 @@
 - `S-CONTINUITY-UI-20260924` — Bounded account continuity and UI trial
 - `S-CRITIC-REPAIRS-20260924` — Critic findings and scoped export repairs
 - `S-HANDOFF-BROWSER-20260924` — Real clipboard and package-only reader trial
+- `S-SUPERSESSION-TRIAL-20260924` — Superseded decision preservation and reader trial
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Проверить скачанный файл и перенос явно отменённого решения; уточнить формулировки покрытия источников. Затем продолжить причинную диагностику сохранности. Ручное копирование полного пакета и чтение без контекста проверены; автоматического перехода после лимита нет.
-- Обновлено: 2026-09-24T17:32:27.354213+00:00
+- Следующий шаг: Продолжить проверку аварийного создания журнала и причин потери хвоста. Перенос полного пакета и заменённых решений испытан в ограниченном сценарии; скачивание браузером, автосбор и A6 остаются открытыми.
+- Обновлено: 2026-09-24T17:40:34.405064+00:00

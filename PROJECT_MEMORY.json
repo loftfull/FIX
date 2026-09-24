@@ -34,9 +34,10 @@
     {
       "source_ids": [
         "S021",
-        "S022"
+        "S022",
+        "S-CONTINUITY-UI-20260924"
       ],
-      "summary": "Coverage gap: full current-chat export and original INSTA chats unavailable; no complete-history claim."
+      "summary": "Полные экспорты текущего чата и INSTA отсутствуют. Позднее получены авторизованные частичные наблюдения сообщений; они не подтверждают полноту истории или отсутствие потерь."
     },
     {
       "source_ids": [
@@ -2022,12 +2023,27 @@
       ],
       "summary": "Реальный browser clipboard после ручного копирования точно совпал с полным JSON пакетом. Независимый читатель без контекста восстановил 7 ограничений, 3 конфликта, 2 вопроса и цепочку чатов. Download bytes не проверены; отменённое решение отсутствует в эталоне; A6 открыт.",
       "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "5dac2418f6cf6c2870bf5dcd82e4fdf9557f828941972517b6c74bbeab5ff26c",
+      "event_id": "EV-SUPERSESSION-TRIAL-20260924",
+      "event_type": "validation",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T17:40:34.398509+00:00",
+      "session_id": null,
+      "source_ids": [
+        "S-SUPERSESSION-TRIAL-20260924"
+      ],
+      "summary": "Исправлена потеря текстов/источников заменённых решений в review output. Новый тест RED→GREEN, 215 локальных тестов PASS. Читатель без контекста правильно разобрал документированный curated пример. Browser download event timed out; скачанные bytes не подтверждены.",
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
-    "next_step": "Проверить скачанный файл и перенос явно отменённого решения; уточнить формулировки покрытия источников. Затем продолжить причинную диагностику сохранности. Ручное копирование полного пакета и чтение без контекста проверены; автоматического перехода после лимита нет.",
-    "updated_at": "2026-09-24T17:32:27.354213+00:00"
+    "next_step": "Продолжить проверку аварийного создания журнала и причин потери хвоста. Перенос полного пакета и заменённых решений испытан в ограниченном сценарии; скачивание браузером, автосбор и A6 остаются открытыми.",
+    "updated_at": "2026-09-24T17:40:34.405064+00:00"
   },
   "locations": [
     {
@@ -3327,6 +3343,11 @@
       "locator": "docs/HANDOFF_BROWSER_TRIAL_2026-09-24.md",
       "name": "Real clipboard and package-only reader trial",
       "source_id": "S-HANDOFF-BROWSER-20260924"
+    },
+    {
+      "locator": "docs/SUPERSESSION_TRIAL_2026-09-24.md",
+      "name": "Superseded decision preservation and reader trial",
+      "source_id": "S-SUPERSESSION-TRIAL-20260924"
     }
   ],
   "versions": [

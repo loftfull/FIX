@@ -24,6 +24,19 @@ class ReviewTests(unittest.TestCase):
         self.assertEqual(['old'],result['superseded_decision_ids'])
         self.assertEqual(2,len(data['decisions']))
 
+    def test_serialized_review_retains_replaced_text_reason_and_source(self):
+        import json
+        data = self.fixture()
+        data['decisions'][0].update(text='Удалять старую блокировку по возрасту',
+                                   evidence_status='reported')
+        data['decisions'][1].update(text='Использовать блокировку ОС',
+                                   reason='Возраст не доказывает завершение владельца',
+                                   evidence_status='reported')
+        transferred = json.loads(json.dumps(review(data), ensure_ascii=False))
+        self.assertEqual(transferred['decisions'], data['decisions'])
+        self.assertEqual(transferred['superseded_decision_ids'], ['old'])
+        self.assertEqual(transferred['active_decisions'][0]['decision_id'], 'new')
+
     def test_rejects_missing_evidence_and_other_project(self):
         for field,value in [('source_ids',['missing']),('project_id','other')]:
             data=self.fixture();data['work_items'][0][field]=value

@@ -76,6 +76,9 @@ def review(data: dict) -> dict:
             'reported_runtime_verified_count':sum(i.get('runtime_status') == 'verified' for i in items),
             'completion_percentage':None,
             'completion_reason':'No complete acceptance denominator supplied; commits and PRs do not measure product completion.',
+            # A standalone handoff must retain the replaced text and provenance,
+            # not only IDs that require the unavailable original input to resolve.
+            'decisions':decisions,
             'active_decisions':active, 'superseded_decision_ids':sorted(superseded),
             'findings':findings, 'sources':sources,
             'authority':'Analysis of explicitly supplied classifications and links only; no automatic dead-end declaration.'}
