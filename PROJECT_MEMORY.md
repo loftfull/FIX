@@ -5,13 +5,13 @@
 - Имя: Project History Agent
 - Описание: Evidence-first project historian with append-only journal, chat lineage, project passport, plan-to-fact ledger, visual provenance and host-native history adapters.
 - Цель: Preserve evidence-based project history across chats, models, repositories and environments
-- Каноническая версия: v0.8.1-candidate.1; account chat and visual acceptance open
+- Каноническая версия: v0.8.1-candidate.1 + browser observation correction; continuous ingestion and A6 open
 
 ## 0.1 Быстрый handoff для новой AI-модели
 - Project ID: `project-history-agent`
-- Каноническая версия: v0.8.1-candidate.1; account chat and visual acceptance open
+- Каноническая версия: v0.8.1-candidate.1 + browser observation correction; continuous ingestion and A6 open
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Read docs/CONTROL_DASHBOARD_TRIAL.md. Current ChatGPT chat NOT_CONNECTED: secure account authentication then read original chats, never substitute archive success. Dashboard/version code201 local testsPASS, real screenshots and user-machine deployment open. Canonical history stays at this memory-root when restoring code. GitHub-first before new features.
+- Следующий проверяемый шаг: Read docs/AUTHENTICATED_CHAT_TRIAL.md. Authenticated browser manually read current and INSTA samples28+15; exact/repeat/MCP PASS. Private originals outside public Git. Continuous ingestion absent and original completeness unknown. Real candidate1 HTML preview screenshot obtained; live polling and external A6 remain open. Prior logged-out blocker superseded. GitHub-first before new capability.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -108,7 +108,7 @@
 - eventsourcing9.5.5 witness and isolated recovery; original rollback cause unknown
 
 ## 5. Скриншоты и визуальные подтверждения
-- Скриншоты не найдены или их источник пока недоступен.
+- `VIS-v0.8.1-candidate.1-d62b38fb3a48d1a7983c701132c2cd25b1f5afe0da5380936991a17d0e13c7e2` · Screenshot for v0.8.1-candidate.1 · version=v0.8.1-candidate.1 · status=file_observed_build_link_reported — `/workspace/scratch/c911ac0d5396/repos/FIX/version-images/d62b38fb3a48d1a7983c701132c2cd25b1f5afe0da5380936991a17d0e13c7e2.jpg`
 
 ## 6. Хронология
 - 2026-09-24T06:55:26.704539+00:00 · **reported** · Визуальный контроль разработки — первый этап
@@ -127,6 +127,7 @@
 - 2026-09-24T09:01:57.761676+00:00 · **observed** · Local run succeeded
 - 2026-09-24T09:06:43.552134+00:00 · **reported** · Панель и безопасные версии реализованы и испытаны локально. Подключение текущего чата и скриншот не подтверждены.
 - 2026-09-24T09:07:31.627244+00:00 · **observed** · Restored code v0.8.1-candidate.1 into separate worktree; current memory retained
+- 2026-09-24T09:38:06.037363+00:00 · **reported** · Панель, безопасный возврат, реальный screenshot HTML snapshot и две выборки аккаунта испытаны. Автосбор текущего чата не реализован.
 - 2026-09-15 · **verified** · Project History Agent originated in ChatGPT chat агент.
 - 2026-09-15 · **verified** · Current chat explicitly requested continuation from chat агент.
 - 2026-09-16 · **verified** · v0.5 durable history package passed its deterministic and real-project candidate gates; A6 remained NOT_RUN.
@@ -162,7 +163,10 @@
 - unknown date · **observed** · Windows ran136 tests:3 assertions compared short8.3 paths with canonical paths. Expected paths corrected;30 affected local tests pass. Windows rerun pending. Journal-tail loss reproduced in diagnostic probe; cause remains unknown.
 - unknown date · **observed** · Integrated adapted MIT i-have-adhd focus and eventsourcing9.5.5 SQLite witness.190 local testsPASS,47 independent component checksPASS. Real18messages MCP preserved; controlledrollback rejected and recovered in newfolder. Natural loss cause and reappearinglock remain unknown. ACP/restic/Playwright evaluated, not connected.
 - unknown date · **observed** · Windows158tests found4cleanup errors: SQLite handle leaked by eventsourcing9.5.5 connection setup failure and test fixtures. Narrow local pool closes handle on setup error; fixtures explicitly close. New resource regression added;48 related local checksPASS. Windowsrerun pending; original journal rollback stillunknown.
+- unknown date · **observed** · Authenticated browser observed current request. Private samples28+15 imported exactly after redaction, repeat0, fresh MCP reads43. Partial DOM only; original completeness unknown; continuous ingestion absent. Supersedes earlier logged-out availability observation only.
 - unknown date · **observed** · Observed on2026-09-24: previous-code CI35971960099 success at0b86b839; supersedes pending rerun expectation, not historical failed records.
+- unknown date · **observed** · Browser access evidence updated after secure login
+- unknown date · **observed** · Correct integration limitation field; manual browser reading observed, subscription absent
 - unknown date · **requested** · Use terminal in current chat; audit history, plan completeness, context loss and donor benefits; GitHub-first before new features. Original message timestamp unknown; observed this session.
 
 ## 7. Варианты и ответвления
@@ -235,8 +239,11 @@
 - `S028` — Dashboard/version validation and real-chat limitations
 - `SRC-TERMINAL-f68dd67aca7989dd1f1808bca90acc519d64619e7af403269a7cf20b425c8775` — terminal-cli:dashboard-versions-20260924/f68dd67aca7989dd1f1808bca90acc519d64619e7af403269a7cf20b425c8775
 - `SRC-CHECKPOINT-v0.8.1-candidate.1` — Observed code checkpoint v0.8.1-candidate.1
+- `SRC-SCREENSHOT-d62b38fb3a48d1a7983c701132c2cd25b1f5afe0da5380936991a17d0e13c7e2-v0.8.1-candidate.1` — Actual ChatGPT Library HTML preview browser capture; snapshot dated 2026-09-24T09:07:32Z; application area only; no live polling tested
+- `S029` — Authenticated browser sample and snapshot trial, private originals excluded
+- `SRC-TERMINAL-f2e7a1bee17fed0a5879a66bea4bfae7fb2837b1698c31a3afa31acc83ae4cb2` — terminal-cli:dashboard-versions-20260924/f2e7a1bee17fed0a5879a66bea4bfae7fb2837b1698c31a3afa31acc83ae4cb2
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Read docs/CONTROL_DASHBOARD_TRIAL.md. Current ChatGPT chat NOT_CONNECTED: secure account authentication then read original chats, never substitute archive success. Dashboard/version code201 local testsPASS, real screenshots and user-machine deployment open. Canonical history stays at this memory-root when restoring code. GitHub-first before new features.
-- Обновлено: 2026-09-24T09:09:33.342679+00:00
+- Следующий шаг: Read docs/AUTHENTICATED_CHAT_TRIAL.md. Authenticated browser manually read current and INSTA samples28+15; exact/repeat/MCP PASS. Private originals outside public Git. Continuous ingestion absent and original completeness unknown. Real candidate1 HTML preview screenshot obtained; live polling and external A6 remain open. Prior logged-out blocker superseded. GitHub-first before new capability.
+- Обновлено: 2026-09-24T09:39:12.837406+00:00

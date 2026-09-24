@@ -1597,12 +1597,154 @@
       ],
       "summary": "Actual FIX checkpoint restored into separate worktree. Code SHA and3changed component files match. Canonical history retained at original root; no app execution or real screenshot.",
       "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "browser_observation": {
+        "current_chat_match": "observed",
+        "other_sample_messages": 15,
+        "result": "manual_read",
+        "sample_messages": 28
+      },
+      "dedupe_key": "2674421d3c68072625508b9f4abf8126019f88ae8d2e4339cc37788f803c5e54",
+      "event_id": "EV-AUTHENTICATED-BROWSER-SAMPLE",
+      "event_type": "chat_access_observation",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T09:33:22.835Z",
+      "session_id": null,
+      "source_ids": [
+        "S029"
+      ],
+      "summary": "Authenticated browser observed current request. Private samples28+15 imported exactly after redaction, repeat0, fresh MCP reads43. Partial DOM only; original completeness unknown; continuous ingestion absent. Supersedes earlier logged-out availability observation only.",
+      "supersedes": [
+        "EV-CHAT-CONNECTION-CORRECTION"
+      ],
+      "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "536ccc34a8877486fa3eb8cbed1d59041b1c3a829dcf9727c6374e20cdf696d4",
+      "event_id": "EV-CONTROL-BROWSER-AUTHENTICATED",
+      "event_type": "integration_observation",
+      "evidence_status": "observed",
+      "integration": {
+        "benefit": "43 sample messages preservation/idempotency/MCP checked; actual browser screenshot",
+        "id": "browser-skill",
+        "kind": "skill",
+        "license": "unknown",
+        "limitation": "Does not expose authenticated chat account",
+        "limits": "Partial DOM only; continuous ingestion absent; live polling not tested",
+        "name": "control-browser",
+        "repository": null,
+        "scope": "Authenticated DOM reading and actual HTML snapshot preview",
+        "stage": "used_in_session",
+        "version": "environment-provided"
+      },
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T09:33:22.835Z",
+      "session_id": null,
+      "source_ids": [
+        "S029"
+      ],
+      "summary": "Browser access evidence updated after secure login",
+      "tool": "unknown"
+    },
+    {
+      "author": "reported executor",
+      "dedupe_key": "bcc41f948e626bfa8c9fdc83ed671140eeef8a4df5663fc2268ad38bfa7a1ad7",
+      "event_id": "EV-TERMINAL-f2e7a1bee17fed0a5879a66bea4bfae7fb2837b1698c31a3afa31acc83ae4cb2",
+      "event_type": "terminal_report",
+      "evidence_status": "reported",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T09:38:06.040846+00:00",
+      "occurred_at": "2026-09-24T09:38:06.037363+00:00",
+      "session_id": "unknown",
+      "source_ids": [
+        "SRC-TERMINAL-f2e7a1bee17fed0a5879a66bea4bfae7fb2837b1698c31a3afa31acc83ae4cb2"
+      ],
+      "summary": "Панель, безопасный возврат, реальный screenshot HTML snapshot и две выборки аккаунта испытаны. Автосбор текущего чата не реализован.",
+      "terminal_payload": {
+        "acceptance_results": [
+          {
+            "criterion": "Indicators never turn reported into accepted",
+            "evidence_event_ids": [
+              "EV-CONTROL-TRIAL"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Restoration preserves current dirty work and history",
+            "evidence_event_ids": [
+              "EV-CONTROL-TRIAL"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Real18message archive remains exact and idempotent",
+            "evidence_event_ids": [
+              "EV-CONTROL-TRIAL"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Authenticated account chats tested",
+            "evidence_event_ids": [
+              "EV-AUTHENTICATED-BROWSER-SAMPLE"
+            ],
+            "result": "pass"
+          }
+        ],
+        "blockers": [
+          "Continuous current-chat ingestion not implemented",
+          "Full original chat coverage unknown",
+          "Live polling and external A6 not accepted"
+        ],
+        "continuation_count": 0,
+        "evidence_event_ids": [
+          "EV-CONTROL-TRIAL",
+          "EV-AUTHENTICATED-BROWSER-SAMPLE"
+        ],
+        "model_id": "unknown",
+        "session_id": "unknown",
+        "status": "blocked",
+        "summary": "Панель, безопасный возврат, реальный screenshot HTML snapshot и две выборки аккаунта испытаны. Автосбор текущего чата не реализован.",
+        "task_id": "dashboard-versions-20260924"
+      },
+      "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "fb4afa13d8079a0b9556b4f0e2c95fcf1168139a8220d2913d6773dc0f85c8e0",
+      "event_id": "EV-CONTROL-BROWSER-LIMIT-CORRECTION",
+      "event_type": "integration_observation",
+      "evidence_status": "observed",
+      "integration": {
+        "benefit": "43 sample messages preservation/idempotency/MCP checked; actual browser screenshot",
+        "id": "browser-skill",
+        "kind": "skill",
+        "license": "unknown",
+        "limitation": "Partial DOM only; continuous ingestion absent; live polling not tested",
+        "name": "control-browser",
+        "repository": null,
+        "scope": "Authenticated DOM reading and actual HTML snapshot preview",
+        "stage": "used_in_session",
+        "version": "environment-provided"
+      },
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T09:33:22.835Z",
+      "session_id": null,
+      "source_ids": [
+        "S029"
+      ],
+      "summary": "Correct integration limitation field; manual browser reading observed, subscription absent",
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
-    "next_step": "Read docs/CONTROL_DASHBOARD_TRIAL.md. Current ChatGPT chat NOT_CONNECTED: secure account authentication then read original chats, never substitute archive success. Dashboard/version code201 local testsPASS, real screenshots and user-machine deployment open. Canonical history stays at this memory-root when restoring code. GitHub-first before new features.",
-    "updated_at": "2026-09-24T09:09:33.342679+00:00"
+    "next_step": "Read docs/AUTHENTICATED_CHAT_TRIAL.md. Authenticated browser manually read current and INSTA samples28+15; exact/repeat/MCP PASS. Private originals outside public Git. Continuous ingestion absent and original completeness unknown. Real candidate1 HTML preview screenshot obtained; live polling and external A6 remain open. Prior logged-out blocker superseded. GitHub-first before new capability.",
+    "updated_at": "2026-09-24T09:39:12.837406+00:00"
   },
   "locations": [
     {
@@ -1865,7 +2007,7 @@
     }
   ],
   "project": {
-    "canonical_version": "v0.8.1-candidate.1; account chat and visual acceptance open",
+    "canonical_version": "v0.8.1-candidate.1 + browser observation correction; continuous ingestion and A6 open",
     "constraints": [
       "Never infer chat continuation from topic similarity alone",
       "Keep requested/planned/reported/observed/verified distinct",
@@ -2376,7 +2518,7 @@
     {
       "locator": "docs/CONTROL_DASHBOARD_PLAN.md",
       "name": "GitHub-first dashboard and checkpoint plan",
-      "sha256": "ca676bf3dbaed5e21a82e292ed8ab7df45f6f24dde9c1585cde67b1edf6f4dd7",
+      "sha256": "cdfdfdf0187e57dde16389fe5104c8d0814f2b70084ef510a256ec64bd19c34e",
       "source_id": "S027"
     },
     {
@@ -2605,6 +2747,72 @@
       "sha": "ab5324fbd0b3b499bc90f55e2071069da3e89009",
       "source_id": "SRC-CHECKPOINT-v0.8.1-candidate.1",
       "tree": "4b7c231a54eb6a414a4f5a2cd29596339d5164ad"
+    },
+    {
+      "content_status": "reported",
+      "locator": "Actual ChatGPT Library HTML preview browser capture; snapshot dated 2026-09-24T09:07:32Z; application area only; no live polling tested",
+      "sha256": "d62b38fb3a48d1a7983c701132c2cd25b1f5afe0da5380936991a17d0e13c7e2",
+      "source_id": "SRC-SCREENSHOT-d62b38fb3a48d1a7983c701132c2cd25b1f5afe0da5380936991a17d0e13c7e2-v0.8.1-candidate.1"
+    },
+    {
+      "locator": "docs/AUTHENTICATED_CHAT_TRIAL.md",
+      "name": "Authenticated browser sample and snapshot trial, private originals excluded",
+      "sha256": "cfea6b546f93f12e11f12182a1d75267b0f7e23b843f7b5766090c363c05fc59",
+      "source_id": "S029"
+    },
+    {
+      "content_status": "reported",
+      "input": {
+        "acceptance_results": [
+          {
+            "criterion": "Indicators never turn reported into accepted",
+            "evidence_event_ids": [
+              "EV-CONTROL-TRIAL"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Restoration preserves current dirty work and history",
+            "evidence_event_ids": [
+              "EV-CONTROL-TRIAL"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Real18message archive remains exact and idempotent",
+            "evidence_event_ids": [
+              "EV-CONTROL-TRIAL"
+            ],
+            "result": "pass"
+          },
+          {
+            "criterion": "Authenticated account chats tested",
+            "evidence_event_ids": [
+              "EV-AUTHENTICATED-BROWSER-SAMPLE"
+            ],
+            "result": "pass"
+          }
+        ],
+        "blockers": [
+          "Continuous current-chat ingestion not implemented",
+          "Full original chat coverage unknown",
+          "Live polling and external A6 not accepted"
+        ],
+        "continuation_count": 0,
+        "evidence_event_ids": [
+          "EV-CONTROL-TRIAL",
+          "EV-AUTHENTICATED-BROWSER-SAMPLE"
+        ],
+        "model_id": "unknown",
+        "session_id": "unknown",
+        "status": "blocked",
+        "summary": "Панель, безопасный возврат, реальный screenshot HTML snapshot и две выборки аккаунта испытаны. Автосбор текущего чата не реализован.",
+        "task_id": "dashboard-versions-20260924"
+      },
+      "kind": "terminal_cli",
+      "locator": "terminal-cli:dashboard-versions-20260924/f2e7a1bee17fed0a5879a66bea4bfae7fb2837b1698c31a3afa31acc83ae4cb2",
+      "presence_status": "observed",
+      "source_id": "SRC-TERMINAL-f2e7a1bee17fed0a5879a66bea4bfae7fb2837b1698c31a3afa31acc83ae4cb2"
     }
   ],
   "versions": [
@@ -2804,13 +3012,34 @@
       "published_repository": "https://github.com/loftfull/FIX",
       "published_tree_sha": "4b7c231a54eb6a414a4f5a2cd29596339d5164ad",
       "repository": "/workspace/scratch/c911ac0d5396/repos/FIX",
-      "screenshot_status": "NOT_CAPTURED",
+      "screenshot_status": "FILE_OBSERVED_BUILD_LINK_REPORTED",
       "source_ids": [
         "SRC-CHECKPOINT-v0.8.1-candidate.1"
       ],
       "tree_sha": "4b7c231a54eb6a414a4f5a2cd29596339d5164ad",
-      "version_id": "v0.8.1-candidate.1"
+      "version_id": "v0.8.1-candidate.1",
+      "visual_id": "VIS-v0.8.1-candidate.1-d62b38fb3a48d1a7983c701132c2cd25b1f5afe0da5380936991a17d0e13c7e2"
     }
   ],
-  "visuals": []
+  "visuals": [
+    {
+      "captured_at": null,
+      "claimed_commit": "ab5324fbd0b3b499bc90f55e2071069da3e89009",
+      "dimensions": [
+        894,
+        870
+      ],
+      "kind": "screenshot",
+      "label": "Screenshot for v0.8.1-candidate.1",
+      "observation_status": "file_observed_build_link_reported",
+      "observed_now": false,
+      "sha256": "d62b38fb3a48d1a7983c701132c2cd25b1f5afe0da5380936991a17d0e13c7e2",
+      "source_ids": [
+        "SRC-SCREENSHOT-d62b38fb3a48d1a7983c701132c2cd25b1f5afe0da5380936991a17d0e13c7e2-v0.8.1-candidate.1"
+      ],
+      "uri": "/workspace/scratch/c911ac0d5396/repos/FIX/version-images/d62b38fb3a48d1a7983c701132c2cd25b1f5afe0da5380936991a17d0e13c7e2.jpg",
+      "version_id": "v0.8.1-candidate.1",
+      "visual_id": "VIS-v0.8.1-candidate.1-d62b38fb3a48d1a7983c701132c2cd25b1f5afe0da5380936991a17d0e13c7e2"
+    }
+  ]
 }

@@ -67,6 +67,22 @@ class VersionTests(unittest.TestCase):
         m=metrics(replay_journal_set(self.mem));self.assertEqual(m['criteria'],{'total':2,'reported_pass':1,'reported_fail':0,'not_run':1,'accepted':0});self.assertIsNone(m['project_percent']);self.assertEqual(m['chat']['status'],'not_connected')
         self.assertEqual(metrics(empty_state('x','x','x'))['criteria']['total'],0)
 
+    def test_browser_observation_is_historical_and_never_subscription(self):
+        s=empty_state('x','x','x');s['sources']=[{'source_id':'S'}]
+        self.assertIsNone(metrics(s)['chat']['last_browser_observation'])
+        s['events']=[{'event_id':'B1','event_type':'chat_access_observation',
+            'evidence_status':'observed','source_ids':['S'],'observed_at':'2026-09-24T09:33:22Z',
+            'browser_observation':{'result':'manual_read','sample_messages':28}}]
+        m=metrics(s)['chat'];self.assertEqual(m['status'],'not_connected')
+        self.assertFalse(m['continuous_ingestion'])
+        self.assertEqual(m['last_browser_observation']['evidence_status'],'observed')
+        s['events'].append(dict(s['events'][0],event_id='B2',evidence_status='reported'))
+        self.assertEqual(metrics(s)['chat']['last_browser_observation']['evidence_status'],'reported')
+        s['events'].append(dict(s['events'][0],event_id='B3',source_ids=['missing']))
+        self.assertEqual(metrics(s)['chat']['last_browser_observation']['evidence_status'],'unknown')
+        s['events'].append(dict(s['events'][0],event_id='B4',browser_observation={'result':'failed'}))
+        self.assertEqual(metrics(s)['chat']['last_browser_observation']['result'],'failed')
+
 
     def test_restore_receipt_collision_refuses_without_creating_worktree(self):
         (self.repo/'restore_context.json').write_text('original historical file')
