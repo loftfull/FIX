@@ -1556,12 +1556,53 @@
         "task_id": "dashboard-versions-20260924"
       },
       "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "b831e000c3c642943d6b40a7085f5787e5ac356e19b6087f118115ab81289262",
+      "event_id": "EV-RESTORE-eef9ce36b93c509f68cbb71d02c0ee5341055cde5099addae48086d901d15726",
+      "event_type": "version_restore",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T09:07:31.630800+00:00",
+      "occurred_at": "2026-09-24T09:07:31.627244+00:00",
+      "restore": {
+        "code_root": "/workspace/scratch/c911ac0d5396/dashboard-version-trial/FIX-restored-v0.8.1-candidate.1",
+        "commit_sha": "ab5324fbd0b3b499bc90f55e2071069da3e89009",
+        "memory_root": "/workspace/scratch/c911ac0d5396/repos/FIX",
+        "note": "Use current memory_root for MCP/dashboard. Journal files in this code snapshot are historical.",
+        "project_id": "project-history-agent",
+        "status": "restored_unexecuted",
+        "version": "v0.8.1-candidate.1"
+      },
+      "session_id": null,
+      "source_ids": [
+        "SRC-CHECKPOINT-v0.8.1-candidate.1"
+      ],
+      "summary": "Restored code v0.8.1-candidate.1 into separate worktree; current memory retained",
+      "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "bde8c64e4e972b6710182e4cd02059e926debab4f63eec9ed2b39f1790491620",
+      "event_id": "EV-REAL-FIX-RESTORE",
+      "event_type": "validation",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T09:07:31.718843+00:00",
+      "occurred_at": "2026-09-24",
+      "session_id": null,
+      "source_ids": [
+        "SRC-CHECKPOINT-v0.8.1-candidate.1"
+      ],
+      "summary": "Actual FIX checkpoint restored into separate worktree. Code SHA and3changed component files match. Canonical history retained at original root; no app execution or real screenshot.",
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
     "next_step": "Read docs/CONTROL_DASHBOARD_TRIAL.md. Current ChatGPT chat NOT_CONNECTED: secure account authentication then read original chats, never substitute archive success. Dashboard/version code201 local testsPASS, real screenshots and user-machine deployment open. Canonical history stays at this memory-root when restoring code. GitHub-first before new features.",
-    "updated_at": "2026-09-24T09:06:43.593353+00:00"
+    "updated_at": "2026-09-24T09:09:33.342679+00:00"
   },
   "locations": [
     {
@@ -1824,7 +1865,7 @@
     }
   ],
   "project": {
-    "canonical_version": "v0.8 development candidate; no release acceptance",
+    "canonical_version": "v0.8.1-candidate.1; account chat and visual acceptance open",
     "constraints": [
       "Never infer chat continuation from topic similarity alone",
       "Keep requested/planned/reported/observed/verified distinct",
@@ -2554,6 +2595,16 @@
       "locator": "terminal-cli:dashboard-versions-20260924/f68dd67aca7989dd1f1808bca90acc519d64619e7af403269a7cf20b425c8775",
       "presence_status": "observed",
       "source_id": "SRC-TERMINAL-f68dd67aca7989dd1f1808bca90acc519d64619e7af403269a7cf20b425c8775"
+    },
+    {
+      "evidence_event_ids": [
+        "EV-CONTROL-TRIAL"
+      ],
+      "locator": "/workspace/scratch/c911ac0d5396/repos/FIX",
+      "name": "Observed code checkpoint v0.8.1-candidate.1",
+      "sha": "ab5324fbd0b3b499bc90f55e2071069da3e89009",
+      "source_id": "SRC-CHECKPOINT-v0.8.1-candidate.1",
+      "tree": "4b7c231a54eb6a414a4f5a2cd29596339d5164ad"
     }
   ],
   "versions": [
@@ -2730,6 +2781,35 @@
         "S023"
       ],
       "version_id": "V-DEV-VAULT"
+    },
+    {
+      "acceptance": "candidate",
+      "changes": [
+        "Контрольные индикаторы, реестр компонентов и безопасный возврат кода; чат не подключён, снимок не получен"
+      ],
+      "checkpoint_schema": "fix-code-checkpoint/v1",
+      "commit_sha": "ab5324fbd0b3b499bc90f55e2071069da3e89009",
+      "evidence_event_ids": [
+        "EV-CONTROL-TRIAL"
+      ],
+      "evidence_status": "observed",
+      "git_ref": "refs/fix-checkpoints/b462ae54b9036fac/v0.8.1-candidate.1",
+      "name": "v0.8.1-candidate.1",
+      "occurred_at": "2026-09-24T09:07:00.573490+00:00",
+      "plan_ids": [
+        "P-CONTROL-VERSIONS"
+      ],
+      "publication_note": "Code commit object with equal tree, local commit metadata/SHA differs. Local restore uses original local pin.",
+      "published_commit_sha": "292b1df332d53ff82ab3f157e0bf3215d9eec6d1",
+      "published_repository": "https://github.com/loftfull/FIX",
+      "published_tree_sha": "4b7c231a54eb6a414a4f5a2cd29596339d5164ad",
+      "repository": "/workspace/scratch/c911ac0d5396/repos/FIX",
+      "screenshot_status": "NOT_CAPTURED",
+      "source_ids": [
+        "SRC-CHECKPOINT-v0.8.1-candidate.1"
+      ],
+      "tree_sha": "4b7c231a54eb6a414a4f5a2cd29596339d5164ad",
+      "version_id": "v0.8.1-candidate.1"
     }
   ],
   "visuals": []

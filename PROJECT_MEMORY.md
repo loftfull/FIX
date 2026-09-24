@@ -5,11 +5,11 @@
 - Имя: Project History Agent
 - Описание: Evidence-first project historian with append-only journal, chat lineage, project passport, plan-to-fact ledger, visual provenance and host-native history adapters.
 - Цель: Preserve evidence-based project history across chats, models, repositories and environments
-- Каноническая версия: v0.8 development candidate; no release acceptance
+- Каноническая версия: v0.8.1-candidate.1; account chat and visual acceptance open
 
 ## 0.1 Быстрый handoff для новой AI-модели
 - Project ID: `project-history-agent`
-- Каноническая версия: v0.8 development candidate; no release acceptance
+- Каноническая версия: v0.8.1-candidate.1; account chat and visual acceptance open
 - Текущий чат: chat-current-project-history-agent
 - Следующий проверяемый шаг: Read docs/CONTROL_DASHBOARD_TRIAL.md. Current ChatGPT chat NOT_CONNECTED: secure account authentication then read original chats, never substitute archive success. Dashboard/version code201 local testsPASS, real screenshots and user-machine deployment open. Canonical history stays at this memory-root when restoring code. GitHub-first before new features.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
@@ -55,9 +55,11 @@
 | Requested agent-terminal supporting workflow | partial | Requested agent-terminal supporting workflow (development checkpoint) | Task contracts, brief, bounded runner, selected-project registry; Offline pixel receipts and read-only dashboard; no real browser acceptance |
 | Focus and persistence witness | partial | Focus and persistence witness (development checkpoint) | Adapted presentation ideas, full-data preservation; eventsourcing9.5.5 witness and isolated recovery; original rollback cause unknown |
 | v0.8 historical governance and acceptance roadmap | open | — | — |
-| Truthful dashboard, code rollback and version screenshots | partial | — | — |
+| Truthful dashboard, code rollback and version screenshots | partial | v0.8.1-candidate.1 | Контрольные индикаторы, реестр компонентов и безопасный возврат кода; чат не подключён, снимок не получен |
 
 ## 4. Версии и фактические изменения
+### v0.8.1-candidate.1 · 2026-09-24T09:07:00.573490+00:00 · observed
+- Контрольные индикаторы, реестр компонентов и безопасный возврат кода; чат не подключён, снимок не получен
 ### v0.3 deterministic ledger + auditor · 2026-09-15 · verified
 - canonical PROJECT_MEMORY.json
 - deterministic dedupe
@@ -124,6 +126,7 @@
 - 2026-09-24T09:01:53.207561+00:00 · **observed** · Local run running
 - 2026-09-24T09:01:57.761676+00:00 · **observed** · Local run succeeded
 - 2026-09-24T09:06:43.552134+00:00 · **reported** · Панель и безопасные версии реализованы и испытаны локально. Подключение текущего чата и скриншот не подтверждены.
+- 2026-09-24T09:07:31.627244+00:00 · **observed** · Restored code v0.8.1-candidate.1 into separate worktree; current memory retained
 - 2026-09-15 · **verified** · Project History Agent originated in ChatGPT chat агент.
 - 2026-09-15 · **verified** · Current chat explicitly requested continuation from chat агент.
 - 2026-09-16 · **verified** · v0.5 durable history package passed its deterministic and real-project candidate gates; A6 remained NOT_RUN.
@@ -155,6 +158,7 @@
 - 2026-09-24 · **observed** · python-pillow/Pillow: tested_fixtures
 - 2026-09-24 · **reported** · microsoft/playwright: researched
 - 2026-09-24 · **reported** · restic/restic: researched
+- 2026-09-24 · **observed** · Actual FIX checkpoint restored into separate worktree. Code SHA and3changed component files match. Canonical history retained at original root; no app execution or real screenshot.
 - unknown date · **observed** · Windows ran136 tests:3 assertions compared short8.3 paths with canonical paths. Expected paths corrected;30 affected local tests pass. Windows rerun pending. Journal-tail loss reproduced in diagnostic probe; cause remains unknown.
 - unknown date · **observed** · Integrated adapted MIT i-have-adhd focus and eventsourcing9.5.5 SQLite witness.190 local testsPASS,47 independent component checksPASS. Real18messages MCP preserved; controlledrollback rejected and recovered in newfolder. Natural loss cause and reappearinglock remain unknown. ACP/restic/Playwright evaluated, not connected.
 - unknown date · **observed** · Windows158tests found4cleanup errors: SQLite handle leaked by eventsourcing9.5.5 connection setup failure and test fixtures. Narrow local pool closes handle on setup error; fixtures explicitly close. New resource regression added;48 related local checksPASS. Windowsrerun pending; original journal rollback stillunknown.
@@ -230,8 +234,9 @@
 - `SRC-EV-RUN-e6a2027dc3284f469a9173c2b84cd330-succeeded` — local-run:e6a2027dc3284f469a9173c2b84cd330
 - `S028` — Dashboard/version validation and real-chat limitations
 - `SRC-TERMINAL-f68dd67aca7989dd1f1808bca90acc519d64619e7af403269a7cf20b425c8775` — terminal-cli:dashboard-versions-20260924/f68dd67aca7989dd1f1808bca90acc519d64619e7af403269a7cf20b425c8775
+- `SRC-CHECKPOINT-v0.8.1-candidate.1` — Observed code checkpoint v0.8.1-candidate.1
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
 - Следующий шаг: Read docs/CONTROL_DASHBOARD_TRIAL.md. Current ChatGPT chat NOT_CONNECTED: secure account authentication then read original chats, never substitute archive success. Dashboard/version code201 local testsPASS, real screenshots and user-machine deployment open. Canonical history stays at this memory-root when restoring code. GitHub-first before new features.
-- Обновлено: 2026-09-24T09:06:43.593353+00:00
+- Обновлено: 2026-09-24T09:09:33.342679+00:00
