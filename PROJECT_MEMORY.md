@@ -11,7 +11,7 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.8.1-candidate.1 + browser observation correction; continuous ingestion and A6 open
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Read docs/OPENVIKING_ADOPTION.md. fix.py attach imports selected normalized/original-export chat and verifies; read_context_layer MCP serves L0/L1/L2. 12tests and real43sample trial PASS. ChatGPT native app installation/capture adapter remains not installed; a prompt is not permission or full archive access. Preserve private originals outside public git.
+- Следующий проверяемый шаг: Read docs/BLIND_AUDIT_2026-09-24.md and run its REPRO script. Prioritize write preflight/project identity, kernel locks, Cookie header redaction and full native constraints. All five independently reproduced and repeated by primary agent. Existing204PASS not sufficient. No runtime fixes made in audit; no universal reliability claim.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -164,6 +164,7 @@
 - unknown date · **observed** · Integrated adapted MIT i-have-adhd focus and eventsourcing9.5.5 SQLite witness.190 local testsPASS,47 independent component checksPASS. Real18messages MCP preserved; controlledrollback rejected and recovered in newfolder. Natural loss cause and reappearinglock remain unknown. ACP/restic/Playwright evaluated, not connected.
 - unknown date · **observed** · Windows158tests found4cleanup errors: SQLite handle leaked by eventsourcing9.5.5 connection setup failure and test fixtures. Narrow local pool closes handle on setup error; fixtures explicitly close. New resource regression added;48 related local checksPASS. Windowsrerun pending; original journal rollback stillunknown.
 - unknown date · **observed** · Authenticated browser observed current request. Private samples28+15 imported exactly after redaction, repeat0, fresh MCP reads43. Partial DOM only; original completeness unknown; continuous ingestion absent. Supersedes earlier logged-out availability observation only.
+- unknown date · **observed** · Independent no-brief audit:204existing testsPASS but five defects reproduced in temporary fixtures: stale-lock stealing, unreplayable appended mutation, lifecycle cross-project identity, Cookie header redaction gap, native handoff truncation. No fixes applied. Alternatives assessed; not external A6.
 - unknown date · **observed** · Observed on2026-09-24: previous-code CI35971960099 success at0b86b839; supersedes pending rerun expectation, not historical failed records.
 - unknown date · **observed** · Browser access evidence updated after secure login
 - unknown date · **observed** · Correct integration limitation field; manual browser reading observed, subscription absent
@@ -244,8 +245,9 @@
 - `S029` — Authenticated browser sample and snapshot trial, private originals excluded
 - `SRC-TERMINAL-f2e7a1bee17fed0a5879a66bea4bfae7fb2837b1698c31a3afa31acc83ae4cb2` — terminal-cli:dashboard-versions-20260924/f2e7a1bee17fed0a5879a66bea4bfae7fb2837b1698c31a3afa31acc83ae4cb2
 - `S030` — OpenViking bounded adoption and real-sample trial
+- `S031` — Independent no-brief code audit and synthetic reproductions
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Read docs/OPENVIKING_ADOPTION.md. fix.py attach imports selected normalized/original-export chat and verifies; read_context_layer MCP serves L0/L1/L2. 12tests and real43sample trial PASS. ChatGPT native app installation/capture adapter remains not installed; a prompt is not permission or full archive access. Preserve private originals outside public git.
-- Обновлено: 2026-09-24T09:56:45.924020+00:00
+- Следующий шаг: Read docs/BLIND_AUDIT_2026-09-24.md and run its REPRO script. Prioritize write preflight/project identity, kernel locks, Cookie header redaction and full native constraints. All five independently reproduced and repeated by primary agent. Existing204PASS not sufficient. No runtime fixes made in audit; no universal reliability claim.
+- Обновлено: 2026-09-24T10:45:58.945082+00:00
