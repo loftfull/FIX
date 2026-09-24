@@ -99,6 +99,7 @@
 - 2026-09-16 · **verified** · GitHub Actions run 35064575273 passed stable-identity candidate ranking on code checkpoint f2628d2a65294c063b0098ceb84b3d011b8208a4.
 - 2026-09-23 · **observed** · Implemented experimental read-only MCP bridge using official SDK 2.2.0; 42 local tests passed, including 10 bridge checks. Independent agent audit found redaction and provenance defects, corrected with regressions. INSTA completeness, remote ChatGPT access and daily autonomy remain untested; A6 remains open.
 - 2026-09-24 · **observed** · Implemented revision-preserving normalized import, branch-aware ChatGPT adapter, sourced strategy review and local Git watcher with daily catchup. 90 local tests PASS; real 18-message chat and 139 INSTA issue comments plus two documents imported; repeated imports idempotent. Independent audits closed reproduced metadata/date/filter/redaction and handoff constraints defects. Original INSTA chats, user-machine deployment and full A6 remain unavailable/unaccepted.
+- 2026-09-24 · **observed** · Initial Windows CI executed 58 tests with 1 failure and 6 errors from implicit cp1252 reads in test assertions; Linux jobs passed. Four test modules now explicitly read/write UTF-8. Windows rerun pending; no production readiness claim.
 
 ## 7. Варианты и ответвления
 - `v0.3-ledger-auditor` — v0.3 deterministic ledger · archived
@@ -131,8 +132,9 @@
 - `S010` — v0.7 ranking GitHub Actions run 35064575273
 - `S011` — MCP foundation local trial and research 2026-09-23
 - `S012` — Real evidence import, INSTA partial reconstruction and local observer trial
+- `S013` — Windows CI encoding failure and explicit UTF-8 correction
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
 - Следующий шаг: Use docs/HISTORY_WORKFLOW.md for explicit import/local watcher. Retrieve original INSTA chat exports for full lineage; current reconstruction is partial. Validate Windows CI and deployment on user machine before claiming autonomous installed operation. Browser ChatGPT remote connection and full A6 remain open.
-- Обновлено: 2026-09-24T05:25:25.753686+00:00
+- Обновлено: 2026-09-24T05:31:02.051685+00:00

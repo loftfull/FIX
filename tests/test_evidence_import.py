@@ -77,7 +77,7 @@ class EvidenceImportTests(unittest.TestCase):
         msg["metadata"]["api_key"] = "private-test-credential"
         self.run_import()
         self.assertNotIn("private-test-credential", "\n".join(
-            p.read_text() for p in self.root.rglob("*") if p.is_file()))
+            p.read_text(encoding="utf-8") for p in self.root.rglob("*") if p.is_file()))
         self.assertEqual(self.run_import()["messages_added"], 0)
 
     def test_interrupted_source_write_is_recoverable(self):
@@ -98,7 +98,7 @@ class EvidenceImportTests(unittest.TestCase):
     def test_corrupt_journal_rejected(self):
         self.run_import()
         path = self.root / "PROJECT_HISTORY.events.jsonl"
-        path.write_text(path.read_text().replace('"insta"', '"tampered"', 1))
+        path.write_text(path.read_text(encoding="utf-8").replace('"insta"', '"tampered"', 1), encoding="utf-8")
         with self.assertRaisesRegex(ValueError, "integrity"):
             self.run_import()
 
@@ -111,7 +111,7 @@ class EvidenceImportTests(unittest.TestCase):
         before = verify_journal_set(self.root)["records"]
         self.assertEqual(self.run_import()["messages_added"], 0)
         self.assertEqual(before, verify_journal_set(self.root)["records"])
-        self.assertEqual(json.loads((self.root / "PROJECT_MEMORY.json").read_text()),
+        self.assertEqual(json.loads((self.root / "PROJECT_MEMORY.json").read_text(encoding="utf-8")),
                          replay_journal_set(self.root))
 
     def test_adapter_parent_alias_and_absent_metadata(self):

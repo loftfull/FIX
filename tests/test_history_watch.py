@@ -21,7 +21,7 @@ class WatchTests(unittest.TestCase):
         self.git('init', '-q')
         self.git('config', 'user.name', 'Observer Test')
         self.git('config', 'user.email', 'test@example.invalid')
-        (self.root / 'app.txt').write_text('initial')
+        (self.root / 'app.txt').write_text('initial', encoding="utf-8")
         self.git('add', 'app.txt')
         self.git('commit', '-qm', 'initial')
 
@@ -46,9 +46,9 @@ class WatchTests(unittest.TestCase):
     def test_twice_modified_same_status(self):
         self.tick(initialize=True)
         file = self.root / 'app.txt'
-        file.write_text('one')
+        file.write_text('one', encoding="utf-8")
         one = self.tick()
-        file.write_text('two')
+        file.write_text('two', encoding="utf-8")
         two = self.tick()
         self.assertEqual(two['observations_added'], 1)
         self.assertNotEqual(one['fingerprint'], two['fingerprint'])
@@ -56,9 +56,9 @@ class WatchTests(unittest.TestCase):
     def test_staged_changes_same_status(self):
         self.tick(initialize=True)
         file = self.root / 'app.txt'
-        file.write_text('one'); self.git('add', 'app.txt')
+        file.write_text('one', encoding="utf-8"); self.git('add', 'app.txt')
         one = self.tick()
-        file.write_text('two'); self.git('add', 'app.txt')
+        file.write_text('two', encoding="utf-8"); self.git('add', 'app.txt')
         two = self.tick()
         self.assertEqual(two['observations_added'], 1)
         self.assertNotEqual(one['fingerprint'], two['fingerprint'])
@@ -81,7 +81,7 @@ class WatchTests(unittest.TestCase):
         self.tick(initialize=True)
         for path in self.memory.rglob('*'):
             if path.is_file():
-                self.assertNotIn('private-password', path.read_text())
+                self.assertNotIn('private-password', path.read_text(encoding="utf-8"))
 
     def test_watch_retries_concurrent_edit_then_observes(self):
         argv = ['history_watch.py', '--root', str(self.root), '--memory-root', str(self.memory),
@@ -122,26 +122,26 @@ class WatchTests(unittest.TestCase):
         marker = self.root / 'executed-marker'
         self.git('config', 'filter.audit.clean', 'echo executed > executed-marker; cat')
         self.git('config', 'filter.audit.required', 'true')
-        (self.root / '.gitattributes').write_text('app.txt filter=audit\n')
-        (self.root / 'app.txt').write_text('changed')
+        (self.root / '.gitattributes').write_text('app.txt filter=audit\n', encoding="utf-8")
+        (self.root / 'app.txt').write_text('changed', encoding="utf-8")
         self.tick(initialize=True)
         self.assertFalse(marker.exists())
         self.git('config', 'filter.audit.process', 'echo executed > executed-marker; cat')
-        (self.root / 'app.txt').write_text('another')
+        (self.root / 'app.txt').write_text('another', encoding="utf-8")
         self.tick()
         self.assertFalse(marker.exists())
 
     def test_secret_in_tracked_filename_redacted(self):
         secret = 'ghp_' + 'A' * 36
         file = self.root / secret
-        file.write_text('initial')
+        file.write_text('initial', encoding="utf-8")
         self.git('add', secret)
         self.git('commit', '-qm', 'synthetic secret filename')
-        file.write_text('changed')
+        file.write_text('changed', encoding="utf-8")
         self.tick(initialize=True)
         for path in self.memory.rglob('*'):
             if path.is_file():
-                self.assertNotIn(secret, path.read_text())
+                self.assertNotIn(secret, path.read_text(encoding="utf-8"))
 
     def test_missing_git(self):
         with patch('history_watch.subprocess.run', side_effect=FileNotFoundError):
@@ -152,7 +152,7 @@ class WatchTests(unittest.TestCase):
     def test_explicit_initialize_and_orphan_snapshot(self):
         with self.assertRaisesRegex(ValueError, 'initialize'):
             self.tick()
-        (self.memory / 'PROJECT_MEMORY.json').write_text('{}')
+        (self.memory / 'PROJECT_MEMORY.json').write_text('{}', encoding="utf-8")
         with self.assertRaisesRegex(ValueError, 'snapshot without journal'):
             self.tick(initialize=True)
 
@@ -162,11 +162,11 @@ class WatchTests(unittest.TestCase):
 
     def test_projection_recovery(self):
         self.tick(initialize=True)
-        (self.memory / 'PROJECT_MEMORY.json').write_text('{}')
-        (self.memory / 'PROJECT_MEMORY.md').write_text('stale')
+        (self.memory / 'PROJECT_MEMORY.json').write_text('{}', encoding="utf-8")
+        (self.memory / 'PROJECT_MEMORY.md').write_text('stale', encoding="utf-8")
         self.assertEqual(self.tick()['observations_added'], 0)
-        self.assertEqual(json.loads((self.memory / 'PROJECT_MEMORY.json').read_text()), self.state())
-        self.assertNotEqual((self.memory / 'PROJECT_MEMORY.md').read_text(), 'stale')
+        self.assertEqual(json.loads((self.memory / 'PROJECT_MEMORY.json').read_text(encoding="utf-8")), self.state())
+        self.assertNotEqual((self.memory / 'PROJECT_MEMORY.md').read_text(encoding="utf-8"), 'stale')
 
     def test_recover_crash_between_source_and_event(self):
         original = watch.append_mutation_set

@@ -17,7 +17,7 @@ class EvidenceDateTests(unittest.TestCase):
             result=import_sessions(tmp,'p',doc,['s'])
             self.assertEqual(6,result['messages_added'])
             self.assertEqual(dates,[e['occurred_at'] for e in replay_journal_set(tmp)['events']])
-            self.assertIn('- 0 ·', (Path(tmp)/'PROJECT_MEMORY.md').read_text())
+            self.assertIn('- 0 ·', (Path(tmp)/'PROJECT_MEMORY.md').read_text(encoding="utf-8"))
             self.assertEqual(0,import_sessions(tmp,'p',doc,['s'])['messages_added'])
 
     def test_timezone_instants_sort_equally_without_mutating_input(self):

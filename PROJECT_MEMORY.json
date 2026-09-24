@@ -321,12 +321,28 @@
       "source_locator": "docs/REAL_EVIDENCE_TRIAL_2026-09-24.md",
       "summary": "Implemented revision-preserving normalized import, branch-aware ChatGPT adapter, sourced strategy review and local Git watcher with daily catchup. 90 local tests PASS; real 18-message chat and 139 INSTA issue comments plus two documents imported; repeated imports idempotent. Independent audits closed reproduced metadata/date/filter/redaction and handoff constraints defects. Original INSTA chats, user-machine deployment and full A6 remain unavailable/unaccepted.",
       "tool": "Python unittest, stdio MCP, scoped Git observation"
+    },
+    {
+      "author": "Codex assistant",
+      "dedupe_key": "0024163b1a1165c46a92927cfe760c98f60df85b92ab3c1da878c5b05e93e621",
+      "event_id": "EV-00014",
+      "event_type": "test_correction",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T05:31:02.050447+00:00",
+      "occurred_at": "2026-09-24",
+      "session_id": null,
+      "source_ids": [
+        "S013"
+      ],
+      "summary": "Initial Windows CI executed 58 tests with 1 failure and 6 errors from implicit cp1252 reads in test assertions; Linux jobs passed. Four test modules now explicitly read/write UTF-8. Windows rerun pending; no production readiness claim.",
+      "tool": "GitHub Actions and Python unittest"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
     "next_step": "Use docs/HISTORY_WORKFLOW.md for explicit import/local watcher. Retrieve original INSTA chat exports for full lineage; current reconstruction is partial. Validate Windows CI and deployment on user machine before claiming autonomous installed operation. Browser ChatGPT remote connection and full A6 remain open.",
-    "updated_at": "2026-09-24T05:25:25.753686+00:00"
+    "updated_at": "2026-09-24T05:31:02.051685+00:00"
   },
   "locations": [
     {
@@ -585,6 +601,13 @@
       "name": "Real evidence import, INSTA partial reconstruction and local observer trial",
       "observed_at": "2026-09-24",
       "source_id": "S012"
+    },
+    {
+      "access_type": "github_actions",
+      "locator": "https://github.com/loftfull/FIX/actions/runs/35959955707",
+      "name": "Windows CI encoding failure and explicit UTF-8 correction",
+      "observed_at": "2026-09-24",
+      "source_id": "S013"
     }
   ],
   "versions": [

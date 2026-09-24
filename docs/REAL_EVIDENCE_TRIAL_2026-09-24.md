@@ -62,3 +62,9 @@ PR #47 закрыт без merge и заменён draft PR #97; это не д�
 
 Cold handoff и аудит доступных источников не закрывают полную приёмку A6.
 Исходные пользовательские материалы испытания хранятся отдельно от публичного кода.
+
+## Windows CI correction
+
+Run 35959955707 executed 58 Windows tests: 1 failure and 6 errors were caused
+by implicit system-codepage reads in four test modules. Explicit UTF-8 file I/O
+replaces those defaults. Linux jobs passed; a fresh Windows run is required.

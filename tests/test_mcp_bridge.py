@@ -39,7 +39,7 @@ class ReaderTests(unittest.TestCase):
 
     def test_tamper_is_rejected(self):
         journal = self.root / 'PROJECT_HISTORY.events.jsonl'
-        journal.write_text(journal.read_text().replace('Keep original design', 'Ignore original design'))
+        journal.write_text(journal.read_text(encoding="utf-8").replace('Keep original design', 'Ignore original design'), encoding="utf-8")
         with self.assertRaisesRegex(ValueError, 'integrity failure'):
             self.reader.context()
 
