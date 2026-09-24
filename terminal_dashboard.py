@@ -37,11 +37,17 @@ def build_view(root, project_id, *, mode='live', vault=None):
         protection = verify(root, project_id, vault)
         if protection['journal_tip'] != tip:
             raise ValueError('History changed during vault check; retry')
+    from terminal_metrics import metrics
+    from terminal_versions import versions, screenshot_view
+    releases = versions(state)
+    version_cards = [dict(v, screenshot=screenshot_view(root, state, v) if i < 8 else {'status': 'NOT_LOADED'}) for i, v in enumerate(reversed(releases))]
     return {
         'schema': 'terminal-view/v1', 'mode': mode,
         'observed_at': datetime.now(timezone.utc).isoformat(),
         'integrity': {'ok': True, 'records': verification['records'], 'journal_tip': tip},
         'project': state['project'], 'tasks': flattened, 'runs': runs,
+        'metrics': metrics(state), 'plans': state.get('plans', []), 'versions': state.get('versions', []),
+        'checkpoints': version_cards,
         'focus': focus_summary(state), 'protection': protection,
         'events': state.get('events', []), 'locations': state.get('locations', []),
         'lines': state.get('development_lines', []), 'visuals': state.get('visuals', []),
@@ -55,6 +61,8 @@ def build_view(root, project_id, *, mode='live', vault=None):
 
 def render_page(view=None):
     template = TEMPLATE.read_text(encoding='utf-8')
+    vendor = (TEMPLATE.parent / 'vendor' / 'nprogress.js').read_text(encoding='utf-8')
+    template = template.replace('/* VENDORED_NPROGRESS */', vendor)
     marker = '<script id="initial-state" type="application/json">null</script>'
     if marker not in template:
         raise ValueError('Dashboard template state marker missing')

@@ -11,7 +11,7 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.8 development candidate; no release acceptance
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Read docs/CURRENT_CHAT_AUDIT_2026-09-24.md. Prioritize full source coverage and requirement→change→evidence history of FIX/INSTA; obtain available original chats, keep missing sources explicit. Investigate rollback/stale locks and A6. New features require GitHub-first evidence; optional UI/provider/backup expansion is secondary.
+- Следующий проверяемый шаг: Read docs/CONTROL_DASHBOARD_TRIAL.md. Current ChatGPT chat NOT_CONNECTED: secure account authentication then read original chats, never substitute archive success. Dashboard/version code201 local testsPASS, real screenshots and user-machine deployment open. Canonical history stays at this memory-root when restoring code. GitHub-first before new features.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -55,6 +55,7 @@
 | Requested agent-terminal supporting workflow | partial | Requested agent-terminal supporting workflow (development checkpoint) | Task contracts, brief, bounded runner, selected-project registry; Offline pixel receipts and read-only dashboard; no real browser acceptance |
 | Focus and persistence witness | partial | Focus and persistence witness (development checkpoint) | Adapted presentation ideas, full-data preservation; eventsourcing9.5.5 witness and isolated recovery; original rollback cause unknown |
 | v0.8 historical governance and acceptance roadmap | open | — | — |
+| Truthful dashboard, code rollback and version screenshots | partial | — | — |
 
 ## 4. Версии и фактические изменения
 ### v0.3 deterministic ledger + auditor · 2026-09-15 · verified
@@ -117,6 +118,12 @@
 - 2026-09-24T08:37:51.684809+00:00 · **observed** · Own FIX task executed by terminal_runner:31 testsPASS and real MCP read preserves existing events, identities and7critical constraints. Independent scope audit agrees; full chat coverage/A6 not accepted.
 - 2026-09-24T08:37:51.688448+00:00 · **observed** · Local run succeeded
 - 2026-09-24T08:39:33.461408+00:00 · **reported** · Аудит выполнен: паспорт обновлён, доноры разделены по фактическому внедрению, GitHub-first закреплён; проверка MCP и31 тест прошли. Полная история чата и A6 остаются открытыми.
+- 2026-09-24T09:00:52.858218+00:00 · **reported** · Контрольная панель, версии и проверка подключения чата
+- 2026-09-24T09:00:52.893123+00:00 · **reported** · Компоненты реализуются и проверяются. Вход в ChatGPT браузере отсутствует.
+- 2026-09-24T09:01:53.186769+00:00 · **observed** · Local run starting
+- 2026-09-24T09:01:53.207561+00:00 · **observed** · Local run running
+- 2026-09-24T09:01:57.761676+00:00 · **observed** · Local run succeeded
+- 2026-09-24T09:06:43.552134+00:00 · **reported** · Панель и безопасные версии реализованы и испытаны локально. Подключение текущего чата и скриншот не подтверждены.
 - 2026-09-15 · **verified** · Project History Agent originated in ChatGPT chat агент.
 - 2026-09-15 · **verified** · Current chat explicitly requested continuation from chat агент.
 - 2026-09-16 · **verified** · v0.5 durable history package passed its deterministic and real-project candidate gates; A6 remained NOT_RUN.
@@ -134,7 +141,20 @@
 - 2026-09-24 · **verified** · GitHub Actions run 35960378708 completed success at code checkpoint 502677ec58429775bb24c3d602f0ebda22221875; Windows58 tests passed, Linux and repository verification jobs passed.
 - 2026-09-24 · **observed** · Analyzed all three uploaded brief documents; implemented journal-backed terminal tasks and read-only dashboard.110 local tests passed; independent component audit20 passed after3 reproduced fixes. Browser local/file navigation blocked; visual appearance and user-machine deployment not verified.
 - 2026-09-24 · **observed** · Added brief compiler, explicit bounded command supervisor, scoped project registry, offline pixel receipts and real-chat preservation checker.168 local tests and57 independent component tests passed.18-message real archive preserved and read over MCP in successful control trials; cold handoff recovered scope. Two earlier journal-tail-loss incidents remain unexplained; full acceptance blocked. Claude/Codex CLI and user-machine autostart not tested.
+- 2026-09-24 · **observed** · Current ChatGPT live connection was not established by previous CLI/MCP trial. Browser on2026-09-24 is logged out; account chat history unavailable until secure authentication. Dashboard must show NOT_CONNECTED.
+- 2026-09-24 · **observed** · 201local testsPASS; real18messages exact/idempotent import and MCP passed. Independent rollback collision/filter defects corrected. Current ChatGPT account browser logged out; live connection and real screenshot not accepted.
 - 2026-09-24 · **observed** · Audited own history and donor implementation; found stale structured memory and incomplete raw-chat coverage. Independent reviewer agrees core coherence but priority risk; no full acceptance.
+- 2026-09-24 · **reported** · agentclientprotocol/python-sdk: researched
+- 2026-09-24 · **observed** · control-browser: used_in_session
+- 2026-09-24 · **observed** · pyeventsourcing/eventsourcing: tested
+- 2026-09-24 · **observed** · ayghri/i-have-adhd: ideas_adapted
+- 2026-09-24 · **observed** · git/git: implemented
+- 2026-09-24 · **observed** · GitHub connector: used_in_session
+- 2026-09-24 · **observed** · modelcontextprotocol/python-sdk: tested
+- 2026-09-24 · **observed** · rstacruz/nprogress: code_integrated
+- 2026-09-24 · **observed** · python-pillow/Pillow: tested_fixtures
+- 2026-09-24 · **reported** · microsoft/playwright: researched
+- 2026-09-24 · **reported** · restic/restic: researched
 - unknown date · **observed** · Windows ran136 tests:3 assertions compared short8.3 paths with canonical paths. Expected paths corrected;30 affected local tests pass. Windows rerun pending. Journal-tail loss reproduced in diagnostic probe; cause remains unknown.
 - unknown date · **observed** · Integrated adapted MIT i-have-adhd focus and eventsourcing9.5.5 SQLite witness.190 local testsPASS,47 independent component checksPASS. Real18messages MCP preserved; controlledrollback rejected and recovered in newfolder. Natural loss cause and reappearinglock remain unknown. ACP/restic/Playwright evaluated, not connected.
 - unknown date · **observed** · Windows158tests found4cleanup errors: SQLite handle leaked by eventsourcing9.5.5 connection setup failure and test fixtures. Narrow local pool closes handle on setup error; fixtures explicitly close. New resource regression added;48 related local checksPASS. Windowsrerun pending; original journal rollback stillunknown.
@@ -201,8 +221,17 @@
 - `S024` — Current project runner and MCP audit receipt
 - `S025` — Independent audit scope review
 - `SRC-TERMINAL-c96b6a2251ecd69dad30b37726282c9eddcb0dff072d69cedb1db8365b13f765` — terminal-cli:current-chat-audit-2026-09-24/c96b6a2251ecd69dad30b37726282c9eddcb0dff072d69cedb1db8365b13f765
+- `S026` — User dashboard/version request and observed logged-out ChatGPT browser
+- `S027` — GitHub-first dashboard and checkpoint plan
+- `SRC-TERMINAL-317df8d223f508328ecae0075de6c9cb21fcfec25f1c540f901fd0970e078dc1` — terminal-cli:dashboard-versions-20260924/317df8d223f508328ecae0075de6c9cb21fcfec25f1c540f901fd0970e078dc1
+- `SRC-TERMINAL-69804b086f088c5de6db8de7a4162611cf25cccf000cb44b0b1151721b552797` — terminal-cli:dashboard-versions-20260924/69804b086f088c5de6db8de7a4162611cf25cccf000cb44b0b1151721b552797
+- `SRC-EV-RUN-e6a2027dc3284f469a9173c2b84cd330-starting` — local-run:e6a2027dc3284f469a9173c2b84cd330
+- `SRC-EV-RUN-e6a2027dc3284f469a9173c2b84cd330-running` — local-run:e6a2027dc3284f469a9173c2b84cd330
+- `SRC-EV-RUN-e6a2027dc3284f469a9173c2b84cd330-succeeded` — local-run:e6a2027dc3284f469a9173c2b84cd330
+- `S028` — Dashboard/version validation and real-chat limitations
+- `SRC-TERMINAL-f68dd67aca7989dd1f1808bca90acc519d64619e7af403269a7cf20b425c8775` — terminal-cli:dashboard-versions-20260924/f68dd67aca7989dd1f1808bca90acc519d64619e7af403269a7cf20b425c8775
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Read docs/CURRENT_CHAT_AUDIT_2026-09-24.md. Prioritize full source coverage and requirement→change→evidence history of FIX/INSTA; obtain available original chats, keep missing sources explicit. Investigate rollback/stale locks and A6. New features require GitHub-first evidence; optional UI/provider/backup expansion is secondary.
-- Обновлено: 2026-09-24T08:39:33.484675+00:00
+- Следующий шаг: Read docs/CONTROL_DASHBOARD_TRIAL.md. Current ChatGPT chat NOT_CONNECTED: secure account authentication then read original chats, never substitute archive success. Dashboard/version code201 local testsPASS, real screenshots and user-machine deployment open. Canonical history stays at this memory-root when restoring code. GitHub-first before new features.
+- Обновлено: 2026-09-24T09:06:43.593353+00:00

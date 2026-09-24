@@ -32,3 +32,13 @@ UI/orchestration must not displace source coverage, accurate history and handoff
 Read docs/CURRENT_CHAT_AUDIT_2026-09-24.md at session start. At handoff reconcile
 plan/version/location fields, not just narrative events. This rule applies here;
 other projects require installation and a host that actually reads instructions.
+
+## Version and chat truthfulness
+
+Read docs/CONTROL_DASHBOARD_PLAN.md before checkpoint/restore. Use committed code
+checkpoints and a new worktree; never reset current work or roll back canonical
+history with code. Read RESTORE_HANDOFF.md first when present. Screenshot bytes and
+build provenance are separate claims. Missing screenshots remain NOT_CAPTURED.
+Never call CLI/MCP, a manually saved user request or an imported archive a live
+connection to the current ChatGPT chat. Dashboard loading animation is transport
+activity only. Account access and continuous ingestion need separate real checks.
