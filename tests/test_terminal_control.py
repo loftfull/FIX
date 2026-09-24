@@ -107,7 +107,7 @@ class TerminalControlTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as root:
             with self.assertRaisesRegex(ValueError,'journal required'):
                 submit_contract(root,'p',self.contract)
-            self.assertEqual(list(Path(root).iterdir()),[])
+            self.assertEqual([p for p in Path(root).iterdir() if p.name != '.terminal-control.lock'],[])
     def test_corrupt_journal_fails_closed(self):
         self.submit()
         path=self.root/'PROJECT_HISTORY.events.jsonl'

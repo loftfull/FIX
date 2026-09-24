@@ -123,3 +123,11 @@ AGPL-3.0. Adopted progressive structural L0/L1/L2 retrieval and project scoping 
 ideas, implemented over existing FIX reader/importer. No upstream source copied,
 no runtime installed. New MCP tool and one-command selected-chat import tested
 on real43-message samples. See docs/OPENVIKING_ADOPTION.md for boundaries.
+
+## Исправления независимого аудита
+
+Принята готовая runtime dependency wolph/portalocker3.2.0, BSD-3-Clause.
+Заменяет ProjectLock на OS-backed locking; не копирование исходников. Проверены
+конкуренция с живым владельцем старого lock и освобождение при kill процесса.
+Сравнение с eventsourcing/Gitleaks и границы: BLIND_AUDIT_2026-09-24.md;
+реализованный объём: AUDIT_REPAIRS_2026-09-24.md.

@@ -1,3 +1,10 @@
 __pycache__/
 *.pyc
 .venv/
+
+# Persistent OS-lock handles; never delete while processes may use them.
+.project-history*.lock
+.terminal-control.lock
+.terminal-versions.lock
+.evidence-import.lock
+.history-watch.lock

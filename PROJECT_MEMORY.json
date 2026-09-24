@@ -1781,12 +1781,27 @@
       ],
       "summary": "Independent no-brief audit:204existing testsPASS but five defects reproduced in temporary fixtures: stale-lock stealing, unreplayable appended mutation, lifecycle cross-project identity, Cookie header redaction gap, native handoff truncation. No fixes applied. Alternatives assessed; not external A6.",
       "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "2f3d7b18181ec3d74855bd8d60ce83b80d1cb3c6025665addfe1cc07f21626fa",
+      "event_id": "EV-AUDIT-REPAIRS-20260924",
+      "event_type": "validation",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T10:53:58.477600+00:00",
+      "session_id": null,
+      "source_ids": [
+        "S032"
+      ],
+      "summary": "Initial B1-B5 audit cases fixed.209local testsPASS including5targeted regressions. Portalocker3.2.0 OS locks, replay preflight, lifecycle identity checks, Cookie headers scrub, full native handoff. Structural references/batch atomicity and Windows CI remain separate boundaries.",
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
-    "next_step": "Read docs/BLIND_AUDIT_2026-09-24.md and run its REPRO script. Prioritize write preflight/project identity, kernel locks, Cookie header redaction and full native constraints. All five independently reproduced and repeated by primary agent. Existing204PASS not sufficient. No runtime fixes made in audit; no universal reliability claim.",
-    "updated_at": "2026-09-24T10:45:58.945082+00:00"
+    "next_step": "Read docs/AUDIT_REPAIRS_2026-09-24.md. Initial5audit cases repaired and209local testsPASS. Install requirements-core.txt and stop old writers before upgrade. Next: batch-aware structural validation for dangling references and crash atomicity; Windows CI result; full chat coverage/capture and A6 remain open.",
+    "updated_at": "2026-09-24T10:53:58.495785+00:00"
   },
   "locations": [
     {
@@ -2865,6 +2880,11 @@
       "locator": "docs/BLIND_AUDIT_2026-09-24.md",
       "name": "Independent no-brief code audit and synthetic reproductions",
       "source_id": "S031"
+    },
+    {
+      "locator": "docs/AUDIT_REPAIRS_2026-09-24.md",
+      "name": "Audit repair decisions and209test validation",
+      "source_id": "S032"
     }
   ],
   "versions": [

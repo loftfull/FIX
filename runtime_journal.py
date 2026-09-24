@@ -14,6 +14,7 @@ from project_history_journal import (
     ProjectLock,
     append_mutation,
     _read_records,
+    _apply_mutation,
     _record_hash,
     atomic_write_text,
     journal_paths,
@@ -94,6 +95,7 @@ def append_mutation_set(
         verification = verify_journal_set(root)
         if not verification["ok"]:
             raise ValueError(f"journal set integrity failure: {verification['issues']}")
+        _apply_mutation(deepcopy(replay_journal_set(root)), op, redact_secrets(deepcopy(payload)))
         target = _active_segment_path_unlocked(root, create=True, label=segment_label)
         assert target is not None
         existing = journal_paths(root)

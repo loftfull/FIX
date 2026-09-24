@@ -16,3 +16,11 @@ Development history, current-chat lineage, durable event journals, handoff repor
 ## Development direction
 
 v0.7 focuses on host-native history discovery/wiring for Claude Code and Codex while keeping the core provider-neutral and evidence-gated. ChatGPT history remains explicit-only unless the host exposes an authorized history interface or the user provides an export.
+
+## Core installation
+
+Before any writer/lifecycle command run `python -m pip install -r requirements-core.txt`.
+Portalocker3.2.0 supplies OS-backed locks. Persistent lock files are normal; never
+delete them while any FIX process is running. MCP/visual/vault dependencies remain
+in their separate requirements files. Stop older FIX writers before upgrading: old
+age-based locks and OS locks are not a compatible mixed-process protocol.

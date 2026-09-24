@@ -76,6 +76,7 @@ def _redact_string(value: str) -> str:
         except ValueError:
             return '[REDACTED_URL]'
     result = re.sub(r"[A-Za-z][A-Za-z0-9+.-]*://[^\s<>\"']+", scrub_url, value)
+    result = re.sub(r"(?im)\b(?:set-cookie|cookie)\s*:[^\r\n]*", "Cookie: [REDACTED]", result)
     for pattern in SECRET_VALUE_PATTERNS:
         result = pattern.sub("[REDACTED]", result)
     # Recognizable assignments in free text, including quoted values with spaces.
@@ -114,33 +115,22 @@ class ProjectLock:
         self.acquired = False
 
     def __enter__(self):
+        import portalocker
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        deadline = time.monotonic() + self.timeout
-        while True:
-            try:
-                fd = os.open(self.path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
-                payload = json.dumps({"pid": os.getpid(), "created_at": time.time()}).encode("utf-8")
-                os.write(fd, payload)
-                os.fsync(fd)
-                os.close(fd)
-                self.acquired = True
-                return self
-            except FileExistsError:
-                try:
-                    age = time.time() - self.path.stat().st_mtime
-                    if age > self.stale_after:
-                        self.path.unlink(missing_ok=True)
-                        continue
-                except FileNotFoundError:
-                    continue
-                if time.monotonic() >= deadline:
-                    raise TimeoutError(f"project history lock busy: {self.path}")
-                time.sleep(self.poll_interval)
+        self._lock = portalocker.Lock(str(self.path), mode="a+b", timeout=self.timeout,
+                                     check_interval=self.poll_interval)
+        try:
+            self._lock.acquire()
+        except portalocker.exceptions.LockException as exc:
+            raise TimeoutError(f"project history lock busy: {self.path}") from exc
+        self.acquired = True
+        return self
 
     def __exit__(self, exc_type, exc, tb):
         if self.acquired:
-            self.path.unlink(missing_ok=True)
+            self._lock.release()
             self.acquired = False
+        # Keep the inode: unlinking permits two independent locks at one pathname.
 
 
 def atomic_write_text(path: Path | str, text: str) -> None:
@@ -198,6 +188,7 @@ def append_mutation(path: Path | str, op: str, payload: Any, *, timestamp: str |
     with ProjectLock(lock_path, timeout=lock_timeout):
         records = _read_records(p)
         prev_hash = records[-1].get("hash", "") if records else ""
+        state = replay_journal(p) if records else None
         ts = timestamp or __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat()
         prepared = redact_secrets(deepcopy(payload))
         if op == "event.add":
@@ -209,6 +200,7 @@ def append_mutation(path: Path | str, op: str, payload: Any, *, timestamp: str |
             prepared.setdefault("session_id", None)
             prepared.setdefault("evidence_status", "unknown")
             prepared["dedupe_key"] = event_dedupe_key(prepared)
+        _apply_mutation(deepcopy(state), op, prepared)  # Preflight before writing bytes.
         base = {
             "schema": JOURNAL_SCHEMA,
             "journal_id": f"J-{len(records) + 1:06d}",

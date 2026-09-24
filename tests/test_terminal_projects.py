@@ -61,7 +61,9 @@ class RegistryTests(unittest.TestCase):
             with self.assertRaises(OSError):
                 update_registry(self.registry, remove='example')
         self.assertEqual(before, self.registry.read_bytes())
-        self.assertFalse(self.registry.with_name(self.registry.name + '.lock').exists())
+        from project_history_journal import ProjectLock
+        with ProjectLock(self.registry.with_name(self.registry.name + '.lock'), timeout=.1):
+            pass  # Failure released the OS lock; the inode intentionally remains.
 
     def test_secrets_rejected_not_silently_redacted(self):
         with self.assertRaises(ValueError):
