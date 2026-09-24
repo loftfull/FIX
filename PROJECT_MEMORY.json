@@ -480,12 +480,28 @@
         "task_id": "terminal-visual-control-2026-09-24"
       },
       "tool": "unknown"
+    },
+    {
+      "author": "Codex assistant and independent review sessions",
+      "dedupe_key": "9a6ce358357beda4cd8ba905f8c967ac9f04800b4ae569576cc510fd0b544694",
+      "event_id": "EV-00017",
+      "event_type": "implementation_test",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T07:20:03.881876+00:00",
+      "occurred_at": "2026-09-24",
+      "session_id": null,
+      "source_ids": [
+        "S017"
+      ],
+      "summary": "Added brief compiler, explicit bounded command supervisor, scoped project registry, offline pixel receipts and real-chat preservation checker.168 local tests and57 independent component tests passed.18-message real archive preserved and read over MCP in successful control trials; cold handoff recovered scope. Two earlier journal-tail-loss incidents remain unexplained; full acceptance blocked. Claude/Codex CLI and user-machine autostart not tested.",
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
-    "next_step": "Read docs/TERMINAL_PLAN_2026-09-24.md and TASKS.md. Terminal task/HTTP component has110 local passing tests; browser validation is blocked in this environment. Continue with actual browser validation on an allowed host, then bounded Claude/Codex runner and screenshot provenance. No autonomous installed deployment or A6 acceptance claimed.",
-    "updated_at": "2026-09-24T06:55:26.754635+00:00"
+    "next_step": "Investigate unresolved journal-tail-loss incidents documented in docs/REAL_CHAT_TERMINAL_TRIAL_2026-09-24.md before full acceptance. Core brief/runner/registry/visual mechanisms implemented,168 local tests passed, real18-message chat and independent cold handoff tested. Read RECOMMENDATIONS_IMPLEMENTATION.md for actual host limits; browser and user-machine Claude/Codex/autostart remain unverified.",
+    "updated_at": "2026-09-24T07:20:03.885155+00:00"
   },
   "locations": [
     {
@@ -864,6 +880,13 @@
       "locator": "terminal-cli:terminal-visual-control-2026-09-24/6fedbe8affe0b55dc0cbd64b8fbe05e94708e8dc7f2c4f4b5dbf707d874a4395",
       "presence_status": "observed",
       "source_id": "SRC-TERMINAL-6fedbe8affe0b55dc0cbd64b8fbe05e94708e8dc7f2c4f4b5dbf707d874a4395"
+    },
+    {
+      "access_type": "repository_artifact",
+      "locator": "docs/REAL_CHAT_TERMINAL_TRIAL_2026-09-24.md",
+      "name": "Recommendation implementation and real-chat terminal trial",
+      "observed_at": "2026-09-24",
+      "source_id": "S017"
     }
   ],
   "versions": [

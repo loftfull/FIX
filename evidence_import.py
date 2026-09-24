@@ -170,8 +170,8 @@ def import_sessions(root: Path | str, project_id: str, document: dict,
         else:
             # Recover snapshots after a crash between journal append and checkpoint.
             # No new journal record is needed for a projection repair.
-            state = replay_journal_set(root)
             with ProjectLock(root / ".project-history.snapshot.lock", timeout=5):
+                state = replay_journal_set(root)
                 snapshot = root / "PROJECT_MEMORY.json"
                 try:
                     matches = json.loads(snapshot.read_text(encoding="utf-8")) == state

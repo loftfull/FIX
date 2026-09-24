@@ -29,6 +29,11 @@ class TerminalDashboardTests(unittest.TestCase):
         self.assertEqual(data['tasks'][0]['status'], 'queued')
         self.assertEqual(data['visuals'], [])
         self.assertEqual(data['mode'], 'live')
+        from project_history_mcp import HistoryReader
+        context = HistoryReader(self.root, 'p').context()
+        self.assertEqual(context['tasks'][0]['purpose'], 'Проверка')
+        self.assertEqual(context['tasks'][0]['stop_conditions'], ['Нет данных'])
+        self.assertEqual(context['runs'], [])
 
     def test_snapshot_cannot_escape_script(self):
         data = build_view(self.root, 'p', mode='snapshot')

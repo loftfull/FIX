@@ -11,7 +11,7 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.7 candidate
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Read docs/TERMINAL_PLAN_2026-09-24.md and TASKS.md. Terminal task/HTTP component has110 local passing tests; browser validation is blocked in this environment. Continue with actual browser validation on an allowed host, then bounded Claude/Codex runner and screenshot provenance. No autonomous installed deployment or A6 acceptance claimed.
+- Следующий проверяемый шаг: Investigate unresolved journal-tail-loss incidents documented in docs/REAL_CHAT_TERMINAL_TRIAL_2026-09-24.md before full acceptance. Core brief/runner/registry/visual mechanisms implemented,168 local tests passed, real18-message chat and independent cold handoff tested. Read RECOMMENDATIONS_IMPLEMENTATION.md for actual host limits; browser and user-machine Claude/Codex/autostart remain unverified.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -104,6 +104,7 @@
 - 2026-09-24 · **observed** · Initial Windows CI executed 58 tests with 1 failure and 6 errors from implicit cp1252 reads in test assertions; Linux jobs passed. Four test modules now explicitly read/write UTF-8. Windows rerun pending; no production readiness claim.
 - 2026-09-24 · **verified** · GitHub Actions run 35960378708 completed success at code checkpoint 502677ec58429775bb24c3d602f0ebda22221875; Windows58 tests passed, Linux and repository verification jobs passed.
 - 2026-09-24 · **observed** · Analyzed all three uploaded brief documents; implemented journal-backed terminal tasks and read-only dashboard.110 local tests passed; independent component audit20 passed after3 reproduced fixes. Browser local/file navigation blocked; visual appearance and user-machine deployment not verified.
+- 2026-09-24 · **observed** · Added brief compiler, explicit bounded command supervisor, scoped project registry, offline pixel receipts and real-chat preservation checker.168 local tests and57 independent component tests passed.18-message real archive preserved and read over MCP in successful control trials; cold handoff recovered scope. Two earlier journal-tail-loss incidents remain unexplained; full acceptance blocked. Claude/Codex CLI and user-machine autostart not tested.
 
 ## 7. Варианты и ответвления
 - `v0.3-ledger-auditor` — v0.3 deterministic ledger · archived
@@ -142,8 +143,9 @@
 - `S016` — Terminal component local trial and independent audit
 - `SRC-TERMINAL-3a777a8df424c5c632b9596ee8a04d0049e15b3655a959cd7817bb4058e5c90c` — terminal-cli:terminal-visual-control-2026-09-24/3a777a8df424c5c632b9596ee8a04d0049e15b3655a959cd7817bb4058e5c90c
 - `SRC-TERMINAL-6fedbe8affe0b55dc0cbd64b8fbe05e94708e8dc7f2c4f4b5dbf707d874a4395` — terminal-cli:terminal-visual-control-2026-09-24/6fedbe8affe0b55dc0cbd64b8fbe05e94708e8dc7f2c4f4b5dbf707d874a4395
+- `S017` — Recommendation implementation and real-chat terminal trial
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Read docs/TERMINAL_PLAN_2026-09-24.md and TASKS.md. Terminal task/HTTP component has110 local passing tests; browser validation is blocked in this environment. Continue with actual browser validation on an allowed host, then bounded Claude/Codex runner and screenshot provenance. No autonomous installed deployment or A6 acceptance claimed.
-- Обновлено: 2026-09-24T06:55:26.754635+00:00
+- Следующий шаг: Investigate unresolved journal-tail-loss incidents documented in docs/REAL_CHAT_TERMINAL_TRIAL_2026-09-24.md before full acceptance. Core brief/runner/registry/visual mechanisms implemented,168 local tests passed, real18-message chat and independent cold handoff tested. Read RECOMMENDATIONS_IMPLEMENTATION.md for actual host limits; browser and user-machine Claude/Codex/autostart remain unverified.
+- Обновлено: 2026-09-24T07:20:03.885155+00:00

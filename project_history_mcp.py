@@ -46,8 +46,12 @@ class HistoryReader:
     def context(self) -> dict[str, Any]:
         state, tip = self.read()
         constraints = state['project'].get('constraints', [])
+        from terminal_control import tasks_from_state
+        from terminal_runner import runs_from_state
         return {
             'project': state['project'], 'journal_tip': tip,
+            'tasks': list(tasks_from_state(state).values()),
+            'runs': runs_from_state(state),
             'critical_constraints': [
                 {'id': hashlib.sha256(str(c).encode('utf-8')).hexdigest(), 'text': c}
                 for c in constraints

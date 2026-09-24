@@ -26,6 +26,33 @@ class EvidenceImportTests(unittest.TestCase):
         self.assertEqual(self.run_import()["messages_added"], 0)
         self.assertEqual(before, {str(p): p.read_bytes() for p in self.root.rglob("*") if p.is_file()})
 
+    def test_retry_cannot_overwrite_newer_completed_checkpoint(self):
+        from unittest.mock import patch
+        from project_history_journal import ProjectLock as RealLock
+        from project_history_hooks import checkpoint
+        from runtime_journal import append_mutation_set
+        import json
+        self.run_import()
+        root = self.root
+        injected = False
+        class InjectWriter:
+            def __init__(self, path, **kwargs):
+                self.path = path
+                self.real = RealLock(path, **kwargs)
+            def __enter__(self):
+                nonlocal injected
+                if self.path.name == '.project-history.snapshot.lock' and not injected:
+                    injected = True
+                    append_mutation_set(root, 'event.add', {'event_id':'CONCURRENT','summary':'Newer checkpoint'})
+                    checkpoint(root)
+                return self.real.__enter__()
+            def __exit__(self, *args):
+                return self.real.__exit__(*args)
+        with patch('evidence_import.ProjectLock', InjectWriter):
+            self.run_import()
+        self.assertTrue(injected)
+        self.assertEqual(json.loads((root/'PROJECT_MEMORY.json').read_text(encoding='utf-8')), replay_journal_set(root))
+
     def test_revision_preserves_original_and_links(self):
         self.run_import()
         changed = copy.deepcopy(self.doc)

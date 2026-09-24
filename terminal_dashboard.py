@@ -27,12 +27,14 @@ def build_view(root, project_id, *, mode='live'):
     tasks = tasks_from_state(state)
     if isinstance(tasks, dict):
         tasks = list(tasks.values())
+    from terminal_runner import runs_from_state
+    runs = runs_from_state(state)
     flattened = [{**task.get('contract', {}), **task} for task in tasks]
     return {
         'schema': 'terminal-view/v1', 'mode': mode,
         'observed_at': datetime.now(timezone.utc).isoformat(),
         'integrity': {'ok': True, 'records': verification['records'], 'journal_tip': tip},
-        'project': state['project'], 'tasks': flattened,
+        'project': state['project'], 'tasks': flattened, 'runs': runs,
         'events': state.get('events', []), 'locations': state.get('locations', []),
         'lines': state.get('development_lines', []), 'visuals': state.get('visuals', []),
         'sources': state.get('sources', []), 'constraints': state['project'].get('constraints', []),
