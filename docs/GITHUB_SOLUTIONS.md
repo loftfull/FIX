@@ -131,3 +131,16 @@ on real43-message samples. See docs/OPENVIKING_ADOPTION.md for boundaries.
 конкуренция с живым владельцем старого lock и освобождение при kill процесса.
 Сравнение с eventsourcing/Gitleaks и границы: BLIND_AUDIT_2026-09-24.md;
 реализованный объём: AUDIT_REPAIRS_2026-09-24.md.
+
+## Пользовательские сообщения и избранное — 2026-09-24
+
+До реализации исследован zenorocha/clipboard.js v2.0.11, MIT,
+package.json blob8efc98c72f1ffbcafac734636d69ebea27fcecc1. Для панели уже есть
+native navigator.clipboard: дополнительная библиотека не нужна. При отказе
+Clipboard API текст выделяется для ручного копирования; ложного success нет.
+Избранное — отдельный локальный browser store + переносимый JSON, без изменения
+истории и нового HTTP write endpoint. Код донора не копировался.
+Проверки: Unicode/пробелы/переносы, user-only, дедупликация, разные проекты и ревизии,
+экспорт/импорт, отказы неправильных/слишком больших файлов. Clipboard и localStorage
+зависят от разрешений браузера; при storage failure сохранение только на эту вкладку
+с явным предупреждением. Между origin/устройствами перенос через экспорт/импорт.

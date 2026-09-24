@@ -1811,12 +1811,27 @@
       ],
       "summary": "213local testsPASS; runtime batch structural validation and atomic segment publication; real stored28+15messages preservationPASS/repeat0. Numeric rollover fixed and active segment reused. Prior repair CI35989946526success. Legacy bootstrap remains separate.",
       "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "8ea4b450e686b76c9513c2bcf8a8430f1459c5606e7b97858d7bba63807ad071",
+      "event_id": "EV-MESSAGE-LIBRARY-20260924",
+      "event_type": "validation",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T11:39:04.080726+00:00",
+      "session_id": null,
+      "source_ids": [
+        "S034"
+      ],
+      "summary": "Message viewing, copy fallback, local favorites and portable JSON added. JS logic tests and4dashboard testsPASS. Actual HTML preview rendered15user messages; favorite addition observed; clipboardAPI blocked, manual selected-copy235chars exact. Private preview excluded from Git.",
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
-    "next_step": "Read docs/ATOMIC_IMPORT_2026-09-24.md. Runtime/import batches validated and atomically published;213local testsPASS, stored43messagesPASS. Next: crash-safe bootstrap and other multi-step writer workflows. New CI pending; no automatic account capture or fullA6.",
-    "updated_at": "2026-09-24T11:00:12.177239+00:00"
+    "next_step": "Read docs/MESSAGE_LIBRARY.md. Messages/Favorites UI added, browser preview checked with storedreal sample. Favorites local origin only, portable JSON for otherprojects/devices. Clipboard fallback required in ChatGPT sandbox. Prior atomic bootstrap and automatic chat capture tasks remain open.",
+    "updated_at": "2026-09-24T11:39:04.086205+00:00"
   },
   "locations": [
     {
@@ -2905,6 +2920,11 @@
       "locator": "docs/ATOMIC_IMPORT_2026-09-24.md",
       "name": "Atomic import and structural runtime validation",
       "source_id": "S033"
+    },
+    {
+      "locator": "docs/MESSAGE_LIBRARY.md",
+      "name": "User messages and portable favorites trial",
+      "source_id": "S034"
     }
   ],
   "versions": [

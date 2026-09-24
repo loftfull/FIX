@@ -63,6 +63,7 @@ def render_page(view=None):
     template = TEMPLATE.read_text(encoding='utf-8')
     vendor = (TEMPLATE.parent / 'vendor' / 'nprogress.js').read_text(encoding='utf-8')
     template = template.replace('/* VENDORED_NPROGRESS */', vendor)
+    template = template.replace('/* MESSAGE_LIBRARY */', (TEMPLATE.parent/'message_library.js').read_text(encoding='utf-8'))
     marker = '<script id="initial-state" type="application/json">null</script>'
     if marker not in template:
         raise ValueError('Dashboard template state marker missing')

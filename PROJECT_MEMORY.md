@@ -11,7 +11,7 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.8.1-candidate.1 + browser observation correction; continuous ingestion and A6 open
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Read docs/ATOMIC_IMPORT_2026-09-24.md. Runtime/import batches validated and atomically published;213local testsPASS, stored43messagesPASS. Next: crash-safe bootstrap and other multi-step writer workflows. New CI pending; no automatic account capture or fullA6.
+- Следующий проверяемый шаг: Read docs/MESSAGE_LIBRARY.md. Messages/Favorites UI added, browser preview checked with storedreal sample. Favorites local origin only, portable JSON for otherprojects/devices. Clipboard fallback required in ChatGPT sandbox. Prior atomic bootstrap and automatic chat capture tasks remain open.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -170,6 +170,7 @@
 - unknown date · **observed** · Observed on2026-09-24: previous-code CI35971960099 success at0b86b839; supersedes pending rerun expectation, not historical failed records.
 - unknown date · **observed** · Browser access evidence updated after secure login
 - unknown date · **observed** · Correct integration limitation field; manual browser reading observed, subscription absent
+- unknown date · **observed** · Message viewing, copy fallback, local favorites and portable JSON added. JS logic tests and4dashboard testsPASS. Actual HTML preview rendered15user messages; favorite addition observed; clipboardAPI blocked, manual selected-copy235chars exact. Private preview excluded from Git.
 - unknown date · **observed** · Progressive context tool and selected-chat quick import implemented;12tests PASS; private real43message sample pagination/import checks PASS. No OpenViking runtime or account subscription installed.
 - unknown date · **requested** · Use terminal in current chat; audit history, plan completeness, context loss and donor benefits; GitHub-first before new features. Original message timestamp unknown; observed this session.
 
@@ -250,8 +251,9 @@
 - `S031` — Independent no-brief code audit and synthetic reproductions
 - `S032` — Audit repair decisions and209test validation
 - `S033` — Atomic import and structural runtime validation
+- `S034` — User messages and portable favorites trial
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Read docs/ATOMIC_IMPORT_2026-09-24.md. Runtime/import batches validated and atomically published;213local testsPASS, stored43messagesPASS. Next: crash-safe bootstrap and other multi-step writer workflows. New CI pending; no automatic account capture or fullA6.
-- Обновлено: 2026-09-24T11:00:12.177239+00:00
+- Следующий шаг: Read docs/MESSAGE_LIBRARY.md. Messages/Favorites UI added, browser preview checked with storedreal sample. Favorites local origin only, portable JSON for otherprojects/devices. Clipboard fallback required in ChatGPT sandbox. Prior atomic bootstrap and automatic chat capture tasks remain open.
+- Обновлено: 2026-09-24T11:39:04.086205+00:00
