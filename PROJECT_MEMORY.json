@@ -1992,12 +1992,27 @@
       ],
       "summary": "Проверены планы и доступные сообщения пяти чатов: сохранность выборки, повторный импорт без дублей, чтение новым процессом. Полный переход после лимита не доказан. Интерфейс проверен в HTML preview: раскрытие, закрытие и сохранение состояния после перерисовки. 213 локальных тестов PASS; A6, полный экспорт и live polling открыты.",
       "tool": "unknown"
+    },
+    {
+      "author": "unknown",
+      "dedupe_key": "24a8e0770b500e870d62f36af8742712769e6f7a6e9fe5b68616be6c41629ce9",
+      "event_id": "EV-CRITIC-EXPORT-REPAIR-20260924",
+      "event_type": "validation",
+      "evidence_status": "observed",
+      "model_id": "unknown",
+      "observed_at": "2026-09-24T17:02:10.775075+00:00",
+      "session_id": null,
+      "source_ids": [
+        "S-CRITIC-REPAIRS-20260924"
+      ],
+      "summary": "Исправлена потеря canonical полей в экспорте панели. Все поля сравнены при JSON roundtrip новым процессом и с HTML payload. Пять dashboard тестов PASS. README/current checkpoint уточнены. Browser copy/download и семантическая передача новой модели ещё не проверены.",
+      "tool": "unknown"
     }
   ],
   "handoff": {
     "current_chat_id": "chat-current-project-history-agent",
-    "next_step": "Проверить передачу обязательных решений из старого чата в новый по полному экспорту; затем завершить независимую приёмку.",
-    "updated_at": "2026-09-24T13:50:31.430988+00:00"
+    "next_step": "Проверить кнопки копирования и скачивания исправленного пакета в браузере; передать пакет новой модели и проверить сохранение обязательных решений, конфликтов и неизвестных источников. Затем продолжить диагностику сохранности; A6 открыт.",
+    "updated_at": "2026-09-24T17:02:10.782859+00:00"
   },
   "locations": [
     {
@@ -2087,8 +2102,8 @@
       "kind": "local_checkout",
       "location_id": "LOC-LOCAL-AUDIT",
       "location_key": "01f33f3856203066a65361bd8e77a605bcca1b8975a01ad557e9037ffb649289",
-      "observation_status": "observed_before_audit_changes",
-      "observed_now": true,
+      "observation_status": "historical_observation_before_audit_changes; resolve current checkout via git rev-parse HEAD",
+      "observed_now": false,
       "sha": "f583fd84ea7505f399295b8c86ac17a868f92343",
       "source_ids": [
         "S022"
@@ -3287,6 +3302,11 @@
       "locator": "docs/CONTINUITY_UI_AUDIT_2026-09-24.md",
       "name": "Bounded account continuity and UI trial",
       "source_id": "S-CONTINUITY-UI-20260924"
+    },
+    {
+      "locator": "docs/CRITIC_REPAIRS_2026-09-24.md",
+      "name": "Critic findings and scoped export repairs",
+      "source_id": "S-CRITIC-REPAIRS-20260924"
     }
   ],
   "versions": [

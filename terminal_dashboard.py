@@ -42,6 +42,10 @@ def build_view(root, project_id, *, mode='live', vault=None):
     releases = versions(state)
     version_cards = [dict(v, screenshot=screenshot_view(root, state, v) if i < 8 else {'status': 'NOT_LOADED'}) for i, v in enumerate(reversed(releases))]
     return {
+        # Preserve every canonical field, including future additions. Derived UI
+        # fields must not replace canonical data (except the envelope schema).
+        **state,
+        'canonical_schema': state['schema'],
         'schema': 'terminal-view/v1', 'mode': mode,
         'observed_at': datetime.now(timezone.utc).isoformat(),
         'integrity': {'ok': True, 'records': verification['records'], 'journal_tip': tip},

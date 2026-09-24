@@ -11,7 +11,7 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.8.1-candidate.1 + browser observation correction; continuous ingestion and A6 open
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Проверить передачу обязательных решений из старого чата в новый по полному экспорту; затем завершить независимую приёмку.
+- Следующий проверяемый шаг: Проверить кнопки копирования и скачивания исправленного пакета в браузере; передать пакет новой модели и проверить сохранение обязательных решений, конфликтов и неизвестных источников. Затем продолжить диагностику сохранности; A6 открыт.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -32,7 +32,7 @@
 | github_branch | https://github.com/loftfull/FIX/tree/project-history-agent-v0.7 | project-history-agent-v0.7 | — | historical_observation | 2026-09-16 |
 | github_code_checkpoint | https://github.com/loftfull/FIX/commit/bfbc90f6200150e171036a8367def055f49fd106 | project-history-agent-v0.7 | bfbc90f6200150e171036a8367def055f49fd106 | verified_code_checkpoint | 2026-09-16 |
 | github_code_checkpoint | https://github.com/loftfull/FIX/commit/f2628d2a65294c063b0098ceb84b3d011b8208a4 | project-history-agent-v0.7 | f2628d2a65294c063b0098ceb84b3d011b8208a4 | verified_code_checkpoint | 2026-09-16 |
-| local_checkout | /workspace/scratch/c911ac0d5396/repos/FIX | codex/history-mcp-foundation | f583fd84ea7505f399295b8c86ac17a868f92343 | observed_now | 2026-09-24 |
+| local_checkout | /workspace/scratch/c911ac0d5396/repos/FIX | codex/history-mcp-foundation | f583fd84ea7505f399295b8c86ac17a868f92343 | historical_observation_before_audit_changes; resolve current checkout via git rev-parse HEAD | 2026-09-24 |
 | github_working_branch | https://github.com/loftfull/FIX/tree/codex/history-mcp-foundation | codex/history-mcp-foundation | 0b86b8391b9c5c532bc4f09bfa905bfcc7f22c71 | historical_ci_code_checkpoint; branch exists; latest HEAD not asserted | 2026-09-24 |
 
 ## 2. Цепочка чатов
@@ -187,6 +187,7 @@
 - unknown date · **observed** · Проверены планы и доступные сообщения пяти чатов: сохранность выборки, повторный импорт без дублей, чтение новым процессом. Полный переход после лимита не доказан. Интерфейс проверен в HTML preview: раскрытие, закрытие и сохранение состояния после перерисовки. 213 локальных тестов PASS; A6, полный экспорт и live polling открыты.
 - unknown date · **observed** · Browser access evidence updated after secure login
 - unknown date · **observed** · Correct integration limitation field; manual browser reading observed, subscription absent
+- unknown date · **observed** · Исправлена потеря canonical полей в экспорте панели. Все поля сравнены при JSON roundtrip новым процессом и с HTML payload. Пять dashboard тестов PASS. README/current checkpoint уточнены. Browser copy/download и семантическая передача новой модели ещё не проверены.
 - unknown date · **observed** · Message viewing, copy fallback, local favorites and portable JSON added. JS logic tests and4dashboard testsPASS. Actual HTML preview rendered15user messages; favorite addition observed; clipboardAPI blocked, manual selected-copy235chars exact. Private preview excluded from Git.
 - unknown date · **observed** · Progressive context tool and selected-chat quick import implemented;12tests PASS; private real43message sample pagination/import checks PASS. No OpenViking runtime or account subscription installed.
 - unknown date · **observed** · Все сохранённые группы планов сопоставлены с кодом/проверками/пробелами; текущие описания уточнены append-only patches. Добавлены atomic/context/messages подпланы. Полнота исходников и A6 открыты; дополнительные authenticated выборки частичны. Упрощённый UI проверен экспертно и локальными проверками; новое browser испытание ожидается.
@@ -276,8 +277,9 @@
 - `SRC-TERMINAL-c3db5ce0582a0081d4f6a3a6c9f5849015952974419457b911657fccbc5d115b` — terminal-cli:terminal-visual-control-2026-09-24/c3db5ce0582a0081d4f6a3a6c9f5849015952974419457b911657fccbc5d115b
 - `SRC-TERMINAL-2e55cf3f5d0d32ed8f7dd9bdad393b5af062ae76efcf7487165cfa1fb449b73a` — terminal-cli:current-chat-audit-2026-09-24/2e55cf3f5d0d32ed8f7dd9bdad393b5af062ae76efcf7487165cfa1fb449b73a
 - `S-CONTINUITY-UI-20260924` — Bounded account continuity and UI trial
+- `S-CRITIC-REPAIRS-20260924` — Critic findings and scoped export repairs
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Проверить передачу обязательных решений из старого чата в новый по полному экспорту; затем завершить независимую приёмку.
-- Обновлено: 2026-09-24T13:50:31.430988+00:00
+- Следующий шаг: Проверить кнопки копирования и скачивания исправленного пакета в браузере; передать пакет новой модели и проверить сохранение обязательных решений, конфликтов и неизвестных источников. Затем продолжить диагностику сохранности; A6 открыт.
+- Обновлено: 2026-09-24T17:02:10.782859+00:00
