@@ -53,3 +53,11 @@
 ## Older release evidence
 
 The project memory and repository history preserve v0.3, v0.4 and v0.5 provenance. Heavy release archives remain external evidence; their SHA-256 manifests are retained in the project transfer package rather than rewritten as source files.
+
+## Коррекция состояния — наблюдение 2026-09-24
+
+Разделы выше — исторический индекс до v0.6, НЕ актуальный полный архив.
+После него реализованы v0.7, MCP, импорт/review/watch и компоненты терминала/vault.
+Текущая сверка: ../../docs/CURRENT_CHAT_AUDIT_2026-09-24.md и корневая PROJECT_MEMORY.md.
+`USER_REQUEST_2026-09-24.md` добавляет один наблюдаемый запрос. Ни один из этих файлов
+не является полным оригинальным экспортом текущего чата. Полнота неизвестна.

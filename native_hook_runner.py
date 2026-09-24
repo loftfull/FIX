@@ -60,9 +60,9 @@ def _handoff_context(root: Path, max_chars: int = 3500) -> str:
     if not report.is_file():
         return "Project History Agent initialized. Read PROJECT_MEMORY.md before continuing project work."
     text = report.read_text(encoding="utf-8")
-    marker = "\n## 1. "
-    compact = text.split(marker, 1)[0] if marker in text else text[:max_chars]
-    compact = compact[:max_chars].rstrip()
+    # Preserve the complete projection: user text may contain section markers.
+    # max_chars is retained for call compatibility, not a hard truncation budget.
+    compact = text.rstrip()
     return "Project History Agent handoff loaded. Read PROJECT_MEMORY.md for full evidence.\n\n" + compact
 
 

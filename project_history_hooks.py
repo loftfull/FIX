@@ -74,6 +74,8 @@ def _ensure_root(root: Path | str) -> Path:
 
 
 def session_start(root: Path | str, current: dict, adapter, *, project_id: str, name: str, goal: str, search_complete: bool = False) -> dict:
+    if current.get("project_id") not in (None, project_id):
+        raise ValueError("Current chat project identity mismatch")
     root = _ensure_root(root)
     journal = root / JOURNAL_NAME
     snapshot = root / SNAPSHOT_NAME
@@ -81,10 +83,14 @@ def session_start(root: Path | str, current: dict, adapter, *, project_id: str, 
         state = replay_journal_set(root)
     elif snapshot.exists():
         state = load_state(snapshot)
+        if state["project"]["project_id"] != project_id:
+            raise ValueError("Project identity mismatch")
         bootstrap_journal_from_state(state, journal)
     else:
         state = empty_state(project_id, name, goal)
 
+    if state["project"]["project_id"] != project_id:
+        raise ValueError("Project identity mismatch")
     before_chat_ids = {x.get("chat_id") for x in state.get("chats") or []}
     candidates = _discover_candidates(adapter, current)
     lineage = initialize_chat_lineage(state, current, candidates, search_complete=search_complete)
@@ -114,9 +120,9 @@ def checkpoint(root: Path | str) -> dict:
     if not verification["ok"]:
         raise ValueError(f"journal verification failed: {verification['issues']}")
     append_mutation_set(root, "handoff.patch", {"updated_at": utc_now()})
-    state = replay_journal_set(root)
     lock_path = root / ".project-history.snapshot.lock"
     with ProjectLock(lock_path, timeout=5.0):
+        state = replay_journal_set(root)
         atomic_save_state(root / SNAPSHOT_NAME, state)
         atomic_write_text(root / REPORT_NAME, render_markdown(state))
     return state

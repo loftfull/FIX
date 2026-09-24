@@ -309,33 +309,98 @@ class ChatGPTExportHistoryAdapter:
             if not sid:
                 continue
             mapping = conv.get("mapping") if isinstance(conv.get("mapping"), dict) else {}
-            messages: list[tuple[float, str]] = []
+            warnings: list[str] = []
+            active: list[str] = []
+            current = conv.get("current_node")
+            valid_path = isinstance(current, str) and current in mapping
+            if not valid_path:
+                warnings.append("current_node_missing_or_unknown: active path is unknown")
+            else:
+                seen: set[str] = set()
+                cursor = current
+                while cursor is not None:
+                    if not isinstance(cursor, str) or cursor not in mapping:
+                        warnings.append("dangling_active_parent: active path is unknown")
+                        valid_path = False
+                        break
+                    if cursor in seen:
+                        warnings.append("cyclic_active_path: active path is unknown")
+                        valid_path = False
+                        break
+                    seen.add(cursor)
+                    node = mapping[cursor]
+                    if not isinstance(node, dict) or "parent" not in node:
+                        warnings.append("malformed_active_node: active path is unknown")
+                        valid_path = False
+                        break
+                    active.append(cursor)
+                    cursor = node.get("parent")
+                active.reverse()
+            if not valid_path:
+                active = []
+            active_set = set(active)
+            messages: list[dict] = []
             files: list[str] = []
-            for node in mapping.values():
+            for node_id, node in mapping.items():
                 if not isinstance(node, dict):
+                    warnings.append(f"malformed_node:{node_id}")
                     continue
+                parent = node.get("parent")
+                if parent is not None and (not isinstance(parent, str) or parent not in mapping):
+                    warnings.append(f"dangling_parent:{node_id}")
+                children = node.get("children")
+                if not isinstance(children, list):
+                    warnings.append(f"missing_or_malformed_children:{node_id}")
+                elif any(not isinstance(child, str) or child not in mapping for child in children):
+                    warnings.append(f"dangling_children:{node_id}")
                 message = node.get("message")
                 if not isinstance(message, dict):
                     continue
                 content = message.get("content")
-                parts = _extract_text(content)
-                ts = message.get("create_time")
-                try:
-                    order = float(ts) if ts is not None else 0.0
-                except (TypeError, ValueError):
-                    order = 0.0
-                for part in parts:
-                    messages.append((order, part))
+                author = message.get("author")
+                normalized = {
+                    "id": message.get("id"), "node_id": node_id,
+                    "parent": parent, "children": children,
+                    "role": author.get("role") if isinstance(author, dict) else message.get("role"),
+                    "text": "\n".join(_extract_text(content)),
+                    "create_time": message.get("create_time"),
+                    "metadata": message.get("metadata") if isinstance(message.get("metadata"), dict) else {},
+                    "content": content, "author": author,
+                    "raw_message": dict(message),
+                    "node_metadata": {key: value for key, value in node.items() if key != "message"},
+                    "on_active_path": node_id in active_set if valid_path else None,
+                }
+                if message.get("metadata") is not None and not isinstance(message.get("metadata"), dict):
+                    normalized["raw_metadata"] = message.get("metadata")
+                    warnings.append(f"malformed_metadata:{node_id}")
+                messages.append(normalized)
                 for fp in _extract_file_paths(content):
                     if fp not in files:
                         files.append(fp)
-            messages.sort(key=lambda x: x[0])
-            item = {"session_id": str(sid), "chat_id": str(sid), "title": conv.get("title") or str(sid), "provider": "chatgpt-export", "source_locator": str(self.path), "started_at": conv.get("create_time"), "text": "\n".join(text for _, text in messages), "repositories": [], "paths": [], "files": files}
+            by_node = {message["node_id"]: message for message in messages}
+            text_messages = [by_node[n] for n in active if n in by_node] if valid_path else messages
+            if not valid_path:
+                warnings.append("text_contains_unordered_alternatives: mapping order is not chronology")
+            item = {"session_id": str(sid), "chat_id": str(sid), "title": conv.get("title") or str(sid), "provider": "chatgpt-export", "source_locator": str(self.path), "started_at": conv.get("create_time"), "text": "\n".join(message["text"] for message in text_messages), "repositories": [], "paths": [], "files": files,
+                    "messages": messages, "current_node": current, "active_node_ids": active,
+                    "raw_session": {key: value for key, value in conv.items() if key != "mapping"},
+                    "node_index": {key: ({k: v for k, v in value.items() if k != "message"} if isinstance(value, dict) else value) for key, value in mapping.items()},
+                    "coverage": {"source": "explicit_chatgpt_export_mapping", "attachments": "export references only; external bytes not fetched", "active_path_known": valid_path, "messages_scope": "all_exported_mapping_messages", "text_scope": "active_path" if valid_path else "all_alternatives_unordered", "warnings": warnings}}
             sessions.append(normalize_session(item))
         return sessions
 
     def search(self, scope: str, query: str, limit: int = 20) -> list[dict]:
-        return InMemoryHistoryAdapter(self._sessions()).search(scope, query, limit)
+        sessions = self._sessions()
+        # Discovery searches every exported alternative; the returned text remains
+        # scoped to the selected active path and is never silently expanded.
+        searchable = []
+        for item in sessions:
+            candidate = dict(item)
+            candidate["text"] = "\n".join(message["text"] for message in item["messages"])
+            searchable.append(candidate)
+        hits = InMemoryHistoryAdapter(searchable).search(scope, query, limit)
+        by_id = {item["session_id"]: item for item in sessions}
+        return [by_id[item["session_id"]] for item in hits]
 
     def inspect(self, session_id: str) -> dict | None:
         sid = str(session_id)

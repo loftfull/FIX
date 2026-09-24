@@ -9,7 +9,7 @@ import time
 from copy import deepcopy
 from pathlib import Path
 from typing import Any, Dict, Iterable
-from urllib.parse import urlsplit, urlunsplit
+from urllib.parse import unquote_plus, urlsplit, urlunsplit
 
 from project_history_agent import (
     add_chat,
@@ -59,16 +59,30 @@ def _canonical(value: Any) -> str:
 
 
 def _redact_string(value: str) -> str:
-    result = value
-    try:
-        parts = urlsplit(result)
-        if parts.scheme and parts.netloc and (parts.username is not None or parts.password is not None):
-            host = parts.hostname or ""
-            if parts.port:
-                host = f"{host}:{parts.port}"
-            result = urlunsplit((parts.scheme, host, parts.path, parts.query, parts.fragment))
-    except ValueError:
-        pass
+    def scrub_url(match):
+        raw = match.group(0)
+        try:
+            parts = urlsplit(raw)
+            # Preserve IPv6 and ports without reconstructing hostname.
+            host = parts.netloc.rsplit('@', 1)[-1]
+            def scrub_params(text):
+                fields = []
+                for field in text.split('&'):
+                    key, sep, val = field.partition('=')
+                    fields.append(key + sep + ('[REDACTED]' if sep and SECRET_KEY_RE.search(unquote_plus(key)) else val))
+                return '&'.join(fields)
+            return urlunsplit((parts.scheme, host, parts.path,
+                               scrub_params(parts.query), scrub_params(parts.fragment)))
+        except ValueError:
+            return '[REDACTED_URL]'
+    result = re.sub(r"[A-Za-z][A-Za-z0-9+.-]*://[^\s<>\"']+", scrub_url, value)
+    result = re.sub(r"(?im)\b(?:set-cookie|cookie)\s*:[^\r\n]*", "Cookie: [REDACTED]", result)
+    for pattern in SECRET_VALUE_PATTERNS:
+        result = pattern.sub("[REDACTED]", result)
+    # Recognizable assignments in free text, including quoted values with spaces.
+    result = re.sub(
+        r"\b([\w-]*(?:api[_-]?key|token|password|passwd|secret|authorization|credential)[\w-]*\s*[:=]\s*)(?:\"[^\"]*\"|'[^']*'|[^\s,;&]+)",
+        lambda m: m.group(1) + '[REDACTED]', result, flags=re.I)
     for pattern in SECRET_VALUE_PATTERNS:
         result = pattern.sub("[REDACTED]", result)
     return result
@@ -101,33 +115,22 @@ class ProjectLock:
         self.acquired = False
 
     def __enter__(self):
+        import portalocker
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        deadline = time.monotonic() + self.timeout
-        while True:
-            try:
-                fd = os.open(self.path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
-                payload = json.dumps({"pid": os.getpid(), "created_at": time.time()}).encode("utf-8")
-                os.write(fd, payload)
-                os.fsync(fd)
-                os.close(fd)
-                self.acquired = True
-                return self
-            except FileExistsError:
-                try:
-                    age = time.time() - self.path.stat().st_mtime
-                    if age > self.stale_after:
-                        self.path.unlink(missing_ok=True)
-                        continue
-                except FileNotFoundError:
-                    continue
-                if time.monotonic() >= deadline:
-                    raise TimeoutError(f"project history lock busy: {self.path}")
-                time.sleep(self.poll_interval)
+        self._lock = portalocker.Lock(str(self.path), mode="a+b", timeout=self.timeout,
+                                     check_interval=self.poll_interval)
+        try:
+            self._lock.acquire()
+        except portalocker.exceptions.LockException as exc:
+            raise TimeoutError(f"project history lock busy: {self.path}") from exc
+        self.acquired = True
+        return self
 
     def __exit__(self, exc_type, exc, tb):
         if self.acquired:
-            self.path.unlink(missing_ok=True)
+            self._lock.release()
             self.acquired = False
+        # Keep the inode: unlinking permits two independent locks at one pathname.
 
 
 def atomic_write_text(path: Path | str, text: str) -> None:
@@ -185,6 +188,7 @@ def append_mutation(path: Path | str, op: str, payload: Any, *, timestamp: str |
     with ProjectLock(lock_path, timeout=lock_timeout):
         records = _read_records(p)
         prev_hash = records[-1].get("hash", "") if records else ""
+        state = replay_journal(p) if records else None
         ts = timestamp or __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat()
         prepared = redact_secrets(deepcopy(payload))
         if op == "event.add":
@@ -196,6 +200,7 @@ def append_mutation(path: Path | str, op: str, payload: Any, *, timestamp: str |
             prepared.setdefault("session_id", None)
             prepared.setdefault("evidence_status", "unknown")
             prepared["dedupe_key"] = event_dedupe_key(prepared)
+        _apply_mutation(deepcopy(state), op, prepared)  # Preflight before writing bytes.
         base = {
             "schema": JOURNAL_SCHEMA,
             "journal_id": f"J-{len(records) + 1:06d}",
@@ -312,7 +317,8 @@ def journal_paths(project_root: Path | str) -> list[Path]:
         paths.append(base)
     seg_dir = root / "PROJECT_HISTORY.segments"
     if seg_dir.is_dir():
-        paths.extend(sorted(x for x in seg_dir.glob("*.jsonl") if x.is_file()))
+        paths.extend(sorted((x for x in seg_dir.glob("*.jsonl") if x.is_file()),
+                            key=lambda x: (int(x.name.split("-", 1)[0]) if x.name.split("-", 1)[0].isdigit() else -1, x.name)))
     return paths
 
 
@@ -394,9 +400,35 @@ def _state_mutations(state: Dict[str, Any]) -> Iterable[tuple[str, Any]]:
 
 
 def bootstrap_journal_from_state(state: Dict[str, Any], path: Path | str) -> None:
+    """Publish the entire initial journal under the cooperative writer lock.
+
+    Failure before rename leaves no journal. Failure after rename may have
+    committed: callers must verify/replay, never delete and blindly retry.
+    """
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
-    if p.exists():
-        raise FileExistsError(p)
-    for op, payload in _state_mutations(state):
-        append_mutation(p, op, payload)
+    with ProjectLock(p.parent / '.project-history.lock', timeout=5.0):
+        if p.exists():
+            raise FileExistsError(p)
+        ts = __import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat()
+        records = []
+        replayed = None
+        previous = ''
+        for op, payload in _state_mutations(state):
+            prepared = redact_secrets(deepcopy(payload))
+            if op == 'event.add':
+                for key, value in {'source_ids': [], 'observed_at': ts,
+                    'model_id': 'unknown', 'author': 'unknown', 'tool': 'unknown',
+                    'session_id': None, 'evidence_status': 'unknown'}.items():
+                    prepared.setdefault(key, value)
+                prepared['dedupe_key'] = event_dedupe_key(prepared)
+            replayed = _apply_mutation(replayed, op, prepared)
+            base = {'schema': JOURNAL_SCHEMA,
+                    'journal_id': f'J-{len(records) + 1:06d}',
+                    'timestamp': ts, 'op': op, 'payload': prepared,
+                    'prev_hash': previous}
+            record = dict(base, hash=_record_hash(base))
+            previous = record['hash']
+            records.append(record)
+        atomic_write_text(p, ''.join(json.dumps(r, ensure_ascii=False,
+            sort_keys=True, separators=(',', ':')) + '\n' for r in records))
