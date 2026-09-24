@@ -262,7 +262,7 @@ def _terminate(process, job):
 
 
 def run_command(root, project_id, task_id, argv, cwd, timeout=60, model_id='unknown',
-                session_id='unknown', continuation_count=0, max_output_bytes=65536):
+                session_id='unknown', continuation_count=0, max_output_bytes=65536, vault=None):
     """Execute one explicitly selected argv, exactly once; no shell or silent retries."""
     root = Path(root).resolve()
     state = _load(root, project_id)
@@ -280,6 +280,10 @@ def run_command(root, project_id, task_id, argv, cwd, timeout=60, model_id='unkn
     if os.name == 'nt' and Path(argv[0]).suffix.lower() in {'.bat', '.cmd'}:
         raise ValueError('batch commands are not supported; select an executable explicitly')
     with _runner_lock(root):
+        if vault is not None:
+            from terminal_vault import capture as capture_vault, verify as verify_vault
+            verify_vault(root, project_id, vault)  # Missing witness must not be silently recreated.
+            capture_vault(root, project_id, vault)  # Abort a rewind before launching anything.
         _restore_unlocked(root, project_id)
         state = _load(root, project_id)
         task = tasks_from_state(state).get(task_id)
@@ -351,6 +355,8 @@ def run_command(root, project_id, task_id, argv, cwd, timeout=60, model_id='unkn
                             pipe.close()
             payload['ended_at'] = _now()
             result = _record(root, payload)
+            if vault is not None:
+                result['vault_checkpoint'] = capture_vault(root, project_id, vault)
         return result
 
 

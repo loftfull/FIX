@@ -11,7 +11,7 @@
 - Project ID: `project-history-agent`
 - Каноническая версия: v0.7 candidate
 - Текущий чат: chat-current-project-history-agent
-- Следующий проверяемый шаг: Investigate unresolved journal-tail-loss incidents documented in docs/REAL_CHAT_TERMINAL_TRIAL_2026-09-24.md before full acceptance. Core brief/runner/registry/visual mechanisms implemented,168 local tests passed, real18-message chat and independent cold handoff tested. Read RECOMMENDATIONS_IMPLEMENTATION.md for actual host limits; browser and user-machine Claude/Codex/autostart remain unverified.
+- Следующий проверяемый шаг: Read docs/GITHUB_SOLUTIONS.md and VAULT_REAL_CHAT_TRIAL_2026-09-24.md. Optional external vault and focus implemented; real recovery test passed. Investigate historical rollback/stale locks and pilot independent restic backup; provider/browser/user-machine gates remain open.
 - Правило продолжения: сначала прочитать этот отчёт и PROJECT_MEMORY.json; не повышать reported/planned до verified без новой проверки.
 
 ## CRITICAL_CONSTRAINTS — обязательные ограничения
@@ -106,6 +106,7 @@
 - 2026-09-24 · **observed** · Analyzed all three uploaded brief documents; implemented journal-backed terminal tasks and read-only dashboard.110 local tests passed; independent component audit20 passed after3 reproduced fixes. Browser local/file navigation blocked; visual appearance and user-machine deployment not verified.
 - 2026-09-24 · **observed** · Added brief compiler, explicit bounded command supervisor, scoped project registry, offline pixel receipts and real-chat preservation checker.168 local tests and57 independent component tests passed.18-message real archive preserved and read over MCP in successful control trials; cold handoff recovered scope. Two earlier journal-tail-loss incidents remain unexplained; full acceptance blocked. Claude/Codex CLI and user-machine autostart not tested.
 - unknown date · **observed** · Windows ran136 tests:3 assertions compared short8.3 paths with canonical paths. Expected paths corrected;30 affected local tests pass. Windows rerun pending. Journal-tail loss reproduced in diagnostic probe; cause remains unknown.
+- unknown date · **observed** · Integrated adapted MIT i-have-adhd focus and eventsourcing9.5.5 SQLite witness.190 local testsPASS,47 independent component checksPASS. Real18messages MCP preserved; controlledrollback rejected and recovered in newfolder. Natural loss cause and reappearinglock remain unknown. ACP/restic/Playwright evaluated, not connected.
 
 ## 7. Варианты и ответвления
 - `v0.3-ledger-auditor` — v0.3 deterministic ledger · archived
@@ -146,8 +147,9 @@
 - `SRC-TERMINAL-6fedbe8affe0b55dc0cbd64b8fbe05e94708e8dc7f2c4f4b5dbf707d874a4395` — terminal-cli:terminal-visual-control-2026-09-24/6fedbe8affe0b55dc0cbd64b8fbe05e94708e8dc7f2c4f4b5dbf707d874a4395
 - `S017` — Recommendation implementation and real-chat terminal trial
 - `S018` — Windows CI path normalization failures
+- `S019` — GitHub integration and real vault trial
 
 ## 11. Передача
 - Текущий чат: chat-current-project-history-agent
-- Следующий шаг: Investigate unresolved journal-tail-loss incidents documented in docs/REAL_CHAT_TERMINAL_TRIAL_2026-09-24.md before full acceptance. Core brief/runner/registry/visual mechanisms implemented,168 local tests passed, real18-message chat and independent cold handoff tested. Read RECOMMENDATIONS_IMPLEMENTATION.md for actual host limits; browser and user-machine Claude/Codex/autostart remain unverified.
-- Обновлено: 2026-09-24T07:26:04.432230+00:00
+- Следующий шаг: Read docs/GITHUB_SOLUTIONS.md and VAULT_REAL_CHAT_TRIAL_2026-09-24.md. Optional external vault and focus implemented; real recovery test passed. Investigate historical rollback/stale locks and pilot independent restic backup; provider/browser/user-machine gates remain open.
+- Обновлено: 2026-09-24T07:46:04.005293+00:00

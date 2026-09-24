@@ -9,7 +9,7 @@
 - [x] T2. Реализовать локальную панель с реальными данными и HTML snapshot.
 - [x] T3. Выполнить unit/HTTP испытания и независимый аудит (110/110; аудит20/20).
 - [ ] T3. Браузерное испытание: ENV_BLOCKED, localhost/file запрещены средой.
-- [ ] T3. Опубликовать проверенный код, план, предпросмотр и отчёт испытания.
+- [x] T3. Опубликовать candidate код, план, предпросмотр и отчёт испытания (PR5; полная приёмка открыта).
 - [ ] T4. Связать supervisor с реальными host-процессами и доказать остановку/возобновление.
 - [ ] T5. Реализовать подтверждённое сравнение reference/current скриншотов приложения.
 - [ ] T6. Испытать установку, выбранные папки и автозапуск на Windows пользователя.
@@ -29,3 +29,17 @@
 - [ ] Испытать реальный Claude/Codex host, браузер, build-linked screenshots и Windows autostart пользователя.
 
 Подробности: docs/RECOMMENDATIONS_IMPLEMENTATION.md и docs/REAL_CHAT_TERMINAL_TRIAL_2026-09-24.md.
+
+## Готовые компоненты GitHub
+
+- [x] Исследовать i-have-adhd и альтернативы для хранения, backup, model protocol и visual QA.
+- [x] Перенести принципы focus output с полным сохранением данных и MIT attribution.
+- [x] Подключить eventsourcing9.5.5 как внешний SQLite witness; guard в MCP/dashboard/runner.
+- [x] Испытать обнаружение rollback и восстановление реального18-message архива в новый каталог.
+- [x] Независимый аудит vault;190локальных тестовPASS.
+- [ ] Установить причину исторической потери хвоста и возвращающихся lock-файлов.
+- [ ] Подключить restic к выбранному независимому backup target и проверить restore.
+- [ ] Испытать pinned ACP host и разрешённый Playwright capture на реальной сборке.
+
+Матрица решений и команды: docs/GITHUB_SOLUTIONS.md. Реальное испытание:
+docs/VAULT_REAL_CHAT_TRIAL_2026-09-24.md.

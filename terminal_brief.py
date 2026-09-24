@@ -13,6 +13,7 @@ import sys
 from pathlib import Path
 from project_history_journal import redact_secrets
 from terminal_control import _contract
+from terminal_focus import FOCUS_RULES
 
 REPORT_FORMAT = ['Ждёт меня', 'Изменено', 'Найдено']
 QUESTIONS = {
@@ -41,6 +42,9 @@ def compile_brief(document):
     if not isinstance(raw, dict):
         raise ValueError('contract must be object')
     wrapped = 'contract' in source
+    output_profile = source.get('output_profile', 'focus') if wrapped else 'focus'
+    if output_profile not in ('focus', 'standard'):
+        raise ValueError('output_profile must be focus or standard')
     scale = source.get('scale', 'long') if wrapped else 'long'
     kind = source.get('task_kind', 'general') if wrapped else 'general'
     if scale not in ('short', 'long') or kind not in ('code', 'analysis', 'visual', 'general'):
@@ -104,7 +108,7 @@ def compile_brief(document):
               'model_id':source.get('model_id','unknown') if wrapped else 'unknown',
               'effort':source.get('effort','unknown') if wrapped else 'unknown',
               'report_format':REPORT_FORMAT.copy(),'task_kind':kind,'scale':scale,
-              'semantic_review':'not_run','execution':'not_run'}
+              'semantic_review':'not_run','execution':'not_run', 'output_profile':output_profile}
     result['markdown'] = render_brief(result)
     return result
 
@@ -127,6 +131,8 @@ def render_brief(result):
         lines += ['## Существенные пропуски', '']
         for q in result['questions']:
             lines += [fence, q['question'], fence]
+    if result.get('output_profile') == 'focus':
+        lines += ['', '## Подача результата — фокус', ''] + [f'{i}. {rule}' for i, rule in enumerate(FOCUS_RULES, 1)]
     if result['registration_error']:
         lines += ['', 'Контракт пока нельзя зарегистрировать: '+result['registration_error']]
     return '\n'.join(lines)+'\n'
